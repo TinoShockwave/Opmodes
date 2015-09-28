@@ -1,7 +1,5 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-// Created by Yusuf on 9/4/2015
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;                                  //imports files and other packages
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
@@ -19,7 +17,7 @@ public class TwoWheelOp extends OpMode {
 
         motorRight.setDirection(DcMotor.Direction.REVERSE);                               //Sets direction of one motor
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
-        maxSpeed = 0.5;
+        maxSpeed = 0.75;
     }
 
     @Override

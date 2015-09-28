@@ -104,6 +104,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("ComTeleop", ComTeleop.class);
     manager.register("FourWheelOp", FourWheelOp.class);
 	//manager.register("HotFollowLine", HotFollowLine.class);
+	manager.register("BeaconClimberAuto", BeaconClimberAuto.class);
+	//manager.register("ColorSensorAutoTest", ColorSensorAutoTest.class);
 
   }
 }
