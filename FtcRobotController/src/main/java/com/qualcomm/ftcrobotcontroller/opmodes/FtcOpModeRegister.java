@@ -98,8 +98,11 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("TouchAutoTest", TouchAutoTest.class);
     manager.register("LightAutoTest", LightAutoTest.class);
     manager.register("UltraSonicAutoTest", UltraSonicAutoTest.class);
+	manager.register("IrSeekerOp", IrSeekerOp.class);
     //manager.register("MoveElevator", MoveElevator.class);
 	//manager.register("SensorCodeStarter", SensorCodeStarter.class);
+    //manager.register("ComTeleop", ComTeleop.class);
+    manager.register("FourWheelOp", FourWheelOp.class);
 
   }
 }

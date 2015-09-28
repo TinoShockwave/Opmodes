@@ -12,6 +12,9 @@ OpMode files currently being tested:
  * TouchAutoTest.java
  * TwoWheelOp.java
  * UltraSonicAutoTest.java
+ * IrSeekerOp.java
+ * ComTeleop.java
+ * FourWheelOp.java
 
 For technical questions regarding the SDK, visit the FTC Technology forum:
 
