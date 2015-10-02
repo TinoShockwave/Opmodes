@@ -108,8 +108,8 @@ public class MRRGBExample extends LinearOpMode {
         // update previous state variable.
         bPrevState = bCurrState;
 
-        // on button press, enable the LED.
-        bEnabled = true;
+//        // on button press, enable the LED.
+//        bEnabled = true;
 
         // turn on the LED.
         sensorRGB.enableLed(bEnabled);
@@ -122,8 +122,8 @@ public class MRRGBExample extends LinearOpMode {
         // update previous state variable.
         bPrevState = bCurrState;
 
-        // on button press, enable the LED.
-        bEnabled = false;
+//        // on button press, enable the LED.
+//        bEnabled = false;
 
         // turn off the LED.
         sensorRGB.enableLed(false);

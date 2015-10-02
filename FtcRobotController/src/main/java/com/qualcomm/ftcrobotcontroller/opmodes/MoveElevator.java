@@ -48,7 +48,7 @@ public class MoveElevator extends OpMode {
     /**
      * Constructor
      */
-    public MoveBelllevator() {
+    public MoveElevator() {
 
     }
 
