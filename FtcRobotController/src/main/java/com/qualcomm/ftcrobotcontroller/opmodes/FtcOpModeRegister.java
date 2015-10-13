@@ -59,7 +59,8 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("K9TeleOp", K9TeleOp.class);
     manager.register ("PushBotAuto", PushBotAuto.class);
-    manager.register ("PushBotManual", PushBotManual.class);
+    //manager.register ("PushBotManual", PushBotManual.class);
+    manager.register("ServoExample", ServoExample.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.
@@ -94,17 +95,17 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("PushBotIrSeek", PushBotIrSeek.class);
     //manager.register("PushBotSquare", PushBotSquare.class);
 	manager.register("TwoWheelOp", TwoWheelOp.class);
-    manager.register("IrAutoTest", IrAutoTest.class);
-    manager.register("TouchAutoTest", TouchAutoTest.class);
-    manager.register("LightAutoTest", LightAutoTest.class);
-    manager.register("UltraSonicAutoTest", UltraSonicAutoTest.class);
-	manager.register("IrSeekerOp", IrSeekerOp.class);
+    //manager.register("IrAutoTest", IrAutoTest.class);
+    //manager.register("TouchAutoTest", TouchAutoTest.class);
+    //manager.register("LightAutoTest", LightAutoTest.class);
+    //manager.register("UltraSonicAutoTest", UltraSonicAutoTest.class);
+	//manager.register("IrSeekerOp", IrSeekerOp.class);
     //manager.register("MoveElevator", MoveElevator.class);
 	//manager.register("SensorCodeStarter", SensorCodeStarter.class);
     //manager.register("ComTeleop", ComTeleop.class);
-    manager.register("FourWheelOp", FourWheelOp.class);
+    //manager.register("FourWheelOp", FourWheelOp.class);
 	//manager.register("HotFollowLine", HotFollowLine.class);
-	manager.register("BeaconClimberAuto", BeaconClimberAuto.class);
+	//manager.register("BeaconClimberAuto", BeaconClimberAuto.class);
 	//manager.register("ColorSensorAutoTest", ColorSensorAutoTest.class);
 
   }
