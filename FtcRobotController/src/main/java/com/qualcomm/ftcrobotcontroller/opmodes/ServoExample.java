@@ -33,14 +33,13 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
 
 
 public class ServoExample extends OpMode {
-    
+
     Servo servo1;
 
-    public ServoExample(){
+    public ServoExample() {
 
     }
 
@@ -51,13 +50,14 @@ public class ServoExample extends OpMode {
 
     }
 
+    //Servo positions: > 0.5 is counterclockwise, 0.5 is full stop, and < 0.5 clockwise.
     public void loop() {
 
-        if (gamepad1.a){
+        if (gamepad1.a) {
             servo1.setPosition(0);
         }
 
-        if (gamepad1.b){
+        if (gamepad1.b) {
             servo1.setPosition(0.5);
         }
     }
