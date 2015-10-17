@@ -50,7 +50,8 @@ public class ServoExample extends OpMode {
 
     }
 
-    //Servo positions: > 0.5 is counterclockwise, 0.5 is full stop, and < 0.5 clockwise.
+    //Servo positions: > 0.5 is counterclockwise, 0.5 is full stop, and < 0.5 clockwise. Minimum = 0, Max = 1
+    //Press A to move the servo counterclockwise. Press B to stop it. Press X to move it clockwise.
     public void loop() {
 
         if (gamepad1.a) {
@@ -59,6 +60,10 @@ public class ServoExample extends OpMode {
 
         if (gamepad1.b) {
             servo1.setPosition(0.5);
+        }
+
+        if (gamepad1.x) {
+            servo1.setPosition(1);
         }
     }
 
