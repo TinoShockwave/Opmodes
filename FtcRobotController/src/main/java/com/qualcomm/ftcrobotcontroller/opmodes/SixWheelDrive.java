@@ -66,6 +66,7 @@ public class SixWheelDrive extends OpMode {
         motorF = hardwareMap.dcMotor.get("motor_1");
         motorA.setDirection(DcMotor.Direction.REVERSE);
         motorC.setDirection(DcMotor.Direction.REVERSE);
+        motorE.setDirection(DcMotor.Direction.REVERSE);
 
 
 
@@ -106,12 +107,12 @@ public class SixWheelDrive extends OpMode {
         left =  (float)scaleInput(left);
 
         // write the values to the motors
-        motorB.setPower(right);
         motorA.setPower(left);
-        motorC.setPower(right);
-        motorD.setPower(left);
-        motorE.setPower(right);
-        motorF.setPower(left);
+        motorB.setPower(right);
+        motorC.setPower(left);
+        motorD.setPower(right);
+        motorE.setPower(left);
+        motorF.setPower(right);
 
         // update the position of the arm.
 
