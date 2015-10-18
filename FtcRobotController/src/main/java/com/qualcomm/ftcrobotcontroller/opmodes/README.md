@@ -18,17 +18,22 @@ OpMode files currently being tested:
  * HotFollowLine.java
  * BeaconClimberAuto.java
  * ColorSensorAutoTest.java
+ * SixWheelDrive.java
 
 For technical questions regarding the SDK, visit the FTC Technology forum:
 
   http://ftcforum.usfirst.org/forumdisplay.php?156-FTC-Technology
 
-In this latest update to the opmodes folder (20150912_001) the following changes should be noted:
+In this latest update to the opmodes folder (20151017_001) the following changes should be noted:
 
- * Beginning tests on new opmodes java files
-   - Test functionality of sensors on robot
-   - Begin testing robot movement by driver control
+ * End tests on new opmodes java files
+   - Functionality of sensors on robot fully tested
+   - Robot movement by driver control method finished
+
+ * Start testing with finished chassis and tread-wheels
+   - Begin testing functionality of SixWheelDrive and Color-Sensors
+   - Finalize issues, get ready for manipulator implementation
 
 
 Y. Mostafa
-September 12, 2015
+October 17, 2015
