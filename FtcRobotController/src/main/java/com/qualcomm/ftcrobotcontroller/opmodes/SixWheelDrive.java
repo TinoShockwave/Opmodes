@@ -2,6 +2,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -11,20 +12,13 @@ import com.qualcomm.robotcore.util.Range;
  */
 public class SixWheelDrive extends OpMode {
 
-    /*
-     * Note: the configuration of the servos is such that
-     * as the arm servo approaches 0, the arm position moves up (away from the floor).
-     * Also, as the claw servo approaches 0, the claw opens up (drops the game element).
-     */
-    // TETRIX VALUES.
-
-
     DcMotor frontMotorLeft;
     DcMotor frontMotorRight;
     DcMotor backMotorLeft;
     DcMotor backMotorRight;
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
+    Servo servo1;
 
     /**
      * Constructor
@@ -49,14 +43,8 @@ public class SixWheelDrive extends OpMode {
        */
 
       /*
-       * For the demo Tetrix K9 bot we assume the following,
-       *   There are two motors "motor_1" and "motor_2"
-       *   "motor_1" is on the right side of the bot.
-       *   "motor_2" is on the left side of the bot and reversed.
-       *
-       * We also assume that there are two servos "servo_1" and "servo_6"
-       *    "servo_1" controls the arm joint of the manipulator.
-       *    "servo_6" controls the claw joint of the manipulator.
+       * We also assume that there is one servo "servo_1."
+       *    "servo_1" controls the manipulator.
        */
         frontMotorLeft = hardwareMap.dcMotor.get("motor_2");
         frontMotorRight = hardwareMap.dcMotor.get("motor_1");
@@ -64,6 +52,7 @@ public class SixWheelDrive extends OpMode {
         backMotorRight = hardwareMap.dcMotor.get("motor_1");
         axleMotorFront = hardwareMap.dcMotor.get("motor_1");
         axleMotorBack = hardwareMap.dcMotor.get("motor_1");
+        servo1 = hardwareMap.servo.get("manipulator");
         frontMotorLeft.setDirection(DcMotor.Direction.REVERSE);
         backMotorLeft.setDirection(DcMotor.Direction.REVERSE);
 
@@ -85,13 +74,6 @@ public class SixWheelDrive extends OpMode {
      */
     @Override
     public void loop() {
-
-      /*
-       * Gamepad 1
-       *
-       * Gamepad 1 controls the motors via the left stick, and it controls the
-       * wrist/claw via the a,b, x, y buttons
-       */
 
         // throttle: left_stick_y ranges from -1 to 1, where -1 is full up, and
         // 1 is full down
@@ -119,9 +101,24 @@ public class SixWheelDrive extends OpMode {
         axleMotorFront.setPower(right);
         axleMotorBack.setPower(right);
 
+        if (gamepad1.a) {
+            servo1.setPosition(0);
+        }
+        else {
+            servo1.setPosition(0.5);
+        }
+
+        if (gamepad1.y) {
+            servo1.setPosition(1);
+        }
+        else {
+            servo1.setPosition(0.5);
+        }
+
+
+
         // both axleMotorFront and axleMotorBack require the same set values
 
-        // update the position of the arm.
 
 
       /*
@@ -136,11 +133,6 @@ public class SixWheelDrive extends OpMode {
 
     }
 
-    /*
-     * Code to run when the op mode is first disabled goes here
-     *
-     * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#stop()
-     */
     @Override
     public void stop() {
 
