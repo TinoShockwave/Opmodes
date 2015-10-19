@@ -19,12 +19,12 @@ public class SixWheelDrive extends OpMode {
     // TETRIX VALUES.
 
 
-    DcMotor motorA;
-    DcMotor motorB;
-    DcMotor motorC;
-    DcMotor motorD;
-    DcMotor motorE;
-    DcMotor motorF;
+    DcMotor frontMotorLeft;
+    DcMotor frontMotorRight;
+    DcMotor backMotorLeft;
+    DcMotor backMotorRight;
+    DcMotor axleMotorFront;
+    DcMotor axleMotorBack;
 
     /**
      * Constructor
@@ -34,7 +34,7 @@ public class SixWheelDrive extends OpMode {
     }
 
     /*
-     * Code to run when +the op mode is first enabled goes here
+     * Code to run when the op mode is first enabled goes here
      *
      * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
      */
@@ -58,15 +58,20 @@ public class SixWheelDrive extends OpMode {
        *    "servo_1" controls the arm joint of the manipulator.
        *    "servo_6" controls the claw joint of the manipulator.
        */
-        motorA = hardwareMap.dcMotor.get("motor_2");
-        motorB = hardwareMap.dcMotor.get("motor_1");
-        motorC = hardwareMap.dcMotor.get("motor_2");
-        motorD = hardwareMap.dcMotor.get("motor_1");
-        motorE = hardwareMap.dcMotor.get("motor_2");
-        motorF = hardwareMap.dcMotor.get("motor_1");
-        motorA.setDirection(DcMotor.Direction.REVERSE);
-        motorC.setDirection(DcMotor.Direction.REVERSE);
-        motorE.setDirection(DcMotor.Direction.REVERSE);
+        frontMotorLeft = hardwareMap.dcMotor.get("motor_2");
+        frontMotorRight = hardwareMap.dcMotor.get("motor_1");
+        backMotorLeft = hardwareMap.dcMotor.get("motor_2");
+        backMotorRight = hardwareMap.dcMotor.get("motor_1");
+        axleMotorFront = hardwareMap.dcMotor.get("motor_1");
+        axleMotorBack = hardwareMap.dcMotor.get("motor_1");
+        frontMotorLeft.setDirection(DcMotor.Direction.REVERSE);
+        backMotorLeft.setDirection(DcMotor.Direction.REVERSE);
+
+        /*
+         * Motors axleMotorFront and axleMotorBack are set in staggered
+         * position maintained on the mid-cross channel. Therefore both
+         * motors will need to rotate in the same direction.
+         */
 
 
 
@@ -107,12 +112,14 @@ public class SixWheelDrive extends OpMode {
         left =  (float)scaleInput(left);
 
         // write the values to the motors
-        motorA.setPower(left);
-        motorB.setPower(right);
-        motorC.setPower(left);
-        motorD.setPower(right);
-        motorE.setPower(left);
-        motorF.setPower(right);
+        frontMotorLeft.setPower(left);
+        frontMotorRight.setPower(right);
+        backMotorLeft.setPower(left);
+        backMotorRight.setPower(right);
+        axleMotorFront.setPower(right);
+        axleMotorBack.setPower(right);
+
+        // both axleMotorFront and axleMotorBack require the same set values
 
         // update the position of the arm.
 
