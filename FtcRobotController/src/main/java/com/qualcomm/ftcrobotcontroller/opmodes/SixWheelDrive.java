@@ -98,9 +98,8 @@ public class SixWheelDrive extends OpMode {
         frontMotorRight.setPower(right);
         backMotorLeft.setPower(left);
         backMotorRight.setPower(right);
-        axleMotorFront.setPower(right);
-        axleMotorBack.setPower(right);
 
+        //Manipulator
         if (gamepad1.a) {
             servo1.setPosition(0);
         }
@@ -113,6 +112,17 @@ public class SixWheelDrive extends OpMode {
         }
         else {
             servo1.setPosition(0.5);
+        }
+
+
+        //For going up the ramp. 20 is a placeholder for the actual speed.
+        if(gamepad1.x) {
+            axleMotorFront.setPower(20);
+            axleMotorBack.setPower(20);
+        }
+        else {
+            axleMotorBack.setPower(0);
+            axleMotorFront.setPower(0);
         }
 
 
