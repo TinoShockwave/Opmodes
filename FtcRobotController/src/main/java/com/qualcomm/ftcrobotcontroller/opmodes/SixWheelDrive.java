@@ -20,6 +20,11 @@ public class SixWheelDrive extends OpMode {
     DcMotor axleMotorBack;
     Servo servo1;
 
+    // Initialize SLOW and TURBO Modes
+    int mode = 0;
+    final int TURBO_MODE = 0;
+    final int SLOW_MODE = 1;
+
     /**
      * Constructor
      */
@@ -74,6 +79,13 @@ public class SixWheelDrive extends OpMode {
      */
     @Override
     public void loop() {
+
+        // Change current speed mode based on the joystick bumper
+        if (gamepad1.right_bumper) {
+            mode = TURBO_MODE;
+        } else if (gamepad1.left_bumper) {
+            mode = SLOW_MODE;
+        }
 
         // throttle: left_stick_y ranges from -1 to 1, where -1 is full up, and
         // 1 is full down
@@ -155,8 +167,18 @@ public class SixWheelDrive extends OpMode {
      * the robot more precisely at slower speeds.
      */
     double scaleInput(double dVal)  {
-        double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
-                0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00 };
+
+        double[] scaleArray = new double[17];
+
+        // Change the scaleArray based on the current mode
+        // The slow mode is 1/3 the speed of the fast mode
+        if (mode == TURBO_MODE) {
+            scaleArray = new double[]{0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
+                    0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00};
+        } else if (mode == SLOW_MODE) {
+            scaleArray = new double[]{0.0, 0.01, 0.03, 0.03, 0.04, 0.05, 0.06, 0.08,
+                    0.10, 0.12, 0.14, 0.16, 0.2, 0.24, 0.28, 0.33, 0.33};
+        }
 
         // get the corresponding index for the scaleInput array.
         int index = (int) (dVal * 16.0);
