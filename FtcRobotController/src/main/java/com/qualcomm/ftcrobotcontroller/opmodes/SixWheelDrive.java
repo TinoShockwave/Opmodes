@@ -19,11 +19,11 @@ public class SixWheelDrive extends OpMode {
     DcMotor axleMotorBack;
     Servo servo1;
 
+
     // Initialize SLOW and TURBO Modes
     int mode = 0;
     final int TURBO_MODE = 0;
     final int SLOW_MODE = 1;
-
     /**
      * Constructor
      */
