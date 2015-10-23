@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.util.Range;
 
 /**
  * TeleOp Mode
- * <p>
  * Enables control of the robot via the gamepad
  */
 public class SixWheelDrive extends OpMode {
@@ -131,6 +130,10 @@ public class SixWheelDrive extends OpMode {
         if(gamepad1.x) {
             axleMotorFront.setPower(20);
             axleMotorBack.setPower(20);
+        }
+        else if(gamepad1.b) {
+            axleMotorBack.setPower(-20);
+            axleMotorFront.setPower(-20);
         }
         else {
             axleMotorBack.setPower(0);
