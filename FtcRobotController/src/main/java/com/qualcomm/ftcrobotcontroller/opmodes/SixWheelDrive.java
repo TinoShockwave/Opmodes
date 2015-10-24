@@ -18,6 +18,8 @@ public class SixWheelDrive extends OpMode {
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
     Servo servo1;
+    Servo servo2;
+    Servo servo3;
 
 
     // Initialize SLOW and TURBO Modes
@@ -50,13 +52,15 @@ public class SixWheelDrive extends OpMode {
        * We also assume that there is one servo "servo_1."
        *    "servo_1" controls the manipulator.
        */
-        frontMotorLeft = hardwareMap.dcMotor.get("motor_2");
-        frontMotorRight = hardwareMap.dcMotor.get("motor_1");
-        backMotorLeft = hardwareMap.dcMotor.get("motor_2");
-        backMotorRight = hardwareMap.dcMotor.get("motor_1");
-        axleMotorFront = hardwareMap.dcMotor.get("motor_1");
-        axleMotorBack = hardwareMap.dcMotor.get("motor_1");
+        frontMotorLeft = hardwareMap.dcMotor.get("motor_1");
+        frontMotorRight = hardwareMap.dcMotor.get("motor_2");
+        backMotorLeft = hardwareMap.dcMotor.get("motor_3");
+        backMotorRight = hardwareMap.dcMotor.get("motor_4");
+        axleMotorFront = hardwareMap.dcMotor.get("motor_5");
+        axleMotorBack = hardwareMap.dcMotor.get("motor_6");
         servo1 = hardwareMap.servo.get("manipulator");
+        servo2 = hardwareMap.servo.get("unknown1");
+        servo3 = hardwareMap.servo.get("unknown2");
         frontMotorLeft.setDirection(DcMotor.Direction.REVERSE);
         backMotorLeft.setDirection(DcMotor.Direction.REVERSE);
 
@@ -111,29 +115,28 @@ public class SixWheelDrive extends OpMode {
         backMotorRight.setPower(right);
 
         //Manipulator
-        if (gamepad1.a) {
-            servo1.setPosition(0);
-        }
-        else {
-            servo1.setPosition(0.5);
-        }
+        while (gamepad1.b) {
 
-        if (gamepad1.y) {
-            servo1.setPosition(1);
-        }
-        else {
-            servo1.setPosition(0.5);
-        }
+            if(gamepad1.dpad_up){
+                servo1.setPosition(1);
+            }
+            else if(gamepad1.dpad_down){
+                servo1.setPosition(0);
+            }
+            else{
+                servo1.setPosition(0.5);
+            }
 
+        }
 
         //For going up the ramp. 20 is a placeholder for the actual speed.
         if(gamepad1.x) {
-            axleMotorFront.setPower(20);
-            axleMotorBack.setPower(20);
+            axleMotorFront.setPower(1);
+            axleMotorBack.setPower(1);
         }
         else if(gamepad1.b) {
-            axleMotorBack.setPower(-20);
-            axleMotorFront.setPower(-20);
+            axleMotorBack.setPower(-1);
+            axleMotorFront.setPower(-1);
         }
         else {
             axleMotorBack.setPower(0);
