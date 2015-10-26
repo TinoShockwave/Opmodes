@@ -81,8 +81,10 @@ public class AutonomousTest extends PushBotTelemetry {
 
             case 5:
                 run_using_encoders();
-                axleFront.setPower(20);
-                axleBack.setPower(20);
+                while (this.time <= 1){
+                    axleBack.setPower(1);
+                    axleFront.setPower(1);
+                }
                 if (have_drive_encoders_reached(1000, 1000)) {
                     reset_drive_encoders();
                     set_drive_power(0.0f, 0.0f);
