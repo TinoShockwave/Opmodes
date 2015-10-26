@@ -109,10 +109,10 @@ public class SixWheelDrive extends OpMode {
         left =  (float)scaleInput(left);
 
         // write the values to the motors
-        frontMotorLeft.setPower(left);
-        frontMotorRight.setPower(right);
-        backMotorLeft.setPower(left);
-        backMotorRight.setPower(right);
+        frontMotorLeft.setPower(left);("motor_1")
+        frontMotorRight.setPower(right);("motor_2")
+        backMotorLeft.setPower(left);("motor_3")
+        backMotorRight.setPower(right);("motor_4")
 
         //Manipulator
         while (gamepad1.b) {
@@ -130,19 +130,17 @@ public class SixWheelDrive extends OpMode {
         }
 
         //For going up the ramp. 20 is a placeholder for the actual speed.
-        while (gamepad1.x){
-            if(gamepad1.dpad_up){
-                axleMotorFront.setPower(1);
-                axleMotorBack.setPower(1);
-            }
-            else if(gamepad1.dpad_down){
-                axleMotorFront.setPower(-1);
-                axleMotorBack.setPower(-1);
-            }
-            else{
-                axleMotorFront.setPower(0);
-                axleMotorBack.setPower(0);
-            }
+        if(gamepad1.x) {
+            axleMotorFront.setPower(1);
+            axleMotorBack.setPower(1);
+        }
+        else if(gamepad1.b) {
+            axleMotorBack.setPower(-1);
+            axleMotorFront.setPower(-1);
+        }
+        else {
+            axleMotorBack.setPower(0);
+            axleMotorFront.setPower(0);
         }
 
 
