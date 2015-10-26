@@ -61,7 +61,7 @@ public class SixWheelDrive extends OpMode {
         servo1 = hardwareMap.servo.get("manipulator");
         servo2 = hardwareMap.servo.get("unknown1");
         servo3 = hardwareMap.servo.get("unknown2");
-        frontMotorLeft.setDirection(DcMotor.Direction.REVERSE);
+        frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
         backMotorLeft.setDirection(DcMotor.Direction.REVERSE);
 
         /*
@@ -109,10 +109,10 @@ public class SixWheelDrive extends OpMode {
         left =  (float)scaleInput(left);
 
         // write the values to the motors
-        frontMotorLeft.setPower(left);("motor_1")
-        frontMotorRight.setPower(right);("motor_2")
-        backMotorLeft.setPower(left);("motor_3")
-        backMotorRight.setPower(right);("motor_4")
+        frontMotorLeft.setPower(left);
+        frontMotorRight.setPower(right);
+        backMotorLeft.setPower(left);
+        backMotorRight.setPower(right);
 
         //Manipulator
         while (gamepad1.b) {
@@ -212,3 +212,8 @@ public class SixWheelDrive extends OpMode {
     }
 
 }
+
+
+
+
+
