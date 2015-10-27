@@ -20,6 +20,7 @@ public class SixWheelDrive extends OpMode {
     Servo servo1;
     Servo servo2;
     Servo servo3;
+    int numOfMotors;
 
 
     // Initialize SLOW and TURBO Modes
@@ -110,18 +111,24 @@ public class SixWheelDrive extends OpMode {
 
         // write the values to the motors
         frontMotorLeft.setPower(left);
+        numOfMotors += 1;
         frontMotorRight.setPower(right);
+        numOfMotors += 1;
         backMotorLeft.setPower(left);
+        numOfMotors += 1;
         backMotorRight.setPower(right);
+        numOfMotors += 1;
 
-//        //Manipulator code. Commented out until the manipulator is attached.
+        //Manipulator code. Commented out until the manipulator is attached.
 //        while (gamepad1.a) {
 //
 //            if(gamepad1.dpad_up){
-//                servo1.setPosition(1);
+//              servo1.setPosition(1);
+//              numOfMotors += 1;
 //            }
 //            else if(gamepad1.dpad_down){
 //                servo1.setPosition(0);
+//                numOfMotors += 1;
 //            }
 //            else{
 //                servo1.setPosition(0.5);
@@ -133,9 +140,11 @@ public class SixWheelDrive extends OpMode {
         while (gamepad1.x) {
             if(gamepad1.dpad_up){
                 axleMotorFront.setPower(1);
+                numOfMotors += 1;
             }
             else if(gamepad1.dpad_down){
                 axleMotorFront.setPower(-1);
+                numOfMotors += 1;
             }
             else {
                 axleMotorFront.setPower(0);
@@ -145,13 +154,25 @@ public class SixWheelDrive extends OpMode {
         while (gamepad1.b) {
             if (gamepad1.dpad_up){
                 axleMotorBack.setPower(1);
+                numOfMotors += 1;
             }
             else if (gamepad1.dpad_down){
                 axleMotorBack.setPower(-1);
+                numOfMotors += 1;
             }
             else{
                 axleMotorBack.setPower(0);
             }
+        }
+
+        if (numOfMotors > 6){
+            frontMotorLeft.setPower(0);
+            backMotorLeft.setPower(0);
+            frontMotorRight.setPower(0);
+            backMotorRight.setPower(0);
+            axleMotorBack.setPower(0);
+            axleMotorFront.setPower(0);
+            servo1.setPosition(0.5);
         }
 
 
