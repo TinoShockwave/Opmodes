@@ -114,33 +114,42 @@ public class SixWheelDrive extends OpMode {
         backMotorLeft.setPower(left);
         backMotorRight.setPower(right);
 
-        //Manipulator
-        while (gamepad1.b) {
+//        //Manipulator code. Commented out until the manipulator is attached.
+//        while (gamepad1.a) {
+//
+//            if(gamepad1.dpad_up){
+//                servo1.setPosition(1);
+//            }
+//            else if(gamepad1.dpad_down){
+//                servo1.setPosition(0);
+//            }
+//            else{
+//                servo1.setPosition(0.5);
+//            }
+//
+//        }
 
-            if(gamepad1.dpad_up){
-                servo1.setPosition(1);
-            }
-            else if(gamepad1.dpad_down){
-                servo1.setPosition(0);
-            }
-            else{
-                servo1.setPosition(0.5);
-            }
-
-        }
-
-        //For going up the ramp. 20 is a placeholder for the actual speed.
+        //For going up the ramp.
         while (gamepad1.x) {
             if(gamepad1.dpad_up){
                 axleMotorFront.setPower(1);
-                axleMotorBack.setPower(1);
             }
             else if(gamepad1.dpad_down){
                 axleMotorFront.setPower(-1);
+            }
+            else {
+                axleMotorFront.setPower(0);
+            }
+        }
+
+        while (gamepad1.b) {
+            if (gamepad1.dpad_up){
+                axleMotorBack.setPower(1);
+            }
+            else if (gamepad1.dpad_down){
                 axleMotorBack.setPower(-1);
             }
             else{
-                axleMotorFront.setPower(0);
                 axleMotorBack.setPower(0);
             }
         }
