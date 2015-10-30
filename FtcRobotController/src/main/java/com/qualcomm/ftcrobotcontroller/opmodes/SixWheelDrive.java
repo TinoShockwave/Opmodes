@@ -111,13 +111,13 @@ public class SixWheelDrive extends OpMode {
 
         // write the values to the motors
         frontMotorLeft.setPower(left);
-        numOfMotors += 1;
+        numOfMotors++;
         frontMotorRight.setPower(right);
-        numOfMotors += 1;
+        numOfMotors++;
         backMotorLeft.setPower(left);
-        numOfMotors += 1;
+        numOfMotors++;
         backMotorRight.setPower(right);
-        numOfMotors += 1;
+        numOfMotors++;
 
         //Manipulator code. Commented out until the manipulator is attached.
 //        while (gamepad1.a) {
@@ -140,11 +140,11 @@ public class SixWheelDrive extends OpMode {
         while (gamepad1.x) {
             if(gamepad1.dpad_up){
                 axleMotorFront.setPower(1);
-                numOfMotors += 1;
+                numOfMotors++;
             }
             else if(gamepad1.dpad_down){
                 axleMotorFront.setPower(-1);
-                numOfMotors += 1;
+                numOfMotors++;
             }
             else {
                 axleMotorFront.setPower(0);
@@ -154,11 +154,11 @@ public class SixWheelDrive extends OpMode {
         while (gamepad1.b) {
             if (gamepad1.dpad_up){
                 axleMotorBack.setPower(1);
-                numOfMotors += 1;
+                numOfMotors++;
             }
             else if (gamepad1.dpad_down){
                 axleMotorBack.setPower(-1);
-                numOfMotors += 1;
+                numOfMotors++;
             }
             else{
                 axleMotorBack.setPower(0);
@@ -242,10 +242,4 @@ public class SixWheelDrive extends OpMode {
         // return scaled value.
         return dScale;
     }
-
 }
-
-
-
-
-

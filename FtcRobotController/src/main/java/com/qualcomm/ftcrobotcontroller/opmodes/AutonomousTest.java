@@ -5,6 +5,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
  */
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 
 public class AutonomousTest extends PushBotTelemetry {
 
@@ -17,16 +18,24 @@ public class AutonomousTest extends PushBotTelemetry {
      */
     private int drive_state = 0;
 
-    DcMotor axleFront;
-    DcMotor axleBack;
+    DcMotor frontMotorLeft;
+    DcMotor frontMotorRight;
+    DcMotor backMotorLeft;
+    DcMotor backMotorRight;
+    DcMotor axleMotorFront;
+    DcMotor axleMotorBack;
 
     // this resets the everything  in the robot to 0.
     public void start() {
         super.start();
         reset_drive_encoders();
 
-        axleFront = hardwareMap.dcMotor.get("axle_1");
-        axleBack = hardwareMap.dcMotor.get("axle_2");
+        frontMotorLeft = hardwareMap.dcMotor.get("motor_1");
+        frontMotorRight = hardwareMap.dcMotor.get("motor_2");
+        backMotorLeft = hardwareMap.dcMotor.get("motor_3");
+        backMotorRight = hardwareMap.dcMotor.get("motor_4");
+        axleMotorFront = hardwareMap.dcMotor.get("motor_5");
+        axleMotorBack = hardwareMap.dcMotor.get("motor_6");
     }
 
     /*
@@ -50,57 +59,35 @@ public class AutonomousTest extends PushBotTelemetry {
                 break;
 
             case 1:
-                run_using_encoders();
-                if (have_drive_encoders_reached(1000, 1000)) {
-                    reset_drive_encoders();
-                    set_drive_power(0.0f, 0.0f);
-                    drive_state++;
-                }
+                frontMotorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                frontMotorRight.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                backMotorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                backMotorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                axleMotorFront.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                axleMotorBack.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+
                 break;
 
             case 2:
-                if (have_drive_encoders_reset ())
-                {
-                    drive_state++;
-                }
+
+
                 break;
 
             case 3:
-                run_using_encoders();
-                if (have_drive_encoders_reached(0, -1000)) {
-                    reset_drive_encoders();
-                    set_drive_power(0.0f, 0.0f);
-                    drive_state++;
-                }
+
+                break;
 
             case 4:
-                if (have_drive_encoders_reset()) {
-                    drive_state++;
-                }
+
                 break;
 
             case 5:
-                run_using_encoders();
-                while (this.time <= 1){
-                    axleBack.setPower(1);
-                    axleFront.setPower(1);
-                }
-                if (have_drive_encoders_reached(1000, 1000)) {
-                    reset_drive_encoders();
-                    set_drive_power(0.0f, 0.0f);
-                    axleFront.setPower(0);
-                    axleBack.setPower(0);
-                    drive_state++;
-                }
+
                 break;
 
             case 6:
-                if(have_drive_encoders_reset()) {
-                    drive_state++;
-                }
+
                 break;
-
-
 
             default:
                 break;
