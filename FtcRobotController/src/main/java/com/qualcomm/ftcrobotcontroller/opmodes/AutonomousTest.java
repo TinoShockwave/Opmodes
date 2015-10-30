@@ -18,6 +18,7 @@ public class AutonomousTest extends PushBotTelemetry {
      */
     private int drive_state = 0;
 
+
     DcMotor frontMotorLeft;
     DcMotor frontMotorRight;
     DcMotor backMotorLeft;
@@ -28,7 +29,7 @@ public class AutonomousTest extends PushBotTelemetry {
     // this resets the everything  in the robot to 0.
     public void start() {
         super.start();
-        reset_drive_encoders();
+
 
         frontMotorLeft = hardwareMap.dcMotor.get("motor_1");
         frontMotorRight = hardwareMap.dcMotor.get("motor_2");
@@ -54,11 +55,7 @@ public class AutonomousTest extends PushBotTelemetry {
     public void loop() {
         switch (drive_state) {
             case 0:
-                reset_drive_encoders();
-                drive_state++;
-                break;
-
-            case 1:
+                //Resets motor encoders
                 frontMotorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
                 frontMotorRight.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
                 backMotorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -66,14 +63,38 @@ public class AutonomousTest extends PushBotTelemetry {
                 axleMotorFront.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
                 axleMotorBack.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
 
+                drive_state++;
                 break;
 
+            case 1:
+                frontMotorLeft.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+                frontMotorRight.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+                backMotorLeft.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+                backMotorLeft.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+
+                drive_state++;
+                break;
             case 2:
+                frontMotorLeft.setTargetPosition(1000);
+                frontMotorRight.setTargetPosition(1000);
+                backMotorLeft.setTargetPosition(1000);
+                backMotorRight.setTargetPosition(1000);
 
-
+                drive_state++;
                 break;
 
             case 3:
+                frontMotorLeft.setPower(0.5);
+                frontMotorRight.setPower(0.5);
+                backMotorLeft.setPower(0.5);
+                backMotorRight.setPower(0.5);
+
+                frontMotorLeft.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+                frontMotorRight.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+                backMotorLeft.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+                backMotorRight.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+
+                drive_state++;
 
                 break;
 
