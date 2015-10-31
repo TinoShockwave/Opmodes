@@ -73,6 +73,7 @@ public class AutonomousTest extends PushBotTelemetry {
                 backMotorLeft.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
                 drive_state++;
+
                 break;
             case 2:
                 frontMotorLeft.setTargetPosition(1000);
@@ -99,14 +100,14 @@ public class AutonomousTest extends PushBotTelemetry {
                 break;
 
             case 4:
+                frontMotorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                frontMotorRight.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                backMotorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                backMotorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                axleMotorFront.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                axleMotorBack.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
 
-                break;
-
-            case 5:
-
-                break;
-
-            case 6:
+                drive_state++;
 
                 break;
 
