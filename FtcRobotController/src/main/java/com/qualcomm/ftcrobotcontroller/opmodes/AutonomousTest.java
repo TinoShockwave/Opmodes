@@ -52,4 +52,8 @@ public class AutonomousTest extends OpMode{
             moveMotor(backMotorRight, -position, power);
         }
     }
+
+    public void turn(double degrees) {
+
+    }
 }
