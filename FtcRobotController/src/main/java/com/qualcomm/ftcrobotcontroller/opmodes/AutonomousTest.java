@@ -39,17 +39,17 @@ public class AutonomousTest extends OpMode{
         motor.setPower(power);
     }
 
-    public void moveRobot(int position, double power, String direction) {
+    public void moveRobot(int position, double powerLeft, double powerRight, String direction) {
         if(direction.equals("forward")) {
-            moveMotor(frontMotorLeft, position, power);
-            moveMotor(frontMotorRight, position, power);
-            moveMotor(backMotorLeft, position, power);
-            moveMotor(backMotorRight, position, power);
+            moveMotor(frontMotorLeft, position, powerLeft);
+            moveMotor(frontMotorRight, position, powerRight);
+            moveMotor(backMotorLeft, position, powerLeft);
+            moveMotor(backMotorRight, position, powerRight);
         } else if(direction.equals("backward")) {
-            moveMotor(frontMotorLeft, -position, power);
-            moveMotor(frontMotorRight, -position, power);
-            moveMotor(backMotorLeft, -position, power);
-            moveMotor(backMotorRight, -position, power);
+            moveMotor(frontMotorLeft, -position, powerLeft);
+            moveMotor(frontMotorRight, -position, powerRight);
+            moveMotor(backMotorLeft, -position, powerLeft);
+            moveMotor(backMotorRight, -position, powerRight);
         }
     }
 
