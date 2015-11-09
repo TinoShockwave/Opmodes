@@ -1,22 +1,55 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 
 /**
- * Created by Kashyap Panda on 9/28/15.
-*/
-public class AutonomousTest extends Autonomous {
-    Autonomous robot;
+ * Created by Kashyap on 11/9/15.
+ */
+public class AutonomousTest extends OpMode{
+    DcMotor frontMotorLeft;
+    DcMotor frontMotorRight;
+    DcMotor backMotorLeft;
+    DcMotor backMotorRight;
+    DcMotor axleMotorFront;
+    DcMotor axleMotorBack;
+
 
     @Override
     public void init() {
-        robot = new Autonomous();
+        frontMotorLeft = hardwareMap.dcMotor.get("motor");
+        frontMotorRight = hardwareMap.dcMotor.get("motor_2");
+        backMotorLeft = hardwareMap.dcMotor.get("motor_3");
+        backMotorRight = hardwareMap.dcMotor.get("motor_4");
+        axleMotorFront = hardwareMap.dcMotor.get("motor_5");
+        axleMotorBack = hardwareMap.dcMotor.get("motor_6");
     }
 
     @Override
     public void loop() {
-        robot.moveMotor(robot.frontMotorLeft, 200, 0.5);
+        moveMotor(frontMotorLeft, 200, 0.5);
+    }
+
+    public void moveMotor(DcMotor motor, int position, double power) {
+        motor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        motor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motor.setTargetPosition(position);
+        motor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        motor.setPower(power);
+    }
+
+    public void moveRobot(int position, double power, String direction) {
+        if(direction.equals("forward")) {
+            moveMotor(frontMotorLeft, position, power);
+            moveMotor(frontMotorRight, position, power);
+            moveMotor(backMotorLeft, position, power);
+            moveMotor(backMotorRight, position, power);
+        } else if(direction.equals("backward")) {
+            moveMotor(frontMotorLeft, -position, power);
+            moveMotor(frontMotorRight, -position, power);
+            moveMotor(backMotorLeft, -position, power);
+            moveMotor(backMotorRight, -position, power);
+        }
     }
 }
-
