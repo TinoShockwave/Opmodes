@@ -15,12 +15,7 @@ public class Autonomous extends OpMode {
     DcMotor axleMotorBack;
 
     public Autonomous() {
-        frontMotorLeft = hardwareMap.dcMotor.get("motor");
-        frontMotorRight = hardwareMap.dcMotor.get("motor_2");
-        backMotorLeft = hardwareMap.dcMotor.get("motor_3");
-        backMotorRight = hardwareMap.dcMotor.get("motor_4");
-        axleMotorFront = hardwareMap.dcMotor.get("motor_5");
-        axleMotorBack = hardwareMap.dcMotor.get("motor_6");
+
     }
 
     public void moveMotor(DcMotor motor, int position, double power) {

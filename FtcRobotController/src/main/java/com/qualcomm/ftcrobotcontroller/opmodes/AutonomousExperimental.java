@@ -8,6 +8,12 @@ public class AutonomousExperimental extends Autonomous {
 
     @Override
     public void init() {
+        frontMotorLeft = hardwareMap.dcMotor.get("motor_1");
+        frontMotorRight = hardwareMap.dcMotor.get("motor_2");
+        backMotorLeft = hardwareMap.dcMotor.get("motor_3");
+        backMotorRight = hardwareMap.dcMotor.get("motor_4");
+        axleMotorFront = hardwareMap.dcMotor.get("motor_5");
+        axleMotorBack = hardwareMap.dcMotor.get("motor_6");
 
         robot = new Autonomous();
     }

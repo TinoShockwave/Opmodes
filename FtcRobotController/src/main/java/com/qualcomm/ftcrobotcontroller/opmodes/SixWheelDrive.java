@@ -12,15 +12,15 @@ import com.qualcomm.robotcore.util.Range;
 public class SixWheelDrive extends OpMode {
 
     DcMotor frontMotorLeft;
-//    DcMotor frontMotorRight;
-//    DcMotor backMotorLeft;
-//    DcMotor backMotorRight;
-//    DcMotor axleMotorFront;
-//    DcMotor axleMotorBack;
-//    Servo servo1;
-//    Servo servo2;
-//    Servo servo3;
-//    int numOfMotors;
+    DcMotor frontMotorRight;
+    DcMotor backMotorLeft;
+    DcMotor backMotorRight;
+    DcMotor axleMotorFront;
+    DcMotor axleMotorBack;
+    Servo servo1;
+    Servo servo2;
+    Servo servo3;
+    int numOfMotors;
 
 
     // Initialize SLOW and TURBO Modes
@@ -54,16 +54,16 @@ public class SixWheelDrive extends OpMode {
        *    "servo_1" controls the manipulator.
        */
         frontMotorLeft = hardwareMap.dcMotor.get("motor_1");
-//        frontMotorRight = hardwareMap.dcMotor.get("motor_2");
-//        backMotorLeft = hardwareMap.dcMotor.get("motor_3");
-//        backMotorRight = hardwareMap.dcMotor.get("motor_4");
-//        axleMotorFront = hardwareMap.dcMotor.get("motor_5");
-//        axleMotorBack = hardwareMap.dcMotor.get("motor_6");
-//        servo1 = hardwareMap.servo.get("manipulator");
-//        servo2 = hardwareMap.servo.get("unknown1");
-//        servo3 = hardwareMap.servo.get("unknown2");
-//        frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
-//        backMotorLeft.setDirection(DcMotor.Direction.REVERSE);
+        frontMotorRight = hardwareMap.dcMotor.get("motor_2");
+        backMotorLeft = hardwareMap.dcMotor.get("motor_3");
+        backMotorRight = hardwareMap.dcMotor.get("motor_4");
+        axleMotorFront = hardwareMap.dcMotor.get("motor_5");
+        axleMotorBack = hardwareMap.dcMotor.get("motor_6");
+        servo1 = hardwareMap.servo.get("manipulator");
+        servo2 = hardwareMap.servo.get("unknown1");
+        servo3 = hardwareMap.servo.get("unknown2");
+        frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
+        backMotorLeft.setDirection(DcMotor.Direction.REVERSE);
 
         /*
          * Motors axleMotorFront and axleMotorBack are set in staggered
@@ -87,7 +87,7 @@ public class SixWheelDrive extends OpMode {
         // Change current speed mode based on the joystick bumper
         if (gamepad1.right_bumper) {
             mode = TURBO_MODE;
-        } else if (gamepad1.left_bumper) {
+        } else {
             mode = SLOW_MODE;
         }
 
@@ -111,69 +111,69 @@ public class SixWheelDrive extends OpMode {
 
         // write the values to the motors
         frontMotorLeft.setPower(left);
-//        numOfMotors++;
-//        frontMotorRight.setPower(right);
-//        numOfMotors++;
-//        backMotorLeft.setPower(left);
-//        numOfMotors++;
-//        backMotorRight.setPower(right);
-//        numOfMotors++;
+        numOfMotors++;
+        frontMotorRight.setPower(right);
+        numOfMotors++;
+        backMotorLeft.setPower(left);
+        numOfMotors++;
+        backMotorRight.setPower(right);
+        numOfMotors++;
 
-        //Manipulator code. Commented out until the manipulator is attached.
-//        while (gamepad1.a) {
-//
-//            if(gamepad1.dpad_up){
-//              servo1.setPosition(1);
-//              numOfMotors += 1;
-//            }
-//            else if(gamepad1.dpad_down){
-//                servo1.setPosition(0);
-//                numOfMotors += 1;
-//            }
-//            else{
-//                servo1.setPosition(0.5);
-//            }
-//
-//        }
+//        Manipulator code. Commented out until the manipulator is attached.
+        while (gamepad1.a) {
 
-        //For going up the ramp.
-//        while (gamepad1.x) {
-//            if(gamepad1.dpad_up){
-//                axleMotorFront.setPower(1);
-//                numOfMotors++;
-//            }
-//            else if(gamepad1.dpad_down){
-//                axleMotorFront.setPower(-1);
-//                numOfMotors++;
-//            }
-//            else {
-//                axleMotorFront.setPower(0);
-//            }
-//        }
-//
-//        while (gamepad1.b) {
-//            if (gamepad1.dpad_up){
-//                axleMotorBack.setPower(1);
-//                numOfMotors++;
-//            }
-//            else if (gamepad1.dpad_down){
-//                axleMotorBack.setPower(-1);
-//                numOfMotors++;
-//            }
-//            else{
-//                axleMotorBack.setPower(0);
-//            }
-//        }
-//
-//        if (numOfMotors > 6){
-//            frontMotorLeft.setPower(0);
-//            backMotorLeft.setPower(0);
-//            frontMotorRight.setPower(0);
-//            backMotorRight.setPower(0);
-//            axleMotorBack.setPower(0);
-//            axleMotorFront.setPower(0);
-//            servo1.setPosition(0.5);
-//        }
+            if(gamepad1.dpad_up){
+              servo1.setPosition(1);
+              numOfMotors += 1;
+            }
+            else if(gamepad1.dpad_down){
+                servo1.setPosition(0);
+                numOfMotors += 1;
+            }
+            else{
+                servo1.setPosition(0.5);
+            }
+
+        }
+
+//        For going up the ramp.
+        while (gamepad1.x) {
+            if(gamepad1.dpad_up){
+                axleMotorFront.setPower(1);
+                numOfMotors++;
+            }
+            else if(gamepad1.dpad_down){
+                axleMotorFront.setPower(-1);
+                numOfMotors++;
+            }
+            else {
+                axleMotorFront.setPower(0);
+            }
+        }
+
+        while (gamepad1.b) {
+            if (gamepad1.dpad_up){
+                axleMotorBack.setPower(1);
+                numOfMotors++;
+            }
+            else if (gamepad1.dpad_down){
+                axleMotorBack.setPower(-1);
+                numOfMotors++;
+            }
+            else{
+                axleMotorBack.setPower(0);
+            }
+        }
+
+        if (numOfMotors > 6){
+            frontMotorLeft.setPower(0);
+            backMotorLeft.setPower(0);
+            frontMotorRight.setPower(0);
+            backMotorRight.setPower(0);
+            axleMotorBack.setPower(0);
+            axleMotorFront.setPower(0);
+            servo1.setPosition(0.5);
+        }
 
 
 
@@ -214,8 +214,8 @@ public class SixWheelDrive extends OpMode {
             scaleArray = new double[]{0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
                     0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00};
         } else if (mode == SLOW_MODE) {
-            scaleArray = new double[]{0.0, 0.01, 0.03, 0.03, 0.04, 0.05, 0.06, 0.08,
-                    0.10, 0.12, 0.14, 0.16, 0.2, 0.24, 0.28, 0.33, 0.33};
+            scaleArray = new double[]{0.0, 0.0167, 0.03, 0.0333, 0.04, 0.05, 0.06, 0.08,
+                    0.10, 0.12, 0.143, 0.167, 0.2, 0.24, 0.283, 0.33, 0.33};
         }
 
         // get the corresponding index for the scaleInput array.
