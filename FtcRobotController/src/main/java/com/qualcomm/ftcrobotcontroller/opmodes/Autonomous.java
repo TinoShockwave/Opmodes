@@ -18,7 +18,11 @@ public class Autonomous extends OpMode {
 
     }
 
-    public void moveMotor(DcMotor motor, int position, double power) {
+    //Input: Distance in inches
+    //Output: Distance in encoder pulses
+    public void moveMotor(DcMotor motor, double distance, double power) {
+        double encoderClicks = (distance / 7.85) * 1 * 1120;
+        int position = (int) (int) Math.round(encoderClicks);
         motor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         motor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor.setTargetPosition(position);
