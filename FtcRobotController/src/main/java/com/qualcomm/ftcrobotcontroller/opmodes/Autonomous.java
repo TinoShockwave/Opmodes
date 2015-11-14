@@ -7,6 +7,10 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
  * Created by Kashyap on 11/4/15.
  */
 public class Autonomous extends OpMode {
+    final static int ENCODER_CPR = 1120;
+    final static double GEAR_RATIO = 1;
+    final static double WHEEL_CIRCUMFERENCE = 7.85;
+
     DcMotor frontMotorLeft;
     DcMotor frontMotorRight;
     DcMotor backMotorLeft;
@@ -21,30 +25,47 @@ public class Autonomous extends OpMode {
     //Input: Distance in inches
     //Output: Distance in encoder pulses
     public void moveMotor(DcMotor motor, double distance, double power) {
-        double encoderClicks = (distance / 7.85) * 1 * 1120;
-        int position = (int) (int) Math.round(encoderClicks);
-        motor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
+        int position = (int) encoderClicks;
         motor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor.setTargetPosition(position);
         motor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
         motor.setPower(power);
     }
 
-    public void moveRobot(int position, double power, String direction) {
+    public void moveMotorAlt(DcMotor motor, int position, double power) {
+        motor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motor.setTargetPosition(position);
+        motor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        motor.setPower(power);
+    }
+
+    public void moveRobot(int distance, double power, String direction) {
         if(direction.equals("forward")) {
-            moveMotor(frontMotorLeft, position, power);
-            moveMotor(frontMotorRight, position, power);
-            moveMotor(backMotorLeft, position, power);
-            moveMotor(backMotorRight, position, power);
+            moveMotor(frontMotorLeft, distance, power);
+            moveMotor(frontMotorRight, distance, power);
+            moveMotor(backMotorLeft, distance, power);
+            moveMotor(backMotorRight, distance, power);
         } else if(direction.equals("backward")) {
-            moveMotor(frontMotorLeft, -position, power);
-            moveMotor(frontMotorRight, -position, power);
-            moveMotor(backMotorLeft, -position, power);
-            moveMotor(backMotorRight, -position, power);
+            moveMotor(frontMotorLeft, distance, -power);
+            moveMotor(frontMotorRight, distance, -power);
+            moveMotor(backMotorLeft, distance, -power);
+            moveMotor(backMotorRight, distance, -power);
         }
     }
 
-    public void turn(double degrees) {
+    public void turn(int position, String direction) {
+        if (direction.equals("left")) {
+            moveMotorAlt(frontMotorLeft, position / 2, -0.5);
+            moveMotorAlt(frontMotorRight, position / 2, 0.5);
+            moveMotorAlt(backMotorLeft, position / 2, -0.5);
+            moveMotorAlt(backMotorRight, position / 2, 0.5);
+        } else if(direction.equals("right")) {
+            moveMotorAlt(frontMotorLeft, position / 2, 0.5);
+            moveMotorAlt(frontMotorRight, position / 2, -0.5);
+            moveMotorAlt(backMotorLeft, position / 2, 0.5);
+            moveMotorAlt(backMotorRight, position / 2, -0.5);
+        }
 
     }
 

@@ -85,7 +85,7 @@ public class SixWheelDrive extends OpMode {
     public void loop() {
 
         // Change current speed mode based on the joystick bumper
-        if (gamepad1.right_bumper) {
+        if (gamepad2.right_bumper) {
             mode = TURBO_MODE;
         } else {
             mode = SLOW_MODE;
@@ -120,13 +120,13 @@ public class SixWheelDrive extends OpMode {
         numOfMotors++;
 
 //        Manipulator code. Commented out until the manipulator is attached.
-        while (gamepad1.a) {
+        while (gamepad2.a) {
 
-            if(gamepad1.dpad_up){
+            if(gamepad2.dpad_up){
               servo1.setPosition(1);
               numOfMotors += 1;
             }
-            else if(gamepad1.dpad_down){
+            else if(gamepad2.dpad_down){
                 servo1.setPosition(0);
                 numOfMotors += 1;
             }

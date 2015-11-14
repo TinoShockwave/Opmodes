@@ -18,10 +18,10 @@ public class AutonomousExperimental extends Autonomous {
         robot = new Autonomous();
     }
 
+    //Distance is in INCHES
     @Override
     public void loop() {
-
-        robot.moveMotor(robot.frontMotorLeft, 200, 0.5);
+        robot.moveRobot(24, 0.5, "forward");
     }
 }
 

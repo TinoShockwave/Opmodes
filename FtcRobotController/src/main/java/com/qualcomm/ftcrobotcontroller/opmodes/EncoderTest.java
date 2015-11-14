@@ -9,21 +9,26 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
  */
 public class EncoderTest extends OpMode {
 
-    DcMotor motor;
+    DcMotor frontMotorLeft;
+    DcMotor frontMotorRight;
+    DcMotor backMotorLeft;
+    DcMotor backMotorRight;
+    DcMotor axleMotorFront;
+    DcMotor axleMotorBack;
 
     public void init() {
-        motor = hardwareMap.dcMotor.get("motor");
-        motor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        frontMotorLeft = hardwareMap.dcMotor.get("motor");
+        frontMotorLeft.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
 
     public void start() {
-        motor.setTargetPosition(2);
-        motor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        motor.setPower(0.5);
+        frontMotorLeft.setTargetPosition(2);
+        frontMotorLeft.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        frontMotorLeft.setPower(0.1);
     }
 
     public void loop() {
-        telemetry.addData("Encoder Clicks", motor.getCurrentPosition());
+        telemetry.addData("Encoder Clicks", frontMotorLeft.getCurrentPosition());
     }
 }
 
