@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.Range;
  * TeleOp Mode
  * Enables control of the robot via the gamepad
  */
-public class SixWheelDrive extends OpMode {
+public class TeleOpTank extends OpMode {
 
     DcMotor frontMotorLeft;
     DcMotor frontMotorRight;
@@ -17,10 +17,10 @@ public class SixWheelDrive extends OpMode {
     DcMotor backMotorRight;
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
-    Servo servo1;
-    Servo servo2;
-    Servo servo3;
-    int numOfMotors;
+//    Servo servo1;
+//    Servo servo2;
+//    Servo servo3;
+    //int numOfMotors;
 
 
     // Initialize SLOW and TURBO Modes
@@ -30,7 +30,7 @@ public class SixWheelDrive extends OpMode {
     /**
      * Constructor
      */
-    public SixWheelDrive() {
+    public TeleOpTank() {
 
     }
 
@@ -59,9 +59,9 @@ public class SixWheelDrive extends OpMode {
         backMotorRight = hardwareMap.dcMotor.get("motor_4");
         axleMotorFront = hardwareMap.dcMotor.get("motor_5");
         axleMotorBack = hardwareMap.dcMotor.get("motor_6");
-        servo1 = hardwareMap.servo.get("manipulator");
-        servo2 = hardwareMap.servo.get("unknown1");
-        servo3 = hardwareMap.servo.get("unknown2");
+//        servo1 = hardwareMap.servo.get("manipulator");
+//        servo2 = hardwareMap.servo.get("unknown1");
+//        servo3 = hardwareMap.servo.get("unknown2");
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
         backMotorLeft.setDirection(DcMotor.Direction.REVERSE);
 
@@ -85,95 +85,80 @@ public class SixWheelDrive extends OpMode {
     public void loop() {
 
         // Change current speed mode based on the joystick bumper
-        if (gamepad2.right_bumper) {
+        if (gamepad1.right_bumper) {
             mode = TURBO_MODE;
         } else {
             mode = SLOW_MODE;
         }
 
-        // throttle: left_stick_y ranges from -1 to 1, where -1 is full up, and
-        // 1 is full down
-        // direction: left_stick_x ranges from -1 to 1, where -1 is full left
-        // and 1 is full right
-        float throttle = -gamepad1.left_stick_y;
-        float direction = gamepad1.left_stick_x;
-        float right = throttle - direction;
-        float left = throttle + direction;
+        float leftY = -gamepad1.left_stick_y;
+        float rightY = -gamepad1.right_stick_y;
 
-        // clip the right/left values so that the values never exceed +/- 1
-        right = Range.clip(right, -1, 1);
-        left = Range.clip(left, -1, 1);
+        leftY = (float)scaleInput(leftY);
+        rightY = (float)scaleInput(rightY);
 
-        // scale the joystick value to make it easier to control
-        // the robot more precisely at slower speeds.
-        right = (float)scaleInput(right);
-        left =  (float)scaleInput(left);
-
-        // write the values to the motors
-        frontMotorLeft.setPower(left);
-        numOfMotors++;
-        frontMotorRight.setPower(right);
-        numOfMotors++;
-        backMotorLeft.setPower(left);
-        numOfMotors++;
-        backMotorRight.setPower(right);
-        numOfMotors++;
+        frontMotorLeft.setPower(leftY);
+        frontMotorRight.setPower(rightY);
+        backMotorLeft.setPower(leftY);
+        backMotorRight.setPower(rightY);
 
 //        Manipulator code. Commented out until the manipulator is attached.
-        while (gamepad2.a) {
-
-            if(gamepad2.dpad_up){
-              servo1.setPosition(1);
-              numOfMotors += 1;
-            }
-            else if(gamepad2.dpad_down){
-                servo1.setPosition(0);
-                numOfMotors += 1;
-            }
-            else{
-                servo1.setPosition(0.5);
-            }
-
-        }
+//        while (gamepad2.a) {
+//
+//            if(gamepad2.dpad_up){
+//              servo1.setPosition(1);
+//              numOfMotors += 1;
+//            }
+//            else if(gamepad2.dpad_down){
+//                servo1.setPosition(0);
+//                numOfMotors += 1;
+//            }
+//            else{
+//                servo1.setPosition(0.5);
+//            }
+//
+//        }
 
 //        For going up the ramp.
-        while (gamepad1.x) {
+        if (gamepad1.x) {
             if(gamepad1.dpad_up){
                 axleMotorFront.setPower(1);
-                numOfMotors++;
+                //numOfMotors++;
             }
             else if(gamepad1.dpad_down){
                 axleMotorFront.setPower(-1);
-                numOfMotors++;
+                //numOfMotors++;
             }
             else {
                 axleMotorFront.setPower(0);
             }
-        }
-
-        while (gamepad1.b) {
+        }else if (gamepad1.b) {
             if (gamepad1.dpad_up){
                 axleMotorBack.setPower(1);
-                numOfMotors++;
+                //numOfMotors++;
             }
             else if (gamepad1.dpad_down){
                 axleMotorBack.setPower(-1);
-                numOfMotors++;
+                //numOfMotors++;
             }
             else{
                 axleMotorBack.setPower(0);
             }
+        }else {
+            axleMotorFront.setPower(0);
+            axleMotorBack.setPower(0);
         }
 
-        if (numOfMotors > 6){
-            frontMotorLeft.setPower(0);
-            backMotorLeft.setPower(0);
-            frontMotorRight.setPower(0);
-            backMotorRight.setPower(0);
-            axleMotorBack.setPower(0);
-            axleMotorFront.setPower(0);
-            servo1.setPosition(0.5);
-        }
+
+//        if (numOfMotors > 6){
+//            frontMotorLeft.setPower(0);
+//            backMotorLeft.setPower(0);
+//            frontMotorRight.setPower(0);
+//            backMotorRight.setPower(0);
+//            axleMotorBack.setPower(0);
+//            axleMotorFront.setPower(0);
+//            servo1.setPosition(0.5);
+//        }
 
 
 
@@ -188,8 +173,8 @@ public class SixWheelDrive extends OpMode {
        * are currently write only.
        */
         telemetry.addData("Text", "*** Robot Data***");
-        telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
-        telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
+        telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", leftY));
+        telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", rightY));
 
     }
 
