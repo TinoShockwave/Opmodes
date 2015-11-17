@@ -63,7 +63,7 @@ public class TeleOpTank extends OpMode {
 //        servo2 = hardwareMap.servo.get("unknown1");
 //        servo3 = hardwareMap.servo.get("unknown2");
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
-        backMotorLeft.setDirection(DcMotor.Direction.REVERSE);
+        backMotorRight.setDirection(DcMotor.Direction.REVERSE);
 
         /*
          * Motors axleMotorFront and axleMotorBack are set in staggered
