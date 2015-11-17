@@ -22,5 +22,4 @@ public class GyroExample extends OpMode {
     public void turn(){
         telemetry.addData("Rotation", gyro.getRotation());
     }
-
 }

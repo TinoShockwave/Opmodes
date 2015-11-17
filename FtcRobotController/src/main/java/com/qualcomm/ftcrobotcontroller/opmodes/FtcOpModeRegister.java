@@ -65,6 +65,8 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("AutonomousTest", AutonomousTest.class);
       manager.register("Autonomous", Autonomous.class);
       manager.register("EncoderTest", EncoderTest.class);
+      manager.register("TeleOpArcade", TeleOpArcade.class);
+      manager.register("TeleOpTank", TeleOpTank.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.
@@ -111,7 +113,6 @@ public class FtcOpModeRegister implements OpModeRegister {
 	//manager.register("HotFollowLine", HotFollowLine.class);
 	//manager.register("BeaconClimberAuto", BeaconClimberAuto.class);
 	//manager.register("ColorSensorAutoTest", ColorSensorAutoTest.class);
-	manager.register("SixWheelDrive", SixWheelDrive.class);
 
   }
 }
