@@ -15,6 +15,7 @@ public class AutonomousExperimental extends Autonomous {
         backMotorRight = hardwareMap.dcMotor.get("motor_4");
         axleMotorFront = hardwareMap.dcMotor.get("motor_5");
         axleMotorBack = hardwareMap.dcMotor.get("motor_6");
+        gyro = hardwareMap.gyroSensor.get("gyro");
 
         robot = new Autonomous();
     }

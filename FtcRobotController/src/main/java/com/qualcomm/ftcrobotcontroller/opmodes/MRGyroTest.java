@@ -43,6 +43,9 @@ import com.qualcomm.robotcore.hardware.Servo;
  * The op mode assumes that the gyro sensor
  * is configured with a name of "gyro".
  *
+ * Additionally, you can attach a servo to the Modern Robotics Gyro
+ * and view the Gyro readings from there.
+ *
  *
  *
  */
