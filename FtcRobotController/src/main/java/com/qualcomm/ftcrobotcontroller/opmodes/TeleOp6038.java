@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.Range;
  * TeleOp Mode
  * Enables control of the robot via the gamepad
  */
-public class TeleOpTank extends OpMode {
+public class TeleOp6038 extends OpMode {
 
     DcMotor frontMotorLeft;
     DcMotor frontMotorRight;
@@ -20,7 +20,7 @@ public class TeleOpTank extends OpMode {
 //    Servo servo1;
 //    Servo servo2;
 //    Servo servo3;
-    //int numOfMotors;
+    int numOfMotors;
 
 
     // Initialize SLOW and TURBO Modes
@@ -30,7 +30,7 @@ public class TeleOpTank extends OpMode {
     /**
      * Constructor
      */
-    public TeleOpTank() {
+    public TeleOp6038() {
 
     }
 
@@ -98,9 +98,13 @@ public class TeleOpTank extends OpMode {
         rightY = (float)scaleInput(rightY);
 
         frontMotorLeft.setPower(leftY);
+        numOfMotors++;
         frontMotorRight.setPower(rightY);
+        numOfMotors++;
         backMotorLeft.setPower(leftY);
+        numOfMotors++;
         backMotorRight.setPower(rightY);
+        numOfMotors++;
 
 //        Manipulator code. Commented out until the manipulator is attached.
 //        while (gamepad2.a) {
@@ -120,26 +124,26 @@ public class TeleOpTank extends OpMode {
 //        }
 
 //        For going up the ramp.
-        if (gamepad1.x) {
+        if (gamepad1.y) {
             if(gamepad1.dpad_up){
                 axleMotorFront.setPower(1);
-                //numOfMotors++;
+                numOfMotors++;
             }
             else if(gamepad1.dpad_down){
                 axleMotorFront.setPower(-1);
-                //numOfMotors++;
+                numOfMotors++;
             }
             else {
                 axleMotorFront.setPower(0);
             }
-        }else if (gamepad1.b) {
+        }else if (gamepad1.a) {
             if (gamepad1.dpad_up){
                 axleMotorBack.setPower(1);
-                //numOfMotors++;
+                numOfMotors++;
             }
             else if (gamepad1.dpad_down){
                 axleMotorBack.setPower(-1);
-                //numOfMotors++;
+                numOfMotors++;
             }
             else{
                 axleMotorBack.setPower(0);
@@ -150,15 +154,17 @@ public class TeleOpTank extends OpMode {
         }
 
 
-//        if (numOfMotors > 6){
-//            frontMotorLeft.setPower(0);
-//            backMotorLeft.setPower(0);
-//            frontMotorRight.setPower(0);
-//            backMotorRight.setPower(0);
-//            axleMotorBack.setPower(0);
-//            axleMotorFront.setPower(0);
-//            servo1.setPosition(0.5);
-//        }
+        if (numOfMotors > 6){
+            while (this.time < 3) {
+                frontMotorLeft.setPower(0);
+                backMotorLeft.setPower(0);
+                frontMotorRight.setPower(0);
+                backMotorRight.setPower(0);
+                axleMotorBack.setPower(0);
+                axleMotorFront.setPower(0);
+                //servo1.setPosition(0.5);
+            }
+        }
 
 
 
