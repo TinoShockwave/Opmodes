@@ -53,7 +53,11 @@ public class Autonomous extends OpMode {
         }
     }
 
-    public void turn(int angle, String direction) {
+    public void turn(int angle, String direction) throws InterruptedException {
+        gyro.calibrate();
+        while (gyro.isCalibrating()) {
+            Thread.sleep(50);
+        }
         if (direction.equals("left")) {
             while (gyro.getHeading() <= angle) {
                 moveMotorAlt(frontMotorLeft, -0.5);
