@@ -23,7 +23,19 @@ public class AutonomousExperimental extends Autonomous {
     //Distance is in INCHES
     @Override
     public void loop() {
-        robot.moveRobot(24, 0.5, "forward");
+        robot.moveRobot(72, 0.5, "forward");
+        try {
+            robot.turn(135, "right");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        robot.moveRobot(12, 0.5, "forward");
+        try {
+            robot.turn(90, "right");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        robot.moveRobot(56, 0.5, "forward");
     }
 }
 

@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
  * TeleOp Mode
@@ -17,6 +18,7 @@ public class TeleOp6038 extends OpMode {
     DcMotor backMotorRight;
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
+    TouchSensor touch;
 //    Servo servo1;
 //    Servo servo2;
 //    Servo servo3;
@@ -127,10 +129,16 @@ public class TeleOp6038 extends OpMode {
         if (gamepad1.y) {
             if(gamepad1.dpad_up){
                 axleMotorFront.setPower(1);
+                if (touch.isPressed()) {
+                    axleMotorFront.setPower(0);
+                }
                 numOfMotors++;
             }
             else if(gamepad1.dpad_down){
                 axleMotorFront.setPower(-1);
+                if (touch.isPressed()) {
+                    axleMotorFront.setPower(0);
+                }
                 numOfMotors++;
             }
             else {
@@ -139,10 +147,16 @@ public class TeleOp6038 extends OpMode {
         }else if (gamepad1.a) {
             if (gamepad1.dpad_up){
                 axleMotorBack.setPower(1);
+                if (touch.isPressed()) {
+                    axleMotorBack.setPower(0);
+                }
                 numOfMotors++;
             }
             else if (gamepad1.dpad_down){
                 axleMotorBack.setPower(-1);
+                if (touch.isPressed()) {
+                    axleMotorBack.setPower(0);
+                }
                 numOfMotors++;
             }
             else{
