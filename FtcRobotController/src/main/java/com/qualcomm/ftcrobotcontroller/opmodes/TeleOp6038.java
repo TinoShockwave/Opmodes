@@ -18,7 +18,8 @@ public class TeleOp6038 extends OpMode {
     DcMotor backMotorRight;
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
-    TouchSensor touch;
+    TouchSensor limitSwitch1;
+    TouchSensor limitSwitch2;
 //    Servo servo1;
 //    Servo servo2;
 //    Servo servo3;
@@ -128,36 +129,40 @@ public class TeleOp6038 extends OpMode {
 //        For going up the ramp.
         if (gamepad1.y) {
             if(gamepad1.dpad_up){
-                axleMotorFront.setPower(1);
-                if (touch.isPressed()) {
+                if (limitSwitch1.isPressed()) {
                     axleMotorFront.setPower(0);
                 }
-                numOfMotors++;
+                else {
+                    axleMotorFront.setPower(1);
+                }
             }
             else if(gamepad1.dpad_down){
-                axleMotorFront.setPower(-1);
-                if (touch.isPressed()) {
+                if (limitSwitch1.isPressed()) {
                     axleMotorFront.setPower(0);
                 }
-                numOfMotors++;
+                else {
+                    axleMotorFront.setPower(-1);
+                }
             }
             else {
                 axleMotorFront.setPower(0);
             }
         }else if (gamepad1.a) {
             if (gamepad1.dpad_up){
-                axleMotorBack.setPower(1);
-                if (touch.isPressed()) {
+                if (limitSwitch2.isPressed()) {
                     axleMotorBack.setPower(0);
                 }
-                numOfMotors++;
+                else {
+                    axleMotorBack.setPower(1);
+                }
             }
             else if (gamepad1.dpad_down){
-                axleMotorBack.setPower(-1);
-                if (touch.isPressed()) {
+                if (limitSwitch2.isPressed()) {
                     axleMotorBack.setPower(0);
                 }
-                numOfMotors++;
+                else {
+                    axleMotorBack.setPower(-1);
+                }
             }
             else{
                 axleMotorBack.setPower(0);
@@ -165,19 +170,6 @@ public class TeleOp6038 extends OpMode {
         }else {
             axleMotorFront.setPower(0);
             axleMotorBack.setPower(0);
-        }
-
-
-        if (numOfMotors > 6){
-            while (this.time < 3) {
-                frontMotorLeft.setPower(0);
-                backMotorLeft.setPower(0);
-                frontMotorRight.setPower(0);
-                backMotorRight.setPower(0);
-                axleMotorBack.setPower(0);
-                axleMotorFront.setPower(0);
-                //servo1.setPosition(0.5);
-            }
         }
 
 
@@ -219,8 +211,8 @@ public class TeleOp6038 extends OpMode {
             scaleArray = new double[]{0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
                     0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00};
         } else if (mode == SLOW_MODE) {
-            scaleArray = new double[]{0.0, 0.0167, 0.03, 0.0333, 0.04, 0.05, 0.06, 0.08,
-                    0.10, 0.12, 0.143, 0.167, 0.2, 0.24, 0.283, 0.33, 0.33};
+            scaleArray = new double[]{0.0, 0.01667, 0.03, 0.0333, 0.04, 0.05, 0.06, 0.08,
+                    0.10, 0.12, 0.143, 0.1667, 0.2, 0.24, 0.283, 0.333, 0.333};
         }
 
         // get the corresponding index for the scaleInput array.
