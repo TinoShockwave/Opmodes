@@ -22,6 +22,6 @@ public class LimitSwitchTest extends OpMode {
 
     @Override
     public void loop() {
-        telemetry.addData("Pressed", limitSwitch.isPressed());
+        telemetry.addData("Is Pressed", limitSwitch.isPressed());
     }
 }
