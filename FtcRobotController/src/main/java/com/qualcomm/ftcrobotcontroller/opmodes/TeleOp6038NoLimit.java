@@ -41,7 +41,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  * TeleOp Mode
  * Enables control of the robot via the gamepad
  */
-public class TeleOp6038 extends OpMode {
+public class TeleOp6038NoLimit extends OpMode {
 
     DcMotor frontMotorLeft;
     DcMotor frontMotorRight;
@@ -50,8 +50,8 @@ public class TeleOp6038 extends OpMode {
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
     DcMotor arm;
-    TouchSensor limitSwitch1;
-//    TouchSensor limitSwitch2;
+    //TouchSensor limitSwitch1;
+    //    TouchSensor limitSwitch2;
 //    Servo servo1;
 //    Servo servo2;
 //    Servo servo3;
@@ -65,7 +65,7 @@ public class TeleOp6038 extends OpMode {
     /**
      * Constructor
      */
-    public TeleOp6038() {
+    public TeleOp6038NoLimit() {
 
     }
 
@@ -95,11 +95,11 @@ public class TeleOp6038 extends OpMode {
         axleMotorFront = hardwareMap.dcMotor.get("motor_5");
         axleMotorBack = hardwareMap.dcMotor.get("motor_6");
         arm = hardwareMap.dcMotor.get("motor_7");
-        limitSwitch1 = hardwareMap.touchSensor.get("limit");
+        //limitSwitch1 = hardwareMap.touchSensor.get("limit");
 //        servo1 = hardwareMap.servo.get("manipulator");
 //        servo2 = hardwareMap.servo.get("unknown1");
 //        servo3 = hardwareMap.servo.get("unknown2");
-        frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
+        frontMotorLeft.setDirection(DcMotor.Direction.REVERSE);
         backMotorRight.setDirection(DcMotor.Direction.REVERSE);
 
         /*
@@ -175,16 +175,11 @@ public class TeleOp6038 extends OpMode {
 
 //        For going up the ramp.
         if (gamepad1.y) {
-            if(gamepad1.dpad_up){
+            if(gamepad1.dpad_down){
                 axleMotorFront.setPower(1);
             }
-            else if(gamepad1.dpad_down){
-                if (limitSwitch1.isPressed()) {
-                    axleMotorFront.setPower(0);
-                }
-                else {
-                    axleMotorFront.setPower(-1);
-                }
+            else if(gamepad1.dpad_up){
+                axleMotorFront.setPower(-1);
             }
             else {
                 axleMotorFront.setPower(0);
