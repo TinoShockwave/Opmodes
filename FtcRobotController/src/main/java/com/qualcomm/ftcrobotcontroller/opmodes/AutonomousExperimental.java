@@ -57,13 +57,32 @@ public class AutonomousExperimental extends Autonomous {
     //Distance is in INCHES
     @Override
     public void loop() {
-        robot.moveRobot(72, 0.5, "forward");
-        robot.turn(135, "right");
-        robot.moveRobot(12, 0.5, "forward");
-        robot.turn(90, "right");
-        robot.moveRobot(56, 0.5, "forward");
+        switch (auto_state) {
+            case 0:
+                robot.moveRobot(72, 0.5, "forward");
+                auto_state++;
+                break;
+            case 1:
+                robot.turn(135, "right");
+                auto_state++;
+                break;
+            case 2:
+                robot.moveRobot(12, 0.5, "forward");
+                auto_state++;
+                break;
+            case 3:
+                robot.turn(90, "right");
+                auto_state++;
+                break;
+            case 4:
+                robot.moveRobot(56, 0.5, "forward");
+                auto_state++;
+                break;
+            default:
+                break;
+        }
+        telemetry.addData("Autonomous Step Number", + auto_state);
     }
-
-
+    private int auto_state = 0;
 }
 
