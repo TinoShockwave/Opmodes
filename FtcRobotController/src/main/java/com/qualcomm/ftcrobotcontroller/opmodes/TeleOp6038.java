@@ -144,28 +144,13 @@ public class TeleOp6038 extends OpMode {
         numOfMotors++;
 
 
-//        Manipulator code. Commented out until the manipulator is attached.
-//        while (gamepad2.a) {
-//
-//            if(gamepad2.dpad_up){
-//              servo1.setPosition(1);
-//              numOfMotors += 1;
-//            }
-//            else if(gamepad2.dpad_down){
-//                servo1.setPosition(0);
-//                numOfMotors += 1;
-//            }
-//            else{
-//                servo1.setPosition(0.5);
-//            }
-//
-//        }
 
-        if (gamepad1.b) {
-            if (gamepad1.dpad_up) {
+
+        if (gamepad2.b) {
+            if (gamepad2.dpad_up) {
                 arm.setPower(1);
             }
-            else if (gamepad1.dpad_down) {
+            else if (gamepad2.dpad_down) {
                 arm.setPower(-1);
             }
             else {
