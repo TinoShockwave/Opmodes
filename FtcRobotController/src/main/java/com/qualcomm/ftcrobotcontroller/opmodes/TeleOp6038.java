@@ -52,10 +52,8 @@ public class TeleOp6038 extends OpMode {
     DcMotor arm;
     TouchSensor limitSwitch1;
 //    TouchSensor limitSwitch2;
-//    Servo servo1;
-//    Servo servo2;
-//    Servo servo3;
-    int numOfMotors;
+    Servo servo1;
+    Servo servo2;
 
 
     // Initialize SLOW and TURBO Modes
@@ -96,8 +94,8 @@ public class TeleOp6038 extends OpMode {
         axleMotorBack = hardwareMap.dcMotor.get("motor_6");
         arm = hardwareMap.dcMotor.get("motor_7");
         limitSwitch1 = hardwareMap.touchSensor.get("limit");
-//        servo1 = hardwareMap.servo.get("manipulator");
-//        servo2 = hardwareMap.servo.get("unknown1");
+        servo1 = hardwareMap.servo.get("servo_1");
+        servo2 = hardwareMap.servo.get("servo_2");
 //        servo3 = hardwareMap.servo.get("unknown2");
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
         backMotorRight.setDirection(DcMotor.Direction.REVERSE);
@@ -135,14 +133,9 @@ public class TeleOp6038 extends OpMode {
         rightY = (float)scaleInput(rightY);
 
         frontMotorLeft.setPower(leftY);
-        numOfMotors++;
         frontMotorRight.setPower(rightY);
-        numOfMotors++;
         backMotorLeft.setPower(leftY);
-        numOfMotors++;
         backMotorRight.setPower(rightY);
-        numOfMotors++;
-
 
 
 
@@ -160,15 +153,15 @@ public class TeleOp6038 extends OpMode {
 
 //        For going up the ramp.
         if (gamepad1.y) {
-            if(gamepad1.dpad_up){
-                axleMotorFront.setPower(1);
+            if(gamepad1.dpad_down){
+                axleMotorFront.setPower(-1);
             }
-            else if(gamepad1.dpad_down){
+            else if(gamepad1.dpad_up){
                 if (limitSwitch1.isPressed()) {
                     axleMotorFront.setPower(0);
                 }
                 else {
-                    axleMotorFront.setPower(-1);
+                    axleMotorFront.setPower(1);
                 }
             }
             else {

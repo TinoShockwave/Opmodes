@@ -61,9 +61,9 @@ public class Autonomous extends OpMode {
     public void moveMotor(DcMotor motor, double distance, double power) {
         double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         int position = (int) encoderClicks;
-        motor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor.setTargetPosition(position);
-        motor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        motor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
         motor.setPower(power);
     }
 

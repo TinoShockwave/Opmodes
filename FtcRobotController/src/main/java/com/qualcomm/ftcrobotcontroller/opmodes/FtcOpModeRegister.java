@@ -69,6 +69,7 @@ public class FtcOpModeRegister implements OpModeRegister {
       //manager.register("LimitSwitchTest", LimitSwitchTest.class);
       manager.register("DistanceSensorTest", DistanceSensorTest.class);
       manager.register("TeleOp6038NoLimit", TeleOp6038NoLimit.class);
+      manager.register("EncoderTest", EncoderTest.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.
