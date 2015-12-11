@@ -31,6 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -39,7 +40,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 /**
  * Created by Kashyap on 11/4/15.
  */
-public class Autonomous extends OpMode {
+public class Autonomous extends LinearOpMode {
     final static int ENCODER_CPR = 1120;
     final static double GEAR_RATIO = 1;
     final static double WHEEL_CIRCUMFERENCE = 7.85;
@@ -52,22 +53,17 @@ public class Autonomous extends OpMode {
     DcMotor axleMotorBack;
     GyroSensor gyro;
 
-    public Autonomous() {
-
-    }
-
     //Input: Distance in inches
     //Output: Distance in encoder pulses
     public void moveMotor(DcMotor motor, double distance, double power) {
         double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
-        int position = (int) encoderClicks;
-        motor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        motor.setTargetPosition(position);
-        motor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        motor.setPower(power);
+        while (motor.getCurrentPosition() < encoderClicks) {
+            motor.setPower(power);
+        }
+        motor.setPower(0);
     }
 
-    public void moveMotorAlt(DcMotor motor, double power) {
+    public void moveMotorFrvr(DcMotor motor, double power) {
         motor.setPower(power);
     }
 
@@ -89,30 +85,24 @@ public class Autonomous extends OpMode {
         gyro.resetZAxisIntegrator();
         if (direction.equals("left")) {
             while (gyro.getHeading() <= angle) {
-                moveMotorAlt(frontMotorLeft, -0.5);
-                moveMotorAlt(frontMotorRight, 0.5);
-                moveMotorAlt(backMotorLeft, -0.5);
-                moveMotorAlt(backMotorRight, 0.5);
+                moveMotorFrvr(frontMotorLeft, -0.5);
+                moveMotorFrvr(frontMotorRight, 0.5);
+                moveMotorFrvr(backMotorLeft, -0.5);
+                moveMotorFrvr(backMotorRight, 0.5);
             }
         } else if (direction.equals("right")) {
             while (gyro.getHeading() <= angle) {
-                moveMotorAlt(frontMotorLeft, 0.5);
-                moveMotorAlt(frontMotorRight, -0.5);
-                moveMotorAlt(backMotorLeft, 0.5);
-                moveMotorAlt(backMotorRight, -0.5);
+                moveMotorFrvr(frontMotorLeft, 0.5);
+                moveMotorFrvr(frontMotorRight, -0.5);
+                moveMotorFrvr(backMotorLeft, 0.5);
+                moveMotorFrvr(backMotorRight, -0.5);
             }
         }
 
     }
 
-
     @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void loop() {
+    public void runOpMode() throws InterruptedException {
 
     }
 }

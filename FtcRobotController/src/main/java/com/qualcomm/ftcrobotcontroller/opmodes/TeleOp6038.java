@@ -74,17 +74,10 @@ public class TeleOp6038 extends OpMode {
      */
     @Override
     public void init() {
-
-
       /*
        * Use the hardwareMap to get the dc motors and servos by name. Note
        * that the names of the devices must match the names used when you
        * configured your robot and created the configuration file.
-       */
-
-      /*
-       * We also assume that there is one servo "servo_1."
-       *    "servo_1" controls the manipulator.
        */
         frontMotorLeft = hardwareMap.dcMotor.get("motor_1");
         frontMotorRight = hardwareMap.dcMotor.get("motor_2");
@@ -105,10 +98,6 @@ public class TeleOp6038 extends OpMode {
          * position maintained on the mid-cross channel. Therefore both
          * motors will need to rotate in the same direction.
          */
-
-
-
-
     }
 
     /*
@@ -138,8 +127,8 @@ public class TeleOp6038 extends OpMode {
         backMotorRight.setPower(rightY);
 
 
-
-        if (gamepad2.b) {
+//      For the arm
+        if (gamepad2.a) {
             if (gamepad2.dpad_up) {
                 arm.setPower(1);
             }
@@ -149,6 +138,34 @@ public class TeleOp6038 extends OpMode {
             else {
                 arm.setPower(0);
             }
+        }
+
+//      For the side servos
+        if (gamepad2.x) {
+            if (gamepad2.dpad_left) {
+                servo1.setPosition(0);
+            }
+            else if (gamepad2.dpad_right) {
+                servo1.setPosition(1);
+            }
+            else {
+                servo1.setPosition(0.5);
+            }
+        }
+        else if (gamepad2.b) {
+            if (gamepad2.dpad_right) {
+                servo2.setPosition(0);
+            }
+            else if (gamepad2.dpad_left) {
+                servo2.setPosition(1);
+            }
+            else {
+                servo2.setPosition(0.5);
+            }
+        }
+        else {
+            servo1.setPosition(0.5);
+            servo2.setPosition(0.5);
         }
 
 //        For going up the ramp.
@@ -184,18 +201,9 @@ public class TeleOp6038 extends OpMode {
 
 
 
-        // both axleMotorFront and axleMotorBack require the same set values
-
-
-
-      /*
-       * Send telemetry data back to driver station. Note that if we are using
-       * a legacy NXT-compatible motor controller, then the getPower() method
-       * will return a null value. The legacy NXT-compatible motor controllers
-       * are currently write only.
-       */
+       //Send telemetry data back to driver station.
         telemetry.addData("Text", "*** Robot Data***");
-        telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", leftY));
+        telemetry.addData("left tgt pwr", "left  pwr: " + String.format("%.2f", leftY));
         telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", rightY));
 
     }
