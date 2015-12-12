@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 /**
  * Created by Kashyap on 11/4/15.
@@ -52,19 +53,24 @@ public class Autonomous extends LinearOpMode {
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
     GyroSensor gyro;
+    OpticalDistanceSensor distance;
 
     //Input: Distance in inches
     //Output: Distance in encoder pulses
     public void moveMotor(DcMotor motor, double distance, double power) {
+        motor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
+        motor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         while (motor.getCurrentPosition() < encoderClicks) {
             motor.setPower(power);
+            checkForDebris();
         }
         motor.setPower(0);
     }
 
     public void moveMotorFrvr(DcMotor motor, double power) {
         motor.setPower(power);
+        checkForDebris();
     }
 
     public void moveRobot(int distance, double power, String direction) {
@@ -79,6 +85,15 @@ public class Autonomous extends LinearOpMode {
             moveMotor(backMotorLeft, distance, -power);
             moveMotor(backMotorRight, distance, -power);
         }
+    }
+
+    public void stopRobot() {
+        moveMotor(frontMotorLeft, 0, 0);
+        moveMotor(frontMotorRight, 0, 0);
+        moveMotor(backMotorLeft, 0, 0);
+        moveMotor(backMotorRight, 0, 0);
+        moveMotor(axleMotorFront, 0, 0);
+        moveMotor(axleMotorBack, 0, 0);
     }
 
     public void turn(int angle, String direction) {
@@ -99,6 +114,12 @@ public class Autonomous extends LinearOpMode {
             }
         }
 
+    }
+
+    public void checkForDebris() {
+        if (distance.getLightDetectedRaw() > 200 && distance.getLightDetectedRaw() < 640) {
+            stopRobot();
+        }
     }
 
     @Override

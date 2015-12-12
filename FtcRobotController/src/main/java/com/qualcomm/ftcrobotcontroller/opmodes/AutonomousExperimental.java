@@ -31,6 +31,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.robotcore.hardware.DcMotorController;
+
 /**
  * Created by Kashyap Panda on 9/28/15.
 */
@@ -48,6 +50,12 @@ public class AutonomousExperimental extends Autonomous {
         gyro = hardwareMap.gyroSensor.get("gyro");
 
         robot = new Autonomous();
+
+        frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        backMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        backMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+
 
         gyro.calibrate();
         while (gyro.isCalibrating()) {
