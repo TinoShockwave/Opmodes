@@ -57,7 +57,7 @@ public class DistanceSensorTest extends OpMode {
 
         if (distance.getLightDetectedRaw() > 200 && distance.getLightDetectedRaw() < 640) {
             telemetry.addData("Object Detected", "true");
-            
+
         }
         else {
             telemetry.addData("Object Detected", "false");
