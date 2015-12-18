@@ -37,6 +37,9 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 /**
  * Created by Kashyap on 11/25/15.
  */
+
+//This program tests the distance sensor
+
 public class DistanceSensorTest extends OpMode {
 
     OpticalDistanceSensor distance;
@@ -51,6 +54,13 @@ public class DistanceSensorTest extends OpMode {
         distance.enableLed(false);
         telemetry.addData("Light Detected", distance.getLightDetected());
         telemetry.addData("Raw Light Detected", distance.getLightDetectedRaw());
-        //telemetry.addData("Status", distance.status());
+
+        if (distance.getLightDetectedRaw() > 200 && distance.getLightDetectedRaw() < 640) {
+            telemetry.addData("Object Detected", "true");
+            
+        }
+        else {
+            telemetry.addData("Object Detected", "false");
+        }
     }
 }
