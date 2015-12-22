@@ -53,27 +53,23 @@ public class FtcOpModeRegister implements OpModeRegister {
      * The second parameter is the op mode class property
      *
      * If two or more op modes are registered with the same name, the app will display an error.
+     * Uncomment any of the following lines if you want to register an op mode.
      */
 
-    manager.register("NullOp", NullOp.class);
-
-    //manager.register("K9TeleOp", K9TeleOp.class);
-    //manager.register ("PushBotAuto", PushBotAuto.class);
-    //manager.register ("PushBotManual", PushBotManual.class);
-      //manager.register("ServoExample", ServoExample.class);
-      manager.register("AutonomousExperimental", AutonomousExperimental.class);
+//    manager.register("NullOp", NullOp.class);
+//    manager.register("K9TeleOp", K9TeleOp.class);
+//    manager.register ("PushBotAuto", PushBotAuto.class);
+//    manager.register ("PushBotManual", PushBotManual.class);
+//    manager.register("ServoExample", ServoExample.class);
+      manager.register("AutonomousMain", AutonomousMain.class);
       manager.register("AutonomousTest", AutonomousTest.class);
       manager.register("Autonomous", Autonomous.class);
       manager.register("TeleOp6038", TeleOp6038.class);
-      //manager.register("MRGyroTest", MRGyroTest.class);
-      //manager.register("LimitSwitchTest", LimitSwitchTest.class);
-      manager.register("DistanceSensorTest", DistanceSensorTest.class);
+//    manager.register("MRGyroTest", MRGyroTest.class);
+//    manager.register("LimitSwitchTest", LimitSwitchTest.class);
+//    manager.register("DistanceSensorTest", DistanceSensorTest.class);
       manager.register("TeleOp6038NoLimit", TeleOp6038NoLimit.class);
-      manager.register("EncoderTest", EncoderTest.class);
-
-    /*
-     * Uncomment any of the following lines if you want to register an op mode.
-     */
+//    manager.register("EncoderTest", EncoderTest.class);
 
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("MRRGBExample", MRRGBExample.class);

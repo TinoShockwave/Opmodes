@@ -32,7 +32,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
@@ -57,7 +56,7 @@ public class Autonomous extends LinearOpMode {
 
     //Input: Distance in inches
     //Output: Distance in encoder pulses
-    public void moveMotor(DcMotor motor, double distance, double power) {
+    public void moveMotorEnc(DcMotor motor, double distance, double power) {
         motor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         motor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
@@ -68,49 +67,56 @@ public class Autonomous extends LinearOpMode {
         motor.setPower(0);
     }
 
-    public void moveMotorFrvr(DcMotor motor, double power) {
+    public void moveMotor(DcMotor motor, double power) {
         motor.setPower(power);
         checkForDebris();
     }
 
     public void moveRobot(int distance, double power, String direction) {
+        frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
+        frontMotorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        frontMotorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         if (direction.equals("forward")) {
-            moveMotor(frontMotorLeft, distance, power);
-            moveMotor(frontMotorRight, distance, power);
-            moveMotor(backMotorLeft, distance, power);
-            moveMotor(backMotorRight, distance, power);
+            while (frontMotorLeft.getCurrentPosition() <= encoderClicks || frontMotorRight.getCurrentPosition() <= encoderClicks) {
+                moveMotor(frontMotorLeft, power);
+                moveMotor(frontMotorRight, power);
+                moveMotor(backMotorLeft, power);
+                moveMotor(backMotorRight, power);
+            }
         } else if (direction.equals("backward")) {
-            moveMotor(frontMotorLeft, distance, -power);
-            moveMotor(frontMotorRight, distance, -power);
-            moveMotor(backMotorLeft, distance, -power);
-            moveMotor(backMotorRight, distance, -power);
+            while (frontMotorLeft.getCurrentPosition() <= encoderClicks || frontMotorRight.getCurrentPosition() <= encoderClicks) {
+                moveMotor(frontMotorLeft, -power);
+                moveMotor(frontMotorRight, -power);
+                moveMotor(backMotorLeft, -power);
+                moveMotor(backMotorRight, -power);
+            }
         }
     }
 
     public void stopRobot() {
-        moveMotor(frontMotorLeft, 0, 0);
-        moveMotor(frontMotorRight, 0, 0);
-        moveMotor(backMotorLeft, 0, 0);
-        moveMotor(backMotorRight, 0, 0);
-        moveMotor(axleMotorFront, 0, 0);
-        moveMotor(axleMotorBack, 0, 0);
+        frontMotorLeft.setPower(0);
+        frontMotorRight.setPower(0);
+        backMotorLeft.setPower(0);
+        backMotorRight.setPower(0);
     }
 
     public void turn(int angle, String direction) {
         gyro.resetZAxisIntegrator();
         if (direction.equals("left")) {
             while (gyro.getHeading() <= angle) {
-                moveMotorFrvr(frontMotorLeft, -0.5);
-                moveMotorFrvr(frontMotorRight, 0.5);
-                moveMotorFrvr(backMotorLeft, -0.5);
-                moveMotorFrvr(backMotorRight, 0.5);
+                moveMotor(frontMotorLeft, -0.5);
+                moveMotor(frontMotorRight, 0.5);
+                moveMotor(backMotorLeft, -0.5);
+                moveMotor(backMotorRight, 0.5);
             }
         } else if (direction.equals("right")) {
             while (gyro.getHeading() <= angle) {
-                moveMotorFrvr(frontMotorLeft, 0.5);
-                moveMotorFrvr(frontMotorRight, -0.5);
-                moveMotorFrvr(backMotorLeft, 0.5);
-                moveMotorFrvr(backMotorRight, -0.5);
+                moveMotor(frontMotorLeft, 0.5);
+                moveMotor(frontMotorRight, -0.5);
+                moveMotor(backMotorLeft, 0.5);
+                moveMotor(backMotorRight, -0.5);
             }
         }
 

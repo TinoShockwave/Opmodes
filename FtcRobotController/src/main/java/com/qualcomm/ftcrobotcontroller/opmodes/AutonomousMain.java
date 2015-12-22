@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
  * Created by Kashyap Panda on 9/28/15.
 */
 
-public class AutonomousExperimental extends Autonomous {
+public class AutonomousMain extends Autonomous {
     Autonomous robot;
 
     public void runOpMode() throws InterruptedException {
