@@ -95,13 +95,6 @@ public class Autonomous extends LinearOpMode {
         }
     }
 
-    public void stopRobot() {
-        frontMotorLeft.setPower(0);
-        frontMotorRight.setPower(0);
-        backMotorLeft.setPower(0);
-        backMotorRight.setPower(0);
-    }
-
     public void turn(int angle, String direction) {
         gyro.resetZAxisIntegrator();
         if (direction.equals("left")) {
@@ -126,6 +119,13 @@ public class Autonomous extends LinearOpMode {
         if (distance.getLightDetectedRaw() > 200 && distance.getLightDetectedRaw() < 640) {
             stopRobot();
         }
+    }
+
+    public void stopRobot() {
+        frontMotorLeft.setPower(0);
+        frontMotorRight.setPower(0);
+        backMotorLeft.setPower(0);
+        backMotorRight.setPower(0);
     }
 
     @Override
