@@ -65,10 +65,11 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("AutonomousTest", AutonomousTest.class);
       manager.register("Autonomous", Autonomous.class);
       manager.register("TeleOp6038", TeleOp6038.class);
+      manager.register("TeleOp6038Beta", TeleOp6038Beta.class);
+      manager.register("TeleOp6038NoLimit", TeleOp6038NoLimit.class);
 //    manager.register("MRGyroTest", MRGyroTest.class);
 //    manager.register("LimitSwitchTest", LimitSwitchTest.class);
 //    manager.register("DistanceSensorTest", DistanceSensorTest.class);
-      manager.register("TeleOp6038NoLimit", TeleOp6038NoLimit.class);
 //    manager.register("EncoderTest", EncoderTest.class);
 
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
@@ -90,15 +91,14 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register ("PushBotManual1", PushBotManual1.class);
     //manager.register ("PushBotAutoSensors", PushBotAutoSensors.class);
     //manager.register ("PushBotIrEvent", PushBotIrEvent.class);
-    
     //manager.register ("PushBotManualSensors", PushBotManualSensors.class);
     //manager.register ("PushBotOdsDetectEvent", PushBotOdsDetectEvent.class);
     //manager.register ("PushBotOdsFollowEvent", PushBotOdsFollowEvent.class);
-    //manager.register ("PushBotTouchEvent", PushBotTouchEvent.class);    
-    
+    //manager.register ("PushBotTouchEvent", PushBotTouchEvent.class);
     //manager.register("PushBotDriveTouch", PushBotDriveTouch.class);
     //manager.register("PushBotIrSeek", PushBotIrSeek.class);
     //manager.register("PushBotSquare", PushBotSquare.class);
+
 	//manager.register("TwoWheelOp", TwoWheelOp.class);
     //manager.register("IrAutoTest", IrAutoTest.class);
     //manager.register("TouchAutoTest", TouchAutoTest.class);

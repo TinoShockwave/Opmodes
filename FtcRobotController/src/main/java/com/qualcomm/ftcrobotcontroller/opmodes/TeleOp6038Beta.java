@@ -42,7 +42,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  * Enables control of the robot via the gamepad
  */
 
-public class TeleOp6038 extends OpMode {
+public class TeleOp6038Beta extends OpMode {
 
     DcMotor frontMotorLeft;
     DcMotor frontMotorRight;
@@ -52,7 +52,7 @@ public class TeleOp6038 extends OpMode {
     DcMotor axleMotorBack;
     DcMotor arm;
     TouchSensor limitSwitch1;
-//    TouchSensor limitSwitch2;
+    //    TouchSensor limitSwitch2;
     Servo servo1;
     Servo servo2;
     Servo servo3;
@@ -65,7 +65,7 @@ public class TeleOp6038 extends OpMode {
     /**
      * Constructor
      */
-    public TeleOp6038() {
+    public TeleOp6038Beta() {
 
     }
 
@@ -213,7 +213,7 @@ public class TeleOp6038 extends OpMode {
 
 
 
-       //Send telemetry data back to driver station.
+        //Send telemetry data back to driver station.
         telemetry.addData("Text", "*** Robot Data***");
         telemetry.addData("left tgt pwr", "left  pwr: " + String.format("%.2f", leftY));
         telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", rightY));

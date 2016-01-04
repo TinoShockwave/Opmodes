@@ -73,8 +73,7 @@ public class Autonomous extends LinearOpMode {
     }
 
     public void moveRobot(int distance, double power, String direction) {
-        frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        resetEncoders();
         double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         frontMotorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         frontMotorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
@@ -119,6 +118,11 @@ public class Autonomous extends LinearOpMode {
         if (distance.getLightDetectedRaw() > 200 && distance.getLightDetectedRaw() < 640) {
             stopRobot();
         }
+    }
+
+    public void resetEncoders() {
+        frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
 
     public void stopRobot() {
