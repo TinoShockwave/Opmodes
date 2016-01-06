@@ -40,6 +40,8 @@ import com.qualcomm.robotcore.hardware.Servo;
  * This is an example LinearOpMode that shows how to use
  * the Modern Robotics Gyro.
  *
+ * The Modern Robotics Gyro is an I2C Sensor.
+ *
  * The op mode assumes that the gyro sensor
  * is configured with a name of "gyro".
  *
@@ -81,8 +83,8 @@ public class MRGyroTest extends LinearOpMode {
 
     while (opModeIsActive())  {
       // if the A and B buttons are pressed, reset Z heading.
-      if(gamepad1.a && gamepad1.b) {
-        // reset heading.
+      if(gamepad1.x) {
+        // Resets the heading
         sensorGyro.resetZAxisIntegrator();
       }
 

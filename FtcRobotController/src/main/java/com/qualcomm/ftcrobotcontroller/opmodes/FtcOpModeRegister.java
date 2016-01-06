@@ -61,16 +61,16 @@ public class FtcOpModeRegister implements OpModeRegister {
 //    manager.register ("PushBotAuto", PushBotAuto.class);
 //    manager.register ("PushBotManual", PushBotManual.class);
 //    manager.register("ServoExample", ServoExample.class);
-      manager.register("AutonomousMain", AutonomousMain.class);
-      manager.register("AutonomousTest", AutonomousTest.class);
-      manager.register("Autonomous", Autonomous.class);
-      manager.register("TeleOp6038", TeleOp6038.class);
-      manager.register("TeleOp6038Beta", TeleOp6038Beta.class);
-      manager.register("TeleOp6038NoLimit", TeleOp6038NoLimit.class);
+//      manager.register("AutonomousMain", AutonomousMain.class);
+//      manager.register("AutonomousTest", AutonomousTest.class);
+//      manager.register("Autonomous", Autonomous.class);
+//      manager.register("TeleOp6038", TeleOp6038.class);
+//      manager.register("TeleOp6038Beta", TeleOp6038Beta.class);
+//      manager.register("TeleOp6038NoLimit", TeleOp6038NoLimit.class);
 //    manager.register("MRGyroTest", MRGyroTest.class);
 //    manager.register("LimitSwitchTest", LimitSwitchTest.class);
 //    manager.register("DistanceSensorTest", DistanceSensorTest.class);
-//    manager.register("EncoderTest", EncoderTest.class);
+    manager.register("EncoderTest", EncoderTest.class);
 
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("MRRGBExample", MRRGBExample.class);
