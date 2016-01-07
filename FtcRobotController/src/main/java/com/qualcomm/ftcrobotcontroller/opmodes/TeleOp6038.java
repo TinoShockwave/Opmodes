@@ -142,24 +142,19 @@ public class TeleOp6038 extends OpMode {
             }
         }
         else if (gamepad1.y) {
-            servo3.setPosition(0.5);
             if (gamepad1.dpad_up) {
-                servo3.setPosition(0.4);
-                servo3.setPosition(0.3);
-                servo3.setPosition(0.2);
-                servo3.setPosition(0.1);
                 servo3.setPosition(0);
             }
             else if (gamepad1.dpad_down) {
-                servo3.setPosition(0.6);
-                servo3.setPosition(0.7);
-                servo3.setPosition(0.8);
-                servo3.setPosition(0.9);
                 servo3.setPosition(1);
+            }
+            else {
+                servo3.setPosition(0.5);
             }
         }
         else {
             arm.setPower(0);
+            servo3.setPosition(0.5);
         }
 
 //      For the side servos

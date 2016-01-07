@@ -53,8 +53,6 @@ public class AutonomousMain extends Autonomous {
 
         frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        backMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        backMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
 
 
         gyro.calibrate();
