@@ -33,6 +33,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.TouchSensor;
@@ -52,19 +53,21 @@ public class TeleOp6038 extends OpMode {
     DcMotor axleMotorBack;
     DcMotor arm;
     TouchSensor limitSwitch1;
-//    TouchSensor limitSwitch2;
     Servo servo1;
     Servo servo2;
     Servo servo3;
+    GyroSensor gyro;
 
 
     // Initialize SLOW and TURBO Modes
     int mode = 0;
     final int TURBO_MODE = 0;
     final int SLOW_MODE = 1;
-    /**
-     * Constructor
-     */
+
+    boolean activateServo = true;
+    double position3 = 0.5;
+
+
     public TeleOp6038() {
 
     }
@@ -72,7 +75,6 @@ public class TeleOp6038 extends OpMode {
     /*
      * Code to run when the op mode is first enabled goes here
      *
-     * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
      */
     @Override
     public void init() {
@@ -92,14 +94,20 @@ public class TeleOp6038 extends OpMode {
         servo1 = hardwareMap.servo.get("servo_1");
         servo2 = hardwareMap.servo.get("servo_2");
         servo3 = hardwareMap.servo.get("servo_3");
+        gyro = hardwareMap.gyroSensor.get("gyro");
+
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
         backMotorRight.setDirection(DcMotor.Direction.REVERSE);
+
+        gyro.calibrate();
 
         /*
          * Motors axleMotorFront and axleMotorBack are set in staggered
          * position maintained on the mid-cross channel. Therefore both
          * motors will need to rotate in the same direction.
          */
+
+
     }
 
     /*
@@ -109,6 +117,10 @@ public class TeleOp6038 extends OpMode {
      */
     @Override
     public void loop() {
+
+        if (activateServo) {
+            servo3.setPosition(position3);
+        }
 
         // Change current speed mode based on the joystick bumper
         if (gamepad1.right_bumper) {
@@ -131,6 +143,7 @@ public class TeleOp6038 extends OpMode {
 
 //      For the arms
         if (gamepad1.a) {
+            //The big arm
             if (gamepad1.dpad_up) {
                 arm.setPower(-1);
             }
@@ -141,26 +154,22 @@ public class TeleOp6038 extends OpMode {
                 arm.setPower(0);
             }
         }
+        // servo3 is in port 1
         else if (gamepad1.y) {
+            //The little arm
             if (gamepad1.dpad_up) {
-                while(gamepad1.dpad_up) {
-                    servo3.setPosition(0.5);
-                    servo3.setPosition(0.6);
-                    servo3.setPosition(0.7);
-                    servo3.setPosition(0.8);
-                    servo3.setPosition(0.9);
-                    servo3.setPosition(1);
+                position3 -= 0.1;
+                if (position3 <= 0) {
+                    position3 = 0;
                 }
+                servo3.setPosition(position3);
             }
             else if (gamepad1.dpad_down) {
-                while(gamepad1.dpad_down) {
-                    servo3.setPosition(1);
-                    servo3.setPosition(0.9);
-                    servo3.setPosition(0.8);
-                    servo3.setPosition(0.7);
-                    servo3.setPosition(0.6);
-                    servo3.setPosition(0.5);
+                position3 += 0.1;
+                if (position3 >= 1) {
+                    position3 = 1;
                 }
+                servo3.setPosition(position3);
             }
             else {
                 servo3.setPosition(0.5);
@@ -168,7 +177,6 @@ public class TeleOp6038 extends OpMode {
         }
         else {
             arm.setPower(0);
-            servo3.setPosition(0.5);
         }
 
 //      For the side servos
@@ -191,6 +199,7 @@ public class TeleOp6038 extends OpMode {
 
 //        For going up the ramp.
         if (gamepad2.y) {
+            //Front axle
             if(gamepad2.dpad_down){
                 axleMotorFront.setPower(-1);
             }
@@ -205,27 +214,42 @@ public class TeleOp6038 extends OpMode {
             else {
                 axleMotorFront.setPower(0);
             }
-        }else if (gamepad2.a) {
-            if (gamepad2.dpad_up){
+        } else if (gamepad2.a) {
+            //Back axle
+            if (gamepad2.dpad_up) {
                 axleMotorBack.setPower(1);
-            }
-            else if (gamepad2.dpad_down){
+            } else if (gamepad2.dpad_down) {
                 axleMotorBack.setPower(-1);
-            }
-            else{
+            } else {
                 axleMotorBack.setPower(0);
             }
-        }else {
+        } else if (gamepad2.right_bumper) {
+            //Both axles
+            if (gamepad2.dpad_up) {
+                axleMotorFront.setPower(1);
+                axleMotorBack.setPower(1);
+            }
+            else if (gamepad2.dpad_down) {
+                axleMotorFront.setPower(-1);
+                axleMotorBack.setPower(-1);
+            }
+            else {
+                axleMotorFront.setPower(0);
+                axleMotorBack.setPower(1);
+            }
+        } else {
             axleMotorFront.setPower(0);
             axleMotorBack.setPower(0);
         }
 
 
 
-       //Send telemetry data back to driver station.
-        telemetry.addData("Text", "*** Robot Data***");
+        //Send telemetry data back to driver station.
         telemetry.addData("left tgt pwr", "left  pwr: " + String.format("%.2f", leftY));
         telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", rightY));
+        telemetry.addData("Front LEFT Encoders", frontMotorLeft.getCurrentPosition());
+        telemetry.addData("Front RIGHT Encoders", frontMotorRight.getCurrentPosition());
+        telemetry.addData("Gyro Heading", gyro.getHeading());
 
     }
 
@@ -244,8 +268,11 @@ public class TeleOp6038 extends OpMode {
 
         double[] scaleArray = new double[17];
 
-        // Change the scaleArray based on the current mode
-        // The slow mode is 1/3 the speed of the fast mode
+        /**
+         * There is a turbo mode and a slow mode.
+         * The turbo mode is 3 times as fast as the slow mode.
+         */
+
         if (mode == TURBO_MODE) {
             scaleArray = new double[]{0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
                     0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00};
