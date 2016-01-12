@@ -171,9 +171,6 @@ public class TeleOp6038 extends OpMode {
                 }
                 servo3.setPosition(position3);
             }
-            else {
-                servo3.setPosition(0.5);
-            }
         }
         else {
             arm.setPower(0);

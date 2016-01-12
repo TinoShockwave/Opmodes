@@ -54,6 +54,26 @@ public class Autonomous extends LinearOpMode {
     GyroSensor gyro;
     OpticalDistanceSensor distance;
 
+    @Override
+    public void runOpMode() throws InterruptedException {
+        waitForStart();
+    }
+
+    public void initialize() {
+        frontMotorLeft = hardwareMap.dcMotor.get("motor_1");
+        frontMotorRight = hardwareMap.dcMotor.get("motor_2");
+        backMotorLeft = hardwareMap.dcMotor.get("motor_3");
+        backMotorRight = hardwareMap.dcMotor.get("motor_4");
+        axleMotorFront = hardwareMap.dcMotor.get("motor_5");
+        axleMotorBack = hardwareMap.dcMotor.get("motor_6");
+        gyro = hardwareMap.gyroSensor.get("gyro");
+
+        frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
+        backMotorRight.setDirection(DcMotor.Direction.REVERSE);
+
+        resetEncoders();
+    }
+
     //Input: Distance in inches
     //Output: Distance in encoder pulses
     public void moveMotorEnc(DcMotor motor, double distance, double power) {
@@ -62,9 +82,9 @@ public class Autonomous extends LinearOpMode {
         motor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         while (motor.getCurrentPosition() < encoderClicks) {
             motor.setPower(power);
-            checkForDebris();
         }
         motor.setPower(0);
+        checkForDebris();
     }
 
     public void moveMotor(DcMotor motor, double power) {
@@ -130,10 +150,5 @@ public class Autonomous extends LinearOpMode {
         frontMotorRight.setPower(0);
         backMotorLeft.setPower(0);
         backMotorRight.setPower(0);
-    }
-
-    @Override
-    public void runOpMode() throws InterruptedException {
-
     }
 }
