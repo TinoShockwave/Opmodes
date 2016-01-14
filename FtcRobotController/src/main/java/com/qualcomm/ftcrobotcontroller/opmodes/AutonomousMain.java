@@ -57,6 +57,11 @@ public class AutonomousMain extends Autonomous {
 //        robot.moveRobot(12, 0.5, "forward");
 //        robot.turn(90, "right");
 //        robot.moveRobot(56, 0.5, "forward");
+
+//        while (opModeIsActive()) {
+//            telemetry.addData("Front Left Encoder", frontMotorLeft.getCurrentPosition());
+//            telemetry.addData("Front Right Encoder", frontMotorRight.getCurrentPosition());
+//        }
     }
 }
 

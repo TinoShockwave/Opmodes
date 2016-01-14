@@ -21,7 +21,7 @@ public class AutonomousTest extends LinearOpMode {
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
     GyroSensor gyro;
-    OpticalDistanceSensor distance;
+//    OpticalDistanceSensor distance;
 
     @Override
     public void runOpMode() throws InterruptedException {

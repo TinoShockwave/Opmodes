@@ -52,11 +52,13 @@ public class Autonomous extends LinearOpMode {
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
     GyroSensor gyro;
-    OpticalDistanceSensor distance;
+//    OpticalDistanceSensor distance;
 
     @Override
     public void runOpMode() throws InterruptedException {
+
         waitForStart();
+
     }
 
     public void initialize() {
@@ -84,12 +86,12 @@ public class Autonomous extends LinearOpMode {
             motor.setPower(power);
         }
         motor.setPower(0);
-        checkForDebris();
+//        checkForDebris();
     }
 
     public void moveMotor(DcMotor motor, double power) {
         motor.setPower(power);
-        checkForDebris();
+//        checkForDebris();
     }
 
     public void moveRobot(int distance, double power, String direction) {
@@ -134,11 +136,11 @@ public class Autonomous extends LinearOpMode {
 
     }
 
-    public void checkForDebris() {
-        if (distance.getLightDetectedRaw() > 200 && distance.getLightDetectedRaw() < 640) {
-            stopRobot();
-        }
-    }
+//    public void checkForDebris() {
+//        if (distance.getLightDetectedRaw() > 200 && distance.getLightDetectedRaw() < 640) {
+//            stopRobot();
+//        }
+//    }
 
     public void resetEncoders() {
         frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
