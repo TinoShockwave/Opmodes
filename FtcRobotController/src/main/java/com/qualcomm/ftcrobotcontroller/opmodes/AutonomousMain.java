@@ -31,7 +31,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 
 /**
  * Created by Kashyap Panda on 9/28/15.
@@ -43,7 +46,18 @@ public class AutonomousMain extends Autonomous {
     public void runOpMode() throws InterruptedException {
         robot = new Autonomous();
 
-        robot.initialize();
+        frontMotorLeft = hardwareMap.dcMotor.get("motor_1");
+        frontMotorRight = hardwareMap.dcMotor.get("motor_2");
+        backMotorLeft = hardwareMap.dcMotor.get("motor_3");
+        backMotorRight = hardwareMap.dcMotor.get("motor_4");
+        axleMotorFront = hardwareMap.dcMotor.get("motor_5");
+        axleMotorBack = hardwareMap.dcMotor.get("motor_6");
+        gyro = hardwareMap.gyroSensor.get("gyro");
+
+        frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
+        backMotorRight.setDirection(DcMotor.Direction.REVERSE);
+
+        resetEncoders();
 
         gyro.calibrate();
         while (gyro.isCalibrating()) {
