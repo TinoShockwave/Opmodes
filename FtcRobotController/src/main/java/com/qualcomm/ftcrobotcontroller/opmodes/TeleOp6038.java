@@ -1,22 +1,16 @@
 /* Copyright (c) 2014 Qualcomm Technologies Inc
-
 All rights reserved.
-
 Redistribution and use in source and binary forms, with or without modification,
 are permitted (subject to the limitations in the disclaimer below) provided that
 the following conditions are met:
-
 Redistributions of source code must retain the above copyright notice, this list
 of conditions and the following disclaimer.
-
 Redistributions in binary form must reproduce the above copyright notice, this
 list of conditions and the following disclaimer in the documentation and/or
 other materials provided with the distribution.
-
 Neither the name of Qualcomm Technologies Inc nor the names of its contributors
 may be used to endorse or promote products derived from this software without
 specific prior written permission.
-
 NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
 LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
@@ -271,11 +265,11 @@ public class TeleOp6038 extends OpMode {
          */
 
         if (mode == TURBO_MODE) {
-            scaleArray = new double[]{0.0, 0.075, 0.135, 0.15, 0.18, 0.225, 0.27, 0.36,
-                    0.45, 0.54, 0.645, 0.75, 0.9, 1.08, 1.275, 1.50, 1.50};
+            scaleArray = new double[]{0.0, 0.10 0.18, 0.20, 0.24, 0.30, 0.36, 0.48,
+                    0.60, 0.72, 0.86, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00};
         } else if (mode == SLOW_MODE) {
-            scaleArray = new double[]{0.0, 0.03334, 0.06, 0.0666, 0.08, 0.10, 0.12, 0.16,
-                    0.20, 0.24, 0.286, 0.3334, 0.4, 0.48, 0.566, 0.666, 0.666};
+            scaleArray = new double[]{0.0, 0.01667, 0.03, 0.0333, 0.04, 0.05, 0.06, 0.08,
+                    0.10, 0.12, 0.143, 0.1667, 0.2, 0.24, 0.283, 0.333, 0.333};
         }
 
         // get the corresponding index for the scaleInput array.
