@@ -265,7 +265,7 @@ public class TeleOp6038 extends OpMode {
          */
 
         if (mode == TURBO_MODE) {
-            scaleArray = new double[]{0.0, 0.10 0.18, 0.20, 0.24, 0.30, 0.36, 0.48,
+            scaleArray = new double[]{0.0, 0.10, 0.18, 0.20, 0.24, 0.30, 0.36, 0.48,
                     0.60, 0.72, 0.86, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00};
         } else if (mode == SLOW_MODE) {
             scaleArray = new double[]{0.0, 0.01667, 0.03, 0.0333, 0.04, 0.05, 0.06, 0.08,
