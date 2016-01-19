@@ -67,7 +67,7 @@ public class AutonomousMain extends Autonomous {
         waitForStart();
 
         robot.moveRobot(72, 0.5, "forward");
-//        robot.turn(135, "right");
+        robot.turn(135, "right");
 //        robot.moveRobot(12, 0.5, "forward");
 //        robot.turn(90, "right");
 //        robot.moveRobot(56, 0.5, "forward");

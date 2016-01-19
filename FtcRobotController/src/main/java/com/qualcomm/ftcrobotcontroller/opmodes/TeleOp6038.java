@@ -59,17 +59,13 @@ public class TeleOp6038 extends OpMode {
     final int SLOW_MODE = 1;
 
     boolean activateServo = true;
-    double position3 = 0.5;
+    double position3;
 
 
     public TeleOp6038() {
 
     }
 
-    /*
-     * Code to run when the op mode is first enabled goes here
-     *
-     */
     @Override
     public void init() {
       /*
@@ -106,13 +102,12 @@ public class TeleOp6038 extends OpMode {
 
     /*
      * This method will be called repeatedly in a loop
-     *
-     * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#run()
      */
     @Override
     public void loop() {
 
         if (activateServo) {
+            position3 = servo3.getPosition();
             servo3.setPosition(position3);
         }
 
@@ -133,7 +128,6 @@ public class TeleOp6038 extends OpMode {
         frontMotorRight.setPower(rightY);
         backMotorLeft.setPower(leftY);
         backMotorRight.setPower(rightY);
-
 
 //      For the arms
         if (gamepad1.a) {

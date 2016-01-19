@@ -47,6 +47,7 @@ public class AutonomousTest extends LinearOpMode {
         waitForStart();
 
         moveRobot(72, 0.5, "forward");
+        turn(135, "right");
     }
 
     //Input: Distance in inches
@@ -76,6 +77,8 @@ public class AutonomousTest extends LinearOpMode {
                 moveMotor(frontMotorRight, power);
                 moveMotor(backMotorLeft, power);
                 moveMotor(backMotorRight, power);
+                telemetry.addData("Encoder Left", frontMotorLeft.getCurrentPosition());
+                telemetry.addData("Encoder Right", frontMotorRight.getCurrentPosition());
             }
         } else if (direction.equals("backward")) {
             while (frontMotorLeft.getCurrentPosition() <= encoderClicks || frontMotorRight.getCurrentPosition() <= encoderClicks) {
@@ -83,6 +86,8 @@ public class AutonomousTest extends LinearOpMode {
                 moveMotor(frontMotorRight, -power);
                 moveMotor(backMotorLeft, -power);
                 moveMotor(backMotorRight, -power);
+                telemetry.addData("Encoder Left", frontMotorLeft.getCurrentPosition());
+                telemetry.addData("Encoder Right", frontMotorRight.getCurrentPosition());
             }
         }
     }

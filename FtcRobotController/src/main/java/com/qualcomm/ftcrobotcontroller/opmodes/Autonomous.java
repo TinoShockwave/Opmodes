@@ -104,6 +104,8 @@ public class Autonomous extends LinearOpMode {
                 moveMotor(frontMotorRight, power);
                 moveMotor(backMotorLeft, power);
                 moveMotor(backMotorRight, power);
+                telemetry.addData("Encoder Left", frontMotorLeft.getCurrentPosition());
+                telemetry.addData("Encoder Right", frontMotorRight.getCurrentPosition());
             }
         } else if (direction.equals("backward")) {
             while (frontMotorLeft.getCurrentPosition() <= encoderClicks || frontMotorRight.getCurrentPosition() <= encoderClicks) {
@@ -111,6 +113,8 @@ public class Autonomous extends LinearOpMode {
                 moveMotor(frontMotorRight, -power);
                 moveMotor(backMotorLeft, -power);
                 moveMotor(backMotorRight, -power);
+                telemetry.addData("Encoder Left", frontMotorLeft.getCurrentPosition());
+                telemetry.addData("Encoder Right", frontMotorRight.getCurrentPosition());
             }
         }
     }
