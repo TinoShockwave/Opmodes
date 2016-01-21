@@ -95,8 +95,13 @@ public class AutonomousRed extends LinearOpMode {
     }
 
     public void moveAxleMotors(double power, int time) {
-        moveMotorTime(axleMotorFront, power, time);
-        moveMotorTime(axleMotorBack, power, time);
+        updateTime();
+        while (this.time - currentTime <= time) {
+            axleMotorFront.setPower(power);
+            axleMotorBack.setPower(power);
+        }
+        axleMotorFront.setPower(0);
+        axleMotorBack.setPower(0);
     }
 
     public void updateTime() {

@@ -58,6 +58,7 @@ public class TeleOp6038Beta extends OpMode {
     Servo servo3;
 
 
+
     // Initialize SLOW and TURBO Modes
     int mode = 0;
     final int TURBO_MODE = 0;
@@ -127,6 +128,7 @@ public class TeleOp6038Beta extends OpMode {
         frontMotorRight.setPower(rightY);
         backMotorLeft.setPower(leftY);
         backMotorRight.setPower(rightY);
+
 
 
 //      For the arms
@@ -210,6 +212,7 @@ public class TeleOp6038Beta extends OpMode {
             axleMotorFront.setPower(0);
             axleMotorBack.setPower(0);
         }
+
 
 
 
