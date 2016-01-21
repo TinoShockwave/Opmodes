@@ -52,6 +52,10 @@ public class AutonomousMain extends Autonomous {
         backMotorRight = hardwareMap.dcMotor.get("motor_4");
         axleMotorFront = hardwareMap.dcMotor.get("motor_5");
         axleMotorBack = hardwareMap.dcMotor.get("motor_6");
+        arm = hardwareMap.dcMotor.get("motor_7");
+        servo1 = hardwareMap.servo.get("servo_1");
+        servo2 = hardwareMap.servo.get("servo_2");
+        servo3 = hardwareMap.servo.get("servo_3");
         gyro = hardwareMap.gyroSensor.get("gyro");
 
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
@@ -66,16 +70,12 @@ public class AutonomousMain extends Autonomous {
 
         waitForStart();
 
-        robot.moveRobot(72, 0.5, "forward");
-        robot.turn(135, "right");
-//        robot.moveRobot(12, 0.5, "forward");
-//        robot.turn(90, "right");
-//        robot.moveRobot(56, 0.5, "forward");
-
-//        while (opModeIsActive()) {
-//            telemetry.addData("Front Left Encoder", frontMotorLeft.getCurrentPosition());
-//            telemetry.addData("Front Right Encoder", frontMotorRight.getCurrentPosition());
-//        }
+        robot.moveRobot(30, 0.7, "forward");
+        robot.turn(45, "left");
+        robot.moveRobot(68, 0.7, "forward");
+        robot.turn(45, "left");
+        robot.moveRobot(54, 0.6, "forward");
+        moveServo(servo3, 1.0);
     }
 }
 

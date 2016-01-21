@@ -35,6 +35,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
  * Created by Kashyap on 11/4/15.
@@ -50,6 +52,10 @@ public class Autonomous extends LinearOpMode {
     DcMotor backMotorRight;
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
+    DcMotor arm;
+    Servo servo1;
+    Servo servo2;
+    Servo servo3;
     GyroSensor gyro;
 //    OpticalDistanceSensor distance;
 
@@ -91,6 +97,10 @@ public class Autonomous extends LinearOpMode {
     public void moveMotor(DcMotor motor, double power) {
         motor.setPower(power);
 //        checkForDebris();
+    }
+
+    public void moveServo(Servo servo, double position) {
+        servo.setPosition(position);
     }
 
     public void moveRobot(int distance, double power, String direction) {

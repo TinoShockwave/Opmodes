@@ -5,14 +5,18 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
  * Created by Kashyap on 1/6/16.
  */
-public class AutonomousTest extends LinearOpMode {
+public class AutonomousRed extends LinearOpMode {
     final static int ENCODER_CPR = 1120;
     final static double GEAR_RATIO = 1;
     final static double WHEEL_CIRCUMFERENCE = 7.85;
+
+    double currentTime;
 
     DcMotor frontMotorLeft;
     DcMotor frontMotorRight;
@@ -20,8 +24,11 @@ public class AutonomousTest extends LinearOpMode {
     DcMotor backMotorRight;
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
+    DcMotor arm;
+    Servo servo1;
+    Servo servo2;
+    Servo servo3;
     GyroSensor gyro;
-//    OpticalDistanceSensor distance;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -32,6 +39,10 @@ public class AutonomousTest extends LinearOpMode {
         backMotorRight = hardwareMap.dcMotor.get("motor_4");
         axleMotorFront = hardwareMap.dcMotor.get("motor_5");
         axleMotorBack = hardwareMap.dcMotor.get("motor_6");
+        arm = hardwareMap.dcMotor.get("motor_7");
+        servo1 = hardwareMap.servo.get("servo_1");
+        servo2 = hardwareMap.servo.get("servo_2");
+        servo3 = hardwareMap.servo.get("servo_3");
         gyro = hardwareMap.gyroSensor.get("gyro");
 
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
@@ -46,8 +57,13 @@ public class AutonomousTest extends LinearOpMode {
 
         waitForStart();
 
-        moveRobot(72, 0.5, "forward");
-        turn(135, "right");
+        moveAxleMotors(-1, 2);
+//        moveRobot(24, 0.7, "forward");
+//        turn(45, "left");
+//        moveRobot(68, 0.7, "forward");
+//        turn(-135, "left");
+//        moveRobot(48, 0.6, "backward");
+//        moveServo(servo3, 0);
     }
 
     //Input: Distance in inches
@@ -62,11 +78,33 @@ public class AutonomousTest extends LinearOpMode {
         motor.setPower(0);
     }
 
+    public void moveServo(Servo servo, double position) {
+        servo.setPosition(position);
+    }
+
     public void moveMotor(DcMotor motor, double power) {
         motor.setPower(power);
     }
 
+    public void moveMotorTime(DcMotor motor, double power, int time) {
+        updateTime();
+        while(this.time - currentTime <= time) {
+            motor.setPower(power);
+        }
+        motor.setPower(0);
+    }
+
+    public void moveAxleMotors(double power, int time) {
+        moveMotorTime(axleMotorFront, power, time);
+        moveMotorTime(axleMotorBack, power, time);
+    }
+
+    public void updateTime() {
+        currentTime = this.time;
+    }
+
     public void moveRobot(int distance, double power, String direction) {
+        updateTime();
         resetEncoders();
         double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         frontMotorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
@@ -80,6 +118,7 @@ public class AutonomousTest extends LinearOpMode {
                 telemetry.addData("Encoder Left", frontMotorLeft.getCurrentPosition());
                 telemetry.addData("Encoder Right", frontMotorRight.getCurrentPosition());
             }
+            stopRobot();
         } else if (direction.equals("backward")) {
             while (frontMotorLeft.getCurrentPosition() <= encoderClicks || frontMotorRight.getCurrentPosition() <= encoderClicks) {
                 moveMotor(frontMotorLeft, -power);
@@ -89,10 +128,12 @@ public class AutonomousTest extends LinearOpMode {
                 telemetry.addData("Encoder Left", frontMotorLeft.getCurrentPosition());
                 telemetry.addData("Encoder Right", frontMotorRight.getCurrentPosition());
             }
+            stopRobot();
         }
     }
 
     public void turn(int angle, String direction) {
+        updateTime();
         gyro.resetZAxisIntegrator();
         if (direction.equals("left")) {
             while (gyro.getHeading() <= angle) {
@@ -101,6 +142,7 @@ public class AutonomousTest extends LinearOpMode {
                 moveMotor(backMotorLeft, -0.5);
                 moveMotor(backMotorRight, 0.5);
             }
+            stopRobot();
         } else if (direction.equals("right")) {
             while (gyro.getHeading() <= angle) {
                 moveMotor(frontMotorLeft, 0.5);
@@ -108,6 +150,7 @@ public class AutonomousTest extends LinearOpMode {
                 moveMotor(backMotorLeft, 0.5);
                 moveMotor(backMotorRight, -0.5);
             }
+            stopRobot();
         }
 
     }
