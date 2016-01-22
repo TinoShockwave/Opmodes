@@ -58,7 +58,8 @@ public class AutonomousRed extends LinearOpMode {
         waitForStart();
 
         moveAxleMotors(-1, 2);
-//        moveRobot(24, 0.7, "forward");
+        stopRobot();
+        moveRobot(24, 0.7, "forward");
 //        turn(45, "left");
 //        moveRobot(68, 0.7, "forward");
 //        turn(-135, "left");
