@@ -57,9 +57,12 @@ public class AutonomousRed extends LinearOpMode {
 
         waitForStart();
 
-        moveAxleMotors(-1, 2);
+        moveAxleMotors(-1, 1.8);
         stopRobot();
-        moveRobot(24, 0.7, "forward");
+        moveRobot(100, 0.7, "backward");
+        stopRobot();
+        servo3.setPosition(1);
+//        moveRobot(24, 0.7, "forward");
 //        turn(45, "left");
 //        moveRobot(68, 0.7, "forward");
 //        turn(-135, "left");
@@ -95,11 +98,16 @@ public class AutonomousRed extends LinearOpMode {
         motor.setPower(0);
     }
 
-    public void moveAxleMotors(double power, int time) {
+    public void moveAxleMotors(double power, double time) {
         updateTime();
         while (this.time - currentTime <= time) {
             axleMotorFront.setPower(power);
             axleMotorBack.setPower(power);
+        }
+        axleMotorBack.setPower(0);
+        updateTime();
+        while (this.time - currentTime <= 1) {
+            axleMotorFront.setPower(power);
         }
         axleMotorFront.setPower(0);
         axleMotorBack.setPower(0);
@@ -109,8 +117,7 @@ public class AutonomousRed extends LinearOpMode {
         currentTime = this.time;
     }
 
-    public void moveRobot(int distance, double power, String direction) {
-        updateTime();
+    public void moveRobot(double distance, double power, String direction) {
         resetEncoders();
         double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         frontMotorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
@@ -177,5 +184,7 @@ public class AutonomousRed extends LinearOpMode {
         frontMotorRight.setPower(0);
         backMotorLeft.setPower(0);
         backMotorRight.setPower(0);
+        axleMotorFront.setPower(0);
+        axleMotorBack.setPower(0);
     }
 }
