@@ -4,14 +4,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
  * Created by Kashyap on 1/6/16.
  */
-public class AutonomousRed extends LinearOpMode {
+public class AutonomousBackup extends LinearOpMode {
     final static int ENCODER_CPR = 1120;
     final static double GEAR_RATIO = 1;
     final static double WHEEL_CIRCUMFERENCE = 7.85;
@@ -50,37 +48,13 @@ public class AutonomousRed extends LinearOpMode {
 
         resetEncoders();
 
-        gyro.calibrate();
-        while (gyro.isCalibrating()) {
-            Thread.sleep(500);
-        }
 
         waitForStart();
 
-        moveAxleMotors(-1, 1.8);
+        moveRobot(20, 0.7, "forward");
         stopRobot();
-//        moveRobot(24, 0.7, "forward");
-//        turn(45, "left");
-//        moveRobot(68, 0.7, "forward");
-//        turn(-135, "left");
-//        moveRobot(48, 0.6, "backward");
-//        moveServo(servo3, 0);
-    }
-
-    //Input: Distance in inches
-    //Output: Distance in encoder pulses
-    public void moveMotorEnc(DcMotor motor, double distance, double power) {
-        motor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
-        motor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        while (motor.getCurrentPosition() < encoderClicks) {
-            motor.setPower(power);
-        }
-        motor.setPower(0);
-    }
-
-    public void moveServo(Servo servo, double position) {
-        servo.setPosition(position);
+        moveRobot(20, 0.7, "backward");
+        stopRobot();
     }
 
     public void moveMotor(DcMotor motor, double power) {
@@ -141,35 +115,6 @@ public class AutonomousRed extends LinearOpMode {
             stopRobot();
         }
     }
-
-    public void turn(int angle, String direction) {
-        updateTime();
-        gyro.resetZAxisIntegrator();
-        if (direction.equals("left")) {
-            while (gyro.getHeading() <= angle) {
-                moveMotor(frontMotorLeft, -0.5);
-                moveMotor(frontMotorRight, 0.5);
-                moveMotor(backMotorLeft, -0.5);
-                moveMotor(backMotorRight, 0.5);
-            }
-            stopRobot();
-        } else if (direction.equals("right")) {
-            while (gyro.getHeading() <= angle) {
-                moveMotor(frontMotorLeft, 0.5);
-                moveMotor(frontMotorRight, -0.5);
-                moveMotor(backMotorLeft, 0.5);
-                moveMotor(backMotorRight, -0.5);
-            }
-            stopRobot();
-        }
-
-    }
-
-//    public void checkForDebris() {
-//        if (distance.getLightDetectedRaw() > 200 && distance.getLightDetectedRaw() < 640) {
-//            stopRobot();
-//        }
-//    }
 
     public void resetEncoders() {
         frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);

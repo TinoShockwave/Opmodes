@@ -166,10 +166,10 @@ public class TeleOp6038 extends OpMode {
 
 //      For the side servos
         if (gamepad2.x) {
-            if (gamepad2.dpad_left) {
+            if (gamepad2.dpad_right) {
                 servo1.setPosition(0);
             }
-            else if (gamepad2.dpad_right) {
+            else if (gamepad2.dpad_left) {
                 servo1.setPosition(1);
             }
         }
@@ -199,16 +199,20 @@ public class TeleOp6038 extends OpMode {
             else {
                 axleMotorFront.setPower(0);
             }
-        } else if (gamepad2.a) {
+        }
+        else if (gamepad2.a) {
             //Back axle
             if (gamepad2.dpad_up) {
                 axleMotorBack.setPower(1);
-            } else if (gamepad2.dpad_down) {
+            }
+            else if (gamepad2.dpad_down) {
                 axleMotorBack.setPower(-1);
-            } else {
+            }
+            else {
                 axleMotorBack.setPower(0);
             }
-        } else if (gamepad2.right_bumper) {
+        }
+        else if (gamepad2.right_bumper) {
             //Both axles
             if (gamepad2.dpad_up) {
                 axleMotorFront.setPower(1);
