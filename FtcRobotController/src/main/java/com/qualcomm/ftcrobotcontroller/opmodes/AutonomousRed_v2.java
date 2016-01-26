@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by ShruthiJaganathan on 1/25/16.
+ * Created by Kashyap Panda on 1/25/16.
  */
 public class AutonomousRed_v2 extends LinearOpMode {
 
@@ -67,7 +67,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
         //Go forward
         // Input distance in inches for the distance variable.
-        double distance = 72;
+        double distance = 60;
         double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         while (frontMotorLeft.getCurrentPosition() < encoderClicks && frontMotorRight.getCurrentPosition() < encoderClicks) {
             frontMotorLeft.setPower(MAX_POWER);
@@ -103,6 +103,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
 
         //Go forward
+        // distance for this: 72 inches
         int frontLeftClicks = frontMotorLeft.getCurrentPosition();
         int frontRightClicks = frontMotorRight.getCurrentPosition();
         while (frontMotorLeft.getCurrentPosition() - frontLeftClicks < 1000 &&
