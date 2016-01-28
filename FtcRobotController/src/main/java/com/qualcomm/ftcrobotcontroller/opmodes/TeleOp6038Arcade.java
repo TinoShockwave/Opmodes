@@ -49,7 +49,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  * @author Kashyap
  */
 
-public class TeleOp6038Beta extends OpMode {
+public class TeleOp6038Arcade extends OpMode {
 
     DcMotor frontMotorLeft;
     DcMotor frontMotorRight;
@@ -74,7 +74,7 @@ public class TeleOp6038Beta extends OpMode {
     double position3;
 
 
-    public TeleOp6038Beta() {
+    public TeleOp6038Arcade() {
 
     }
 
@@ -130,16 +130,28 @@ public class TeleOp6038Beta extends OpMode {
             mode = SLOW_MODE;
         }
 
-        float leftY = -gamepad1.left_stick_y;
-        float rightY = -gamepad1.right_stick_y;
+        // throttle: left_stick_y ranges from -1 to 1, where -1 is full up, and
+        // 1 is full down
+        // direction: left_stick_x ranges from -1 to 1, where -1 is full left
+        // and 1 is full right
+        float throttle = -gamepad1.left_stick_y;
+        float direction = gamepad1.left_stick_x;
+        float right = throttle - direction;
+        float left = throttle + direction;
 
-        leftY = (float)scaleInput(leftY);
-        rightY = (float)scaleInput(rightY);
+        // clip the right/left values so that the values never exceed +/- 1
+        right = Range.clip(right, -1, 1);
+        left = Range.clip(left, -1, 1);
 
-        frontMotorLeft.setPower(leftY);
-        frontMotorRight.setPower(rightY);
-        backMotorLeft.setPower(leftY);
-        backMotorRight.setPower(rightY);
+        // scale the joystick value to make it easier to control
+        // the robot more precisely at slower speeds.
+        right = (float)scaleInput(right);
+        left =  (float)scaleInput(left);
+
+        frontMotorLeft.setPower(left);
+        frontMotorRight.setPower(right);
+        backMotorLeft.setPower(left);
+        backMotorRight.setPower(right);
 
 //      For the arms
         if (gamepad1.a) {
@@ -246,8 +258,6 @@ public class TeleOp6038Beta extends OpMode {
 
 
         //Send telemetry data back to driver station.
-        telemetry.addData("left tgt pwr", "left  pwr: " + String.format("%.2f", leftY));
-        telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", rightY));
         telemetry.addData("Front LEFT Encoders", frontMotorLeft.getCurrentPosition());
         telemetry.addData("Front RIGHT Encoders", frontMotorRight.getCurrentPosition());
         telemetry.addData("Gyro Heading", gyro.getHeading());
