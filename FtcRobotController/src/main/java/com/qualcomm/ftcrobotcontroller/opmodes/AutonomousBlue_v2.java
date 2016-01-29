@@ -127,10 +127,10 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         //Turn 90 degrees
         gyro.resetZAxisIntegrator();
         while (gyro.getHeading() <= 50 || gyro.getHeading() >= 280) {
-            frontMotorLeft.setPower(-TURNING_POWER);
-            frontMotorRight.setPower(TURNING_POWER);
-            backMotorLeft.setPower(-TURNING_POWER);
-            backMotorRight.setPower(TURNING_POWER);
+            frontMotorLeft.setPower(TURNING_POWER);
+            frontMotorRight.setPower(-TURNING_POWER);
+            backMotorLeft.setPower(TURNING_POWER);
+            backMotorRight.setPower(-TURNING_POWER);
         }
         frontMotorLeft.setPower(0);
         frontMotorRight.setPower(0);
