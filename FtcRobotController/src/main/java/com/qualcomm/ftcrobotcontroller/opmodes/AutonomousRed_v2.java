@@ -119,7 +119,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
         //Bring back axle down
         currentTime = this.time;
         while (this.time - currentTime <= 2) {
-            axleMotorBack.setPower(AXLE_MAX_POWER);
+            axleMotorBack.setPower(-AXLE_MAX_POWER);
         }
         axleMotorBack.setPower(0);
 
