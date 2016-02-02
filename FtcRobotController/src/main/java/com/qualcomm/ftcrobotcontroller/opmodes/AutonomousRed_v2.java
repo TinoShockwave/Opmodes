@@ -167,7 +167,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
             axleMotorBack.setPower(0);
         }
 
-        //Activate the servos
+        //Activate the arm
         while (servo3.getPosition() != 0) {
             servo3.setPosition(0);
         }
