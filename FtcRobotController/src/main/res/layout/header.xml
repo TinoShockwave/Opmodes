@@ -41,7 +41,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     android:paddingRight="8dp"
     android:paddingTop="2dp"
     android:paddingBottom="2dp"
-    android:background="@color/medium_red_background"
+    android:background="#000000"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -53,13 +53,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         android:text="Active Configuration File:"
         android:textColor="@color/white"
         android:layout_weight="1"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:background="#000000" />
 
     <TextView
         android:id="@+id/active_filename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:background="#000000" />
 
 </LinearLayout>

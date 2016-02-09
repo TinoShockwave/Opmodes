@@ -99,34 +99,46 @@ public class AutonomousRed_v2 extends LinearOpMode {
             axleMotorBack.setPower(0);
         }
 
-
         //Go forward
         // Input distance in inches for the distance variable.
-        double distance = 72;
+        double distance = -12;
         double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         while (frontMotorLeft.getCurrentPosition() < encoderClicks && frontMotorRight.getCurrentPosition() < encoderClicks) {
-            frontMotorLeft.setPower(MAX_POWER);
-            frontMotorRight.setPower(MAX_POWER);
-            backMotorLeft.setPower(MAX_POWER);
-            backMotorRight.setPower(MAX_POWER);
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
         }
         frontMotorLeft.setPower(0);
         frontMotorRight.setPower(0);
         backMotorLeft.setPower(0);
         backMotorRight.setPower(0);
 
-
-        //Bring back axle down
+        //Bring front axle down
         currentTime = this.time;
-        while (this.time - currentTime <= 2) {
-            axleMotorBack.setPower(-AXLE_MAX_POWER);
+        while (this.time - currentTime <= 2.5) {
+            axleMotorFront.setPower(-AXLE_MAX_POWER);
         }
-        axleMotorBack.setPower(0);
+        axleMotorFront.setPower(0);
 
+        //Go forward
+        // Input distance in inches for the distance variable.
+        distance = -12;
+        encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
+        while (frontMotorLeft.getCurrentPosition() < encoderClicks && frontMotorRight.getCurrentPosition() < encoderClicks) {
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
+        }
+        frontMotorLeft.setPower(0);
+        frontMotorRight.setPower(0);
+        backMotorLeft.setPower(0);
+        backMotorRight.setPower(0);
 
-        //Turn 90 degrees
+        //Turn 90 degreesq
         gyro.resetZAxisIntegrator();
-        while (gyro.getHeading() <= 50 || gyro.getHeading() >= 280) {
+        while (gyro.getHeading() < 270) {
             frontMotorLeft.setPower(-TURNING_POWER);
             frontMotorRight.setPower(TURNING_POWER);
             backMotorLeft.setPower(-TURNING_POWER);
@@ -137,24 +149,22 @@ public class AutonomousRed_v2 extends LinearOpMode {
         backMotorLeft.setPower(0);
         backMotorRight.setPower(0);
 
-
-        //Go forward
-        distance = 72;
+        //Go backward
+        distance = -72;
         encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         int frontLeftClicks = frontMotorLeft.getCurrentPosition();
         int frontRightClicks = frontMotorRight.getCurrentPosition();
         while (frontMotorLeft.getCurrentPosition() - frontLeftClicks < encoderClicks &&
                 frontMotorRight.getCurrentPosition() - frontRightClicks < encoderClicks) {
-            frontMotorLeft.setPower(MAX_POWER);
-            frontMotorRight.setPower(MAX_POWER);
-            backMotorLeft.setPower(MAX_POWER);
-            backMotorRight.setPower(MAX_POWER);
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
         }
         frontMotorLeft.setPower(0);
         frontMotorRight.setPower(0);
         backMotorLeft.setPower(0);
         backMotorRight.setPower(0);
-
 
         //Stop
         currentTime = this.time;
@@ -172,5 +182,4 @@ public class AutonomousRed_v2 extends LinearOpMode {
             servo3.setPosition(0);
         }
     }
-
 }
