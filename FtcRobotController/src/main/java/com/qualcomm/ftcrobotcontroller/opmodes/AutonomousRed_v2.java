@@ -52,9 +52,6 @@ public class AutonomousRed_v2 extends LinearOpMode {
     DcMotor backMotorRight;
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
-    DcMotor arm;
-    Servo servo1;
-    Servo servo2;
     Servo servo3;
     GyroSensor gyro;
 
@@ -76,6 +73,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
         backMotorRight = hardwareMap.dcMotor.get("motor_4");
         axleMotorFront = hardwareMap.dcMotor.get("motor_5");
         axleMotorBack = hardwareMap.dcMotor.get("motor_6");
+        servo3 = hardwareMap.servo.get("servo_3");
         gyro = hardwareMap.gyroSensor.get("gyro");
 
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
@@ -101,7 +99,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
         //Go forward
         // Input distance in inches for the distance variable.
-        double distance = -12;
+        double distance = 50;
         double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         while (frontMotorLeft.getCurrentPosition() < encoderClicks && frontMotorRight.getCurrentPosition() < encoderClicks) {
             frontMotorLeft.setPower(-MAX_POWER);
@@ -136,13 +134,13 @@ public class AutonomousRed_v2 extends LinearOpMode {
         backMotorLeft.setPower(0);
         backMotorRight.setPower(0);
 
-        //Turn 90 degreesq
+        //Turn 90 degrees
         gyro.resetZAxisIntegrator();
         while (gyro.getHeading() < 270) {
-            frontMotorLeft.setPower(-TURNING_POWER);
-            frontMotorRight.setPower(TURNING_POWER);
-            backMotorLeft.setPower(-TURNING_POWER);
-            backMotorRight.setPower(TURNING_POWER);
+            frontMotorLeft.setPower(TURNING_POWER);
+            frontMotorRight.setPower(-TURNING_POWER);
+            backMotorLeft.setPower(TURNING_POWER);
+            backMotorRight.setPower(-TURNING_POWER);
         }
         frontMotorLeft.setPower(0);
         frontMotorRight.setPower(0);
