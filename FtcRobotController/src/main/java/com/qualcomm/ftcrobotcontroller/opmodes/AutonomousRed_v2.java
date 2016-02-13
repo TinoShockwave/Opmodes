@@ -92,7 +92,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
         startTime = this.time;
 
-        //Start off with stop
+        //Start off with a quick stop
         currentTime = this.time;
         while (this.time - currentTime <= 2) {
             frontMotorLeft.setPower(0);
@@ -142,11 +142,11 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
         //Turn 90 degrees
         gyro.resetZAxisIntegrator();
-        while (gyro.getHeading() < 270) {
-            frontMotorLeft.setPower(TURNING_POWER);
-            frontMotorRight.setPower(-TURNING_POWER);
-            backMotorLeft.setPower(TURNING_POWER);
-            backMotorRight.setPower(-TURNING_POWER);
+        while (gyro.getHeading() > 270) {
+            frontMotorLeft.setPower(-TURNING_POWER);
+            frontMotorRight.setPower(TURNING_POWER);
+            backMotorLeft.setPower(-TURNING_POWER);
+            backMotorRight.setPower(TURNING_POWER);
         }
         frontMotorLeft.setPower(0);
         frontMotorRight.setPower(0);
