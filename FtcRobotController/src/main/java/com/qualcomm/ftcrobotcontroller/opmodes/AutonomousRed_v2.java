@@ -105,7 +105,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
         //Go forward
         // Input distance in inches for the distance variable.
-        double distance = 50;
+        double distance = 25;
         double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         while (frontMotorLeft.getCurrentPosition() < encoderClicks && frontMotorRight.getCurrentPosition() < encoderClicks) {
             frontMotorLeft.setPower(-MAX_POWER);
