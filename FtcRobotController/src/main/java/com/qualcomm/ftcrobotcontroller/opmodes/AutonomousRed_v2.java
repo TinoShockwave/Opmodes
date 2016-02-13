@@ -79,7 +79,13 @@ public class AutonomousRed_v2 extends LinearOpMode {
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
         backMotorRight.setDirection(DcMotor.Direction.REVERSE);
 
+        gyro.calibrate();
+
         waitForStart();
+
+        while (gyro.isCalibrating()) {
+            Thread.sleep(50);
+        }
 
         frontMotorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         frontMotorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);

@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
 /**
  * Register Op Modes
+ * @author Kashyap
  */
 public class FtcOpModeRegister implements OpModeRegister {
 
