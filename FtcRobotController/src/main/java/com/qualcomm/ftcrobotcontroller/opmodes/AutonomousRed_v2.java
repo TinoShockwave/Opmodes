@@ -55,9 +55,9 @@ public class AutonomousRed_v2 extends LinearOpMode {
     Servo servo3;
     GyroSensor gyro;
 
-    final double MAX_POWER = 0.5;
+    final double MAX_POWER = 0.8;
     final double AXLE_MAX_POWER = 0.8;
-    final double TURNING_POWER = 0.5;
+    final double TURNING_POWER = 1.0;
     final static int ENCODER_CPR = 1120;
     final static double GEAR_RATIO = 1;
     final static double WHEEL_CIRCUMFERENCE = 7.85;
@@ -105,9 +105,9 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
         //Go forward
         // Input distance in inches for the distance variable.
-        double distance = 25;
+        double distance = 2.0;
         double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
-        while (frontMotorLeft.getCurrentPosition() < encoderClicks && frontMotorRight.getCurrentPosition() < encoderClicks) {
+        while (frontMotorLeft.getCurrentPosition() < encoderClicks || frontMotorRight.getCurrentPosition() < encoderClicks) {
             frontMotorLeft.setPower(-MAX_POWER);
             frontMotorRight.setPower(-MAX_POWER);
             backMotorLeft.setPower(-MAX_POWER);
@@ -127,9 +127,9 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
         //Go forward
         // Input distance in inches for the distance variable.
-        distance = -12;
+        distance = 70.0;
         encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
-        while (frontMotorLeft.getCurrentPosition() < encoderClicks && frontMotorRight.getCurrentPosition() < encoderClicks) {
+        while (frontMotorLeft.getCurrentPosition() < encoderClicks || frontMotorRight.getCurrentPosition() < encoderClicks) {
             frontMotorLeft.setPower(-MAX_POWER);
             frontMotorRight.setPower(-MAX_POWER);
             backMotorLeft.setPower(-MAX_POWER);
@@ -142,7 +142,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
         //Turn 90 degrees
         gyro.resetZAxisIntegrator();
-        while (gyro.getHeading() > 270) {
+        while (gyro.getHeading() > 260) {
             frontMotorLeft.setPower(-TURNING_POWER);
             frontMotorRight.setPower(TURNING_POWER);
             backMotorLeft.setPower(-TURNING_POWER);
@@ -154,7 +154,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
         backMotorRight.setPower(0);
 
         //Go backward
-        distance = -72;
+        distance = 70.0;
         encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         int frontLeftClicks = frontMotorLeft.getCurrentPosition();
         int frontRightClicks = frontMotorRight.getCurrentPosition();
