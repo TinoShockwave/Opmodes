@@ -91,7 +91,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
             axleMotorBack.setPower(0);
         }
 
-        //Go forward
+        //Turn towards the beacon
         gyro.resetZAxisIntegrator();
         while (gyro.getHeading() < 45) {
             frontMotorLeft.setPower(-MAX_POWER);
@@ -107,6 +107,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
         wait(100);
 
+        //go forward
         currentTime = this.time;
         while (this.time - currentTime <= 3.5) {
             frontMotorLeft.setPower(-MAX_POWER);
@@ -123,6 +124,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
         frontMotorRight.setPower(0);
         backMotorLeft.setPower(0);
         backMotorRight.setPower(0);
+
         //Bring front axle down
         currentTime = this.time;
         while (this.time - currentTime <= 2.5) {
