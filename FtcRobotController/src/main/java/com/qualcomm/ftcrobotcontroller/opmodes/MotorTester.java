@@ -28,6 +28,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by Kashyap on 2/20/16.
  */
+
+/**
+ * This is a program made to test all motors to make sure that they work correctly.
+ */
 public class MotorTester extends LinearOpMode{
 
     DcMotor frontMotorLeft;
@@ -37,6 +41,8 @@ public class MotorTester extends LinearOpMode{
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
     DcMotor arm;
+
+    double currentTime;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -51,6 +57,79 @@ public class MotorTester extends LinearOpMode{
 
         waitForStart();
 
+        //Test wheels
+        currentTime = this.time;
+        while (this.time - currentTime < 3) {
+            frontMotorLeft.setPower(1);
+            frontMotorRight.setPower(1);
+            backMotorLeft.setPower(1);
+            backMotorRight.setPower(1);
+        }
+        frontMotorLeft.setPower(0);
+        frontMotorRight.setPower(0);
+        backMotorLeft.setPower(0);
+        backMotorRight.setPower(0);
 
+        currentTime = this.time;
+        while (this.time - currentTime < 3) {
+            frontMotorLeft.setPower(0.5);
+            frontMotorRight.setPower(0.5);
+            backMotorLeft.setPower(0.5);
+            backMotorRight.setPower(0.5);
+        }
+        frontMotorLeft.setPower(0);
+        frontMotorRight.setPower(0);
+        backMotorLeft.setPower(0);
+        backMotorRight.setPower(0);
+
+        while (this.time - currentTime < 3) {
+            frontMotorLeft.setPower(0);
+            frontMotorRight.setPower(0);
+            backMotorLeft.setPower(0);
+            backMotorRight.setPower(0);
+        }
+        frontMotorLeft.setPower(0);
+        frontMotorRight.setPower(0);
+        backMotorLeft.setPower(0);
+        backMotorRight.setPower(0);
+
+        currentTime = this.time;
+        while (this.time - currentTime < 3) {
+            frontMotorLeft.setPower(-0.5);
+            frontMotorRight.setPower(-0.5);
+            backMotorLeft.setPower(-0.5);
+            backMotorRight.setPower(-0.5);
+        }
+        frontMotorLeft.setPower(0);
+        frontMotorRight.setPower(0);
+        backMotorLeft.setPower(0);
+        backMotorRight.setPower(0);
+
+        currentTime = this.time;
+        while (this.time - currentTime < 3) {
+            frontMotorLeft.setPower(-1);
+            frontMotorRight.setPower(-1);
+            backMotorLeft.setPower(-1);
+            backMotorRight.setPower(-1);
+        }
+        frontMotorLeft.setPower(0);
+        frontMotorRight.setPower(0);
+        backMotorLeft.setPower(0);
+        backMotorRight.setPower(0);
+
+        wait(100);
+
+        //Test arm
+        currentTime = this.time;
+        while (this.time - currentTime < 2) {
+            arm.setPower(-1);
+        }
+        arm.setPower(0);
+
+        currentTime = this.time;
+        while (this.time - currentTime < 2) {
+            arm.setPower(1);
+        }
+        arm.setPower(0);
     }
 }
