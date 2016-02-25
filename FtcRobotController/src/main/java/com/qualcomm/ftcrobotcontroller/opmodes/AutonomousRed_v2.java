@@ -40,12 +40,13 @@ public class AutonomousRed_v2 extends LinearOpMode {
     DcMotor backMotorRight;
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
+    DcMotor arm;
     Servo servo3;
-    GyroSensor gyro;
+//    GyroSensor gyro;
 
-    final double MAX_POWER = 0.8;
+    final double MAX_POWER = 0.5;
     final double AXLE_MAX_POWER = 0.5;
-    final double TURNING_POWER = 1.0;
+    final double TURNING_POWER = 0.3;
     final static int ENCODER_CPR = 1120;
     final static double GEAR_RATIO = 1;
     final static double WHEEL_CIRCUMFERENCE = 7.85;
@@ -61,19 +62,20 @@ public class AutonomousRed_v2 extends LinearOpMode {
         backMotorRight = hardwareMap.dcMotor.get("motor_4");
         axleMotorFront = hardwareMap.dcMotor.get("motor_5");
         axleMotorBack = hardwareMap.dcMotor.get("motor_6");
+        arm = hardwareMap.dcMotor.get("motor_7");
         servo3 = hardwareMap.servo.get("servo_3");
-        gyro = hardwareMap.gyroSensor.get("gyro");
+//        gyro = hardwareMap.gyroSensor.get("gyro");
 
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
         backMotorRight.setDirection(DcMotor.Direction.REVERSE);
 
-        gyro.calibrate();
+//        gyro.calibrate();
 
         waitForStart();
 
-        while (gyro.isCalibrating()) {
-            Thread.sleep(50);
-        }
+//        while (gyro.isCalibrating()) {
+//            Thread.sleep(50);
+//        }
 
         frontMotorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         frontMotorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
@@ -82,7 +84,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
         //Start off with a quick stop
         currentTime = this.time;
-        while (this.time - currentTime <= 6) {
+        while (this.time - currentTime < 6) {
             frontMotorLeft.setPower(0);
             frontMotorRight.setPower(0);
             backMotorLeft.setPower(0);
@@ -91,113 +93,74 @@ public class AutonomousRed_v2 extends LinearOpMode {
             axleMotorBack.setPower(0);
         }
 
-        //Turn towards the beacon
-        gyro.resetZAxisIntegrator();
-        while (gyro.getHeading() < 45) {
-            frontMotorLeft.setPower(-MAX_POWER);
-            frontMotorRight.setPower(0);
-            backMotorLeft.setPower(-MAX_POWER);
-            backMotorRight.setPower(0);
-
-        }
-        frontMotorLeft.setPower(0);
-        frontMotorRight.setPower(0);
-        backMotorLeft.setPower(0);
-        backMotorRight.setPower(0);
-
-        wait(100);
-
-        //go forward
+        //go forward a bit
         currentTime = this.time;
-        while (this.time - currentTime <= 3.5) {
+        while (this.time - currentTime < 0.3) {
             frontMotorLeft.setPower(-MAX_POWER);
             frontMotorRight.setPower(-MAX_POWER);
             backMotorLeft.setPower(-MAX_POWER);
             backMotorRight.setPower(-MAX_POWER);
         }
-        frontMotorLeft.setPower(0);
-        frontMotorRight.setPower(0);
-        backMotorLeft.setPower(0);
-        backMotorRight.setPower(0);
+        stopRobot();
 
-        frontMotorLeft.setPower(0);
-        frontMotorRight.setPower(0);
-        backMotorLeft.setPower(0);
-        backMotorRight.setPower(0);
+        //Turn towards the beacon
+        currentTime = this.time;
+        while (this.time - currentTime < 2.0) {
+            frontMotorLeft.setPower(-TURNING_POWER);
+            frontMotorRight.setPower(0);
+            backMotorLeft.setPower(-TURNING_POWER);
+            backMotorRight.setPower(0);
+        }
+        stopRobot();
+
+//        //bring arm up
+//        arm.setPower(0);
+//        currentTime = this.time;
+//        while (this.time - currentTime < 2) {
+//            arm.setPower(-1);
+//        }
+//        arm.setPower(0);
 
         //Bring front axle down
+        axleMotorFront.setPower(0);
         currentTime = this.time;
-        while (this.time - currentTime <= 2.5) {
+        while (this.time - currentTime < 2.5) {
             axleMotorFront.setPower(-AXLE_MAX_POWER);
         }
         axleMotorFront.setPower(0);
+        stopRobot();
 
-//        //Go forward
-//        // Input distance in inches for the distance variable.
-//        distance = 70.0;
-//        encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
-//        while (frontMotorLeft.getCurrentPosition() < encoderClicks || frontMotorRight.getCurrentPosition() < encoderClicks) {
-//            frontMotorLeft.setPower(-MAX_POWER);
-//            frontMotorRight.setPower(-MAX_POWER);
-//            backMotorLeft.setPower(-MAX_POWER);
-//            backMotorRight.setPower(-MAX_POWER);
-//        }
-//        frontMotorLeft.setPower(0);
-//        frontMotorRight.setPower(0);
-//        backMotorLeft.setPower(0);
-//        backMotorRight.setPower(0);
-//
-//        //Turn 90 degrees
-//        gyro.resetZAxisIntegrator();
-//        currentTime = this.time;
-//        while (this.time - currentTime < 0.1) {
-//            frontMotorLeft.setPower(-TURNING_POWER);
-//            frontMotorRight.setPower(TURNING_POWER);
-//            backMotorLeft.setPower(-TURNING_POWER);
-//            backMotorRight.setPower(TURNING_POWER);
-//        }
-//        while (gyro.getHeading() > 260) {
-//            frontMotorLeft.setPower(-TURNING_POWER);
-//            frontMotorRight.setPower(TURNING_POWER);
-//            backMotorLeft.setPower(-TURNING_POWER);
-//            backMotorRight.setPower(TURNING_POWER);
-//        }
-//        frontMotorLeft.setPower(0);
-//        frontMotorRight.setPower(0);
-//        backMotorLeft.setPower(0);
-//        backMotorRight.setPower(0);
-//
-//        //Go backward
-//        distance = 70.0;
-//        encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
-//        int frontLeftClicks = frontMotorLeft.getCurrentPosition();
-//        int frontRightClicks = frontMotorRight.getCurrentPosition();
-//        while (frontMotorLeft.getCurrentPosition() - frontLeftClicks < encoderClicks &&
-//                frontMotorRight.getCurrentPosition() - frontRightClicks < encoderClicks) {
-//            frontMotorLeft.setPower(-MAX_POWER);
-//            frontMotorRight.setPower(-MAX_POWER);
-//            backMotorLeft.setPower(-MAX_POWER);
-//            backMotorRight.setPower(-MAX_POWER);
-//        }
-//        frontMotorLeft.setPower(0);
-//        frontMotorRight.setPower(0);
-//        backMotorLeft.setPower(0);
-//        backMotorRight.setPower(0);
-//
-//        //Stop
-//        currentTime = this.time;
-//        while (this.time - currentTime <= 2) {
-//            frontMotorLeft.setPower(0);
-//            frontMotorRight.setPower(0);
-//            backMotorLeft.setPower(0);
-//            backMotorRight.setPower(0);
-//            axleMotorFront.setPower(0);
-//            axleMotorBack.setPower(0);
-//        }
-//
-//        //Activate the arm
-//        while (servo3.getPosition() != 0) {
-//            servo3.setPosition(0);
-//        }
+        //go forward
+        currentTime = this.time;
+        while (this.time - currentTime < 5.7) {
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
+        }
+        stopRobot();
+
+        //turn a little bit more
+        currentTime = this.time;
+        while (this.time - currentTime < 0.5) {
+            frontMotorLeft.setPower(-TURNING_POWER);
+            frontMotorRight.setPower(0);
+            backMotorLeft.setPower(-TURNING_POWER);
+            backMotorRight.setPower(0);
+        }
+
+        servo3.setPosition(1);
+    }
+
+    public void stopRobot() {
+        currentTime = this.time;
+        while (this.time - currentTime <= 1) {
+            frontMotorLeft.setPower(0);
+            frontMotorRight.setPower(0);
+            backMotorLeft.setPower(0);
+            backMotorRight.setPower(0);
+            axleMotorFront.setPower(0);
+            axleMotorBack.setPower(0);
+        }
     }
 }

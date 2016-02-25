@@ -184,14 +184,14 @@ public class TeleOp6038 extends OpMode {
         if (gamepad2.y) {
             //Front axle
             if(gamepad2.dpad_down){
-                axleMotorFront.setPower(-1);
+                axleMotorFront.setPower(-0.5);
             }
             else if(gamepad2.dpad_up){
                 if (limitSwitch1.isPressed()) {
                     axleMotorFront.setPower(0);
                 }
                 else {
-                    axleMotorFront.setPower(1);
+                    axleMotorFront.setPower(0.5);
                 }
             }
             else {
@@ -201,30 +201,15 @@ public class TeleOp6038 extends OpMode {
         else if (gamepad2.a) {
             //Back axle
             if (gamepad2.dpad_up) {
-                axleMotorBack.setPower(1);
+                axleMotorBack.setPower(0.5);
             }
             else if (gamepad2.dpad_down) {
-                axleMotorBack.setPower(-1);
+                axleMotorBack.setPower(-0.5);
             }
             else {
                 axleMotorBack.setPower(0);
             }
-        }
-        else if (gamepad2.right_bumper) {
-            //Both axles
-            if (gamepad2.dpad_up) {
-                axleMotorFront.setPower(1);
-                axleMotorBack.setPower(1);
-            }
-            else if (gamepad2.dpad_down) {
-                axleMotorFront.setPower(-1);
-                axleMotorBack.setPower(-1);
-            }
-            else {
-                axleMotorFront.setPower(0);
-                axleMotorBack.setPower(1);
-            }
-        } else {
+        }else {
             axleMotorFront.setPower(0);
             axleMotorBack.setPower(0);
         }
@@ -234,9 +219,6 @@ public class TeleOp6038 extends OpMode {
         //Send telemetry data back to driver station.
         telemetry.addData("left tgt pwr", "left  pwr: " + String.format("%.2f", leftY));
         telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", rightY));
-        telemetry.addData("Front LEFT Encoders", frontMotorLeft.getCurrentPosition());
-        telemetry.addData("Front RIGHT Encoders", frontMotorRight.getCurrentPosition());
-        telemetry.addData("Gyro Heading", gyro.getHeading());
     }
 
     @Override
