@@ -83,15 +83,10 @@ public class AutonomousRed_v2 extends LinearOpMode {
         startTime = this.time;
 
         //Start off with a quick stop
-        currentTime = this.time;
-        while (this.time - currentTime < 6) {
-            frontMotorLeft.setPower(0);
-            frontMotorRight.setPower(0);
-            backMotorLeft.setPower(0);
-            backMotorRight.setPower(0);
-            axleMotorFront.setPower(0);
-            axleMotorBack.setPower(0);
-        }
+        stopRobot();
+        stopRobot();
+        stopRobot();
+        stopRobot();
 
         //go forward a bit
         currentTime = this.time;
@@ -103,23 +98,16 @@ public class AutonomousRed_v2 extends LinearOpMode {
         }
         stopRobot();
 
-        //Turn towards the beacon
+        //Turn towards the beacon and lift the arm
         currentTime = this.time;
         while (this.time - currentTime < 2.0) {
             frontMotorLeft.setPower(-TURNING_POWER);
             frontMotorRight.setPower(0);
             backMotorLeft.setPower(-TURNING_POWER);
             backMotorRight.setPower(0);
+            arm.setPower(-0.8);
         }
         stopRobot();
-
-//        //bring arm up
-//        arm.setPower(0);
-//        currentTime = this.time;
-//        while (this.time - currentTime < 2) {
-//            arm.setPower(-1);
-//        }
-//        arm.setPower(0);
 
         //Bring front axle down
         axleMotorFront.setPower(0);
@@ -132,7 +120,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
         //go forward
         currentTime = this.time;
-        while (this.time - currentTime < 5.7) {
+        while (this.time - currentTime < 4.4) {
             frontMotorLeft.setPower(-MAX_POWER);
             frontMotorRight.setPower(-MAX_POWER);
             backMotorLeft.setPower(-MAX_POWER);
@@ -142,14 +130,39 @@ public class AutonomousRed_v2 extends LinearOpMode {
 
         //turn a little bit more
         currentTime = this.time;
-        while (this.time - currentTime < 0.5) {
+        while (this.time - currentTime < 2.9) {
             frontMotorLeft.setPower(-TURNING_POWER);
             frontMotorRight.setPower(0);
             backMotorLeft.setPower(-TURNING_POWER);
             backMotorRight.setPower(0);
         }
+        stopRobot();
+
+        //move forward
+        currentTime = this.time;
+        while (this.time - currentTime < 1.0) {
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
+        }
+        stopRobot();
+
+        //move backward
+        currentTime = this.time;
+        while (this.time - currentTime < 0.5) {
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
+        }
+        stopRobot();
 
         servo3.setPosition(1);
+
+        stopRobot();
+
+        servo3.setPosition(0);
     }
 
     public void stopRobot() {
@@ -161,6 +174,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
             backMotorRight.setPower(0);
             axleMotorFront.setPower(0);
             axleMotorBack.setPower(0);
+            arm.setPower(0);
         }
     }
 }
