@@ -91,10 +91,10 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         //go forward a bit
         currentTime = this.time;
         while (this.time - currentTime < 0.3) {
-            frontMotorLeft.setPower(MAX_POWER);
-            frontMotorRight.setPower(MAX_POWER);
-            backMotorLeft.setPower(MAX_POWER);
-            backMotorRight.setPower(MAX_POWER);
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
         }
         stopRobot();
 
@@ -113,7 +113,7 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         axleMotorFront.setPower(0);
         currentTime = this.time;
         while (this.time - currentTime < 2.5) {
-            axleMotorFront.setPower(AXLE_MAX_POWER);
+            axleMotorFront.setPower(-AXLE_MAX_POWER);
         }
         axleMotorFront.setPower(0);
         stopRobot();
@@ -122,7 +122,7 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         axleMotorBack.setPower(0);
         currentTime = this.time;
         while (this.time - currentTime < 1.5) {
-            axleMotorBack.setPower(AXLE_MAX_POWER);
+            axleMotorBack.setPower(-AXLE_MAX_POWER);
         }
         axleMotorBack.setPower(0);
         stopRobot();
@@ -130,10 +130,10 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         //go forward
         currentTime = this.time;
         while (this.time - currentTime < 4.4) {
-            frontMotorLeft.setPower(MAX_POWER);
-            frontMotorRight.setPower(MAX_POWER);
-            backMotorLeft.setPower(MAX_POWER);
-            backMotorRight.setPower(MAX_POWER);
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
         }
         stopRobot();
 
@@ -159,20 +159,20 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         //move forward
         currentTime = this.time;
         while (this.time - currentTime < 1.0) {
-            frontMotorLeft.setPower(MAX_POWER);
-            frontMotorRight.setPower(MAX_POWER);
-            backMotorLeft.setPower(MAX_POWER);
-            backMotorRight.setPower(MAX_POWER);
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
         }
         stopRobot();
 
         //move forward again
         currentTime = this.time;
         while (this.time - currentTime < 0.5) {
-            frontMotorLeft.setPower(MAX_POWER);
-            frontMotorRight.setPower(MAX_POWER);
-            backMotorLeft.setPower(MAX_POWER);
-            backMotorRight.setPower(MAX_POWER);
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
         }
         stopRobot();
 
