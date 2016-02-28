@@ -121,7 +121,7 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         // move back axle down a bit
         axleMotorBack.setPower(0);
         currentTime = this.time;
-        while (this.time - currentTime < 1.5) {
+        while (this.time - currentTime < 1.0) {
             axleMotorBack.setPower(-AXLE_MAX_POWER);
         }
         axleMotorBack.setPower(0);
@@ -141,9 +141,9 @@ public class AutonomousBlue_v2 extends LinearOpMode {
         currentTime = this.time;
         while (this.time - currentTime < 3.4) {
             frontMotorLeft.setPower(0.1);
-            frontMotorRight.setPower(-0.6);
+            frontMotorRight.setPower(-1);
             backMotorLeft.setPower(0.1);
-            backMotorRight.setPower(-0.6);
+            backMotorRight.setPower(-1);
         }
         stopRobot();
 
