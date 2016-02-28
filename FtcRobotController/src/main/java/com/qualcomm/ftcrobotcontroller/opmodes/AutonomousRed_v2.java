@@ -166,7 +166,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
         }
         stopRobot();
 
-        //move backward
+        //move forward again
         currentTime = this.time;
         while (this.time - currentTime < 0.5) {
             frontMotorLeft.setPower(-MAX_POWER);
@@ -176,6 +176,7 @@ public class AutonomousRed_v2 extends LinearOpMode {
         }
         stopRobot();
 
+        // Move the servos
         servo3.setPosition(1);
 
         stopRobot();
