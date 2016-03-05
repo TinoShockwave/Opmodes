@@ -88,14 +88,14 @@ public class AutonomousBlue_v3 extends LinearOpMode {
         stopRobot();
 
         //go forward a bit
-        currentTime = this.time;
-        while (this.time - currentTime < 0.4) {
-            frontMotorLeft.setPower(-MAX_POWER);
-            frontMotorRight.setPower(-MAX_POWER);
-            backMotorLeft.setPower(-MAX_POWER);
-            backMotorRight.setPower(-MAX_POWER);
-        }
-        stopRobot();
+        frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        frontMotorLeft.setTargetPosition(20);
+        frontMotorRight.setTargetPosition(20);q
+        frontMotorRight.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        frontMotorLeft.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        frontMotorLeft.setPower(-0.8);
+        frontMotorRight.setPower(-0.8);
 
         //Turn towards the beacon and lift the arm
         currentTime = this.time;
