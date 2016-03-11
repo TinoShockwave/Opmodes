@@ -41,7 +41,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class ServoExample extends OpMode {
 
+    double servoPos;
+    boolean activateServo = true;
     Servo servo1;
+    Servo servo2;
 
     public ServoExample() {
 
@@ -49,8 +52,8 @@ public class ServoExample extends OpMode {
 
     @Override
     public void init() {
-
         servo1 = hardwareMap.servo.get("servo_1");
+//        servo2 = hardwareMap.servo.get("servo_2");
 
     }
 
@@ -58,15 +61,30 @@ public class ServoExample extends OpMode {
     //Press A to move the servo counterclockwise. Press B to stop it. Press X to move it clockwise.
     public void loop() {
 
+        if (activateServo) {
+            servoPos = servo1.getPosition();
+            servo1.setPosition(servoPos);
+        }
+
         if (gamepad1.a) {
-            servo1.setPosition(0);
+            servoPos++;
         }
         else if (gamepad1.b) {
-            servo1.setPosition(1);
+            servoPos--;
         }
         else {
-            servo1.setPosition(0.5);
+
         }
+
+//        if (gamepad1.x) {
+//            servo2.setPosition(0);
+//        }
+//        else if (gamepad1.b) {
+//            servo2.setPosition(1);
+//        }
+//        else {
+//            servo2.setPosition(0.5);
+//        }
     }
 
     public void stop() {
