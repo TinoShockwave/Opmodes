@@ -53,6 +53,5 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("AutonomousBlue_v2", AutonomousBlue_v2.class);
       manager.register("TeleOp6038", TeleOp6038.class);
       manager.register("MotorTester", MotorTester.class);
-      manager.register("LimitSwitch", LimitSwitchTest.class);
   }
 }
