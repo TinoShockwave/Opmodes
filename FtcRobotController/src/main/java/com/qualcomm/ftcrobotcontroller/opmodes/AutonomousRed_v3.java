@@ -26,7 +26,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.GyroSensor;
 
 /**
  * Created by Kashyap Panda on 1/25/16.
@@ -42,7 +41,7 @@ public class AutonomousRed_v3 extends LinearOpMode {
     DcMotor axleMotorBack;
     DcMotor arm;
     Servo servo3;
-    GyroSensor gyro;
+//    GyroSensor gyro;
 
     final double MAX_POWER = 0.6;
     final double AXLE_MAX_POWER = 0.5;
@@ -64,7 +63,7 @@ public class AutonomousRed_v3 extends LinearOpMode {
         axleMotorBack = hardwareMap.dcMotor.get("motor_6");
         arm = hardwareMap.dcMotor.get("motor_7");
         servo3 = hardwareMap.servo.get("servo_3");
-        gyro = hardwareMap.gyroSensor.get("gyro");
+//        gyro = hardwareMap.gyroSensor.get("gyro");
 
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
         backMotorRight.setDirection(DcMotor.Direction.REVERSE);
@@ -98,6 +97,17 @@ public class AutonomousRed_v3 extends LinearOpMode {
         }
         stopRobot();
 
+        //Turn towards the beacon and lift the arm
+        currentTime = this.time;
+        while (this.time - currentTime < 1.5) {
+            frontMotorLeft.setPower(-0.4);
+            frontMotorRight.setPower(0);
+            backMotorLeft.setPower(-0.4);
+            backMotorRight.setPower(0);
+            arm.setPower(-0.8);
+        }
+        stopRobot();
+
         //Bring front axle down
         axleMotorFront.setPower(0);
         currentTime = this.time;
@@ -114,6 +124,36 @@ public class AutonomousRed_v3 extends LinearOpMode {
             axleMotorBack.setPower(-AXLE_MAX_POWER);
         }
         axleMotorBack.setPower(0);
+        stopRobot();
+
+//        //go forward
+        currentTime = this.time;
+        while (this.time - currentTime < 4.8) {
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
+        }
+        stopRobot();
+
+        //turn a little bit more
+        currentTime = this.time;
+        while (this.time - currentTime < 0.6) {
+            frontMotorLeft.setPower(-1);
+            frontMotorRight.setPower(1);
+            backMotorLeft.setPower(-1);
+            backMotorRight.setPower(1);
+        }
+        stopRobot();
+
+        //move forward a final time
+        currentTime = this.time;
+        while (this.time - currentTime < 2.0) {
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
+        }
         stopRobot();
 
         // Move the servos

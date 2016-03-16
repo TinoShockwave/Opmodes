@@ -119,9 +119,6 @@ public class TeleOp6038 extends OpMode {
         float leftY = -gamepad1.left_stick_y;
         float rightY = -gamepad1.right_stick_y;
 
-        float leftY2 = gamepad2.left_stick_y;
-        float rightY2 = gamepad2.right_stick_y;
-
         leftY = (float)scaleInput(leftY);
         rightY = (float)scaleInput(rightY);
 
@@ -129,9 +126,6 @@ public class TeleOp6038 extends OpMode {
         frontMotorRight.setPower(rightY);
         backMotorLeft.setPower(leftY);
         backMotorRight.setPower(rightY);
-
-        axleMotorBack.setPower(leftY2);
-        axleMotorFront.setPower(rightY2);
 
 //      For the arms
         if (gamepad1.a) {
@@ -169,7 +163,7 @@ public class TeleOp6038 extends OpMode {
         }
 
 //      For the side servos
-        if (gamepad2.b) {
+        if (gamepad2.x) {
             if (gamepad2.dpad_right) {
                 servo1.setPosition(0);
             }
@@ -177,13 +171,47 @@ public class TeleOp6038 extends OpMode {
                 servo1.setPosition(1);
             }
         }
-        else if (gamepad2.x) {
+        else if (gamepad2.b) {
             if (gamepad2.dpad_right) {
                 servo2.setPosition(0);
             }
             else if (gamepad2.dpad_left) {
                 servo2.setPosition(1);
             }
+        }
+
+//        For going up the ramp.
+        if (gamepad2.y) {
+            //Front axle
+            if(gamepad2.dpad_down){
+                axleMotorFront.setPower(-0.5);
+            }
+            else if(gamepad2.dpad_up){
+                if (limitSwitch1.isPressed()) {
+                    axleMotorFront.setPower(0);
+                }
+                else {
+                    axleMotorFront.setPower(0.5);
+                }
+            }
+            else {
+                axleMotorFront.setPower(0);
+            }
+        }
+        else if (gamepad2.a) {
+            //Back axle
+            if (gamepad2.dpad_up) {
+                axleMotorBack.setPower(0.5);
+            }
+            else if (gamepad2.dpad_down) {
+                axleMotorBack.setPower(-0.5);
+            }
+            else {
+                axleMotorBack.setPower(0);
+            }
+        }else {
+            axleMotorFront.setPower(0);
+            axleMotorBack.setPower(0);
         }
 
 
