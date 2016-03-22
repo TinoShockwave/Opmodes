@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 - 2016 Tino Shockwave
+ * Copyright (c) 2015-2016
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,7 @@ public class TeleOp6038 extends OpMode {
     DcMotor axleMotorFront;
     DcMotor axleMotorBack;
     DcMotor arm;
+    DcMotor claw;
     TouchSensor limitSwitch1;
     Servo servo1;
     Servo servo2;
@@ -78,6 +79,7 @@ public class TeleOp6038 extends OpMode {
         axleMotorFront = hardwareMap.dcMotor.get("motor_5");
         axleMotorBack = hardwareMap.dcMotor.get("motor_6");
         arm = hardwareMap.dcMotor.get("motor_7");
+        claw = hardwareMap.dcMotor.get("motor_8");
         limitSwitch1 = hardwareMap.touchSensor.get("limit");
         servo1 = hardwareMap.servo.get("servo_1");
         servo2 = hardwareMap.servo.get("servo_2");
@@ -104,10 +106,10 @@ public class TeleOp6038 extends OpMode {
     @Override
     public void loop() {
 
-        if (activateServo) {
-            position3 = servo3.getPosition();
-            servo3.setPosition(position3);
-        }
+//        if (activateServo) {
+//            position3 = servo3.getPosition();
+//            servo3.setPosition(position3);
+//        }
 
         // Change current speed mode based on the joystick bumper
         if (gamepad1.right_bumper) {
@@ -119,6 +121,9 @@ public class TeleOp6038 extends OpMode {
         float leftY = -gamepad1.left_stick_y;
         float rightY = -gamepad1.right_stick_y;
 
+        float leftY2 = gamepad2.left_stick_y;
+        float rightY2 = gamepad2.right_stick_y;
+
         leftY = (float)scaleInput(leftY);
         rightY = (float)scaleInput(rightY);
 
@@ -126,6 +131,11 @@ public class TeleOp6038 extends OpMode {
         frontMotorRight.setPower(rightY);
         backMotorLeft.setPower(leftY);
         backMotorRight.setPower(rightY);
+
+        axleMotorFront.setPower(leftY2);
+        axleMotorBack.setPower(rightY2);
+
+
 
 //      For the arms
         if (gamepad1.a) {
@@ -180,38 +190,49 @@ public class TeleOp6038 extends OpMode {
             }
         }
 
-//        For going up the ramp.
-        if (gamepad2.y) {
-            //Front axle
-            if(gamepad2.dpad_down){
-                axleMotorFront.setPower(-0.5);
+////        For going up the ramp.
+//        if (gamepad2.y) {
+//            //Front axle
+//            if(gamepad2.dpad_down){
+//                axleMotorFront.setPower(-0.5);
+//            }
+//            else if(gamepad2.dpad_up){
+//                axleMotorFront.setPower(0.5);
+//            }
+//            else {
+//                axleMotorFront.setPower(0);
+//            }
+//        }
+//        else if (gamepad2.a) {
+//            //Back axle
+//            if (gamepad2.dpad_up) {
+//                axleMotorBack.setPower(0.5);
+//            }
+//            else if (gamepad2.dpad_down) {
+//                axleMotorBack.setPower(-0.5);
+//            }
+//            else {
+//                axleMotorBack.setPower(0);
+//            }
+//        }else {
+//            axleMotorFront.setPower(0);
+//            axleMotorBack.setPower(0);
+//        }
+
+        //For the claw
+        if (gamepad1.x) {
+            if (gamepad1.dpad_up) {
+                claw.setPower(1);
             }
-            else if(gamepad2.dpad_up){
-                if (limitSwitch1.isPressed()) {
-                    axleMotorFront.setPower(0);
-                }
-                else {
-                    axleMotorFront.setPower(0.5);
-                }
+            else if (gamepad1.dpad_down) {
+                claw.setPower(-1);
             }
             else {
-                axleMotorFront.setPower(0);
+                claw.setPower(0);
             }
         }
-        else if (gamepad2.a) {
-            //Back axle
-            if (gamepad2.dpad_up) {
-                axleMotorBack.setPower(0.5);
-            }
-            else if (gamepad2.dpad_down) {
-                axleMotorBack.setPower(-0.5);
-            }
-            else {
-                axleMotorBack.setPower(0);
-            }
-        }else {
-            axleMotorFront.setPower(0);
-            axleMotorBack.setPower(0);
+        else {
+            claw.setPower(0);
         }
 
 

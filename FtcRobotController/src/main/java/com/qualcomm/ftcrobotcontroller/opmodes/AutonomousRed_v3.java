@@ -24,6 +24,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -41,14 +42,14 @@ public class AutonomousRed_v3 extends LinearOpMode {
     DcMotor axleMotorBack;
     DcMotor arm;
     Servo servo3;
-//    GyroSensor gyro;
+    GyroSensor gyro;
 
     final double MAX_POWER = 0.6;
     final double AXLE_MAX_POWER = 0.5;
     final double TURNING_POWER = 0.3;
     final static int ENCODER_CPR = 1120;
     final static double GEAR_RATIO = 1;
-    final static double WHEEL_CIRCUMFERENCE = 7.85;
+    final static double WHEEL_CIRCUMFERENCE = 23;
 
     double startTime;
     double currentTime;
@@ -63,7 +64,7 @@ public class AutonomousRed_v3 extends LinearOpMode {
         axleMotorBack = hardwareMap.dcMotor.get("motor_6");
         arm = hardwareMap.dcMotor.get("motor_7");
         servo3 = hardwareMap.servo.get("servo_3");
-//        gyro = hardwareMap.gyroSensor.get("gyro");
+        gyro = hardwareMap.gyroSensor.get("gyro");
 
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
         backMotorRight.setDirection(DcMotor.Direction.REVERSE);

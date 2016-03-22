@@ -48,7 +48,7 @@ public class AutonomousBlue_v3 extends LinearOpMode {
     final double TURNING_POWER = 0.3;
     final static int ENCODER_CPR = 1120;
     final static double GEAR_RATIO = 1;
-    final static double WHEEL_CIRCUMFERENCE = 7.85;
+    final static double WHEEL_CIRCUMFERENCE = 23;
 
     double startTime;
     double currentTime;
@@ -175,5 +175,10 @@ public class AutonomousBlue_v3 extends LinearOpMode {
             axleMotorBack.setPower(0);
             arm.setPower(0);
         }
+    }
+
+    public double clickToInch(int distance) {
+        double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
+        return encoderClicks;
     }
 }

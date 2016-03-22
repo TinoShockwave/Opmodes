@@ -31,36 +31,36 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
+
+import com.qualcomm.ftccommon.DbgLog;
+import com.qualcomm.ftcrobotcontroller.R;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /*
  *
  * This is an example LinearOpMode that shows how to use
  * the Modern Robotics Gyro.
  *
- * The Modern Robotics Gyro is an I2C Sensor.
- *
  * The op mode assumes that the gyro sensor
  * is configured with a name of "gyro".
- *
- * Additionally, you can attach a servo to the Modern Robotics Gyro
- * and view the Gyro readings from there.
  *
  *
  *
  */
 public class MRGyroTest extends LinearOpMode {
 
+
   @Override
   public void runOpMode() throws InterruptedException {
 
     GyroSensor sensorGyro;
-    Servo servo1;
     int xVal, yVal, zVal = 0;
     int heading = 0;
-    int position = 0;
 
     // write some device information (connection info, name and type)
     // to the log file.
@@ -68,7 +68,6 @@ public class MRGyroTest extends LinearOpMode {
 
     // get a reference to our GyroSensor object.
     sensorGyro = hardwareMap.gyroSensor.get("gyro");
-    servo1 = hardwareMap.servo.get("servo");
 
     // calibrate the gyro.
     sensorGyro.calibrate();
@@ -83,21 +82,9 @@ public class MRGyroTest extends LinearOpMode {
 
     while (opModeIsActive())  {
       // if the A and B buttons are pressed, reset Z heading.
-      if(gamepad1.x) {
-        // Resets the heading
+      if(gamepad1.a && gamepad1.b)  {
+        // reset heading.
         sensorGyro.resetZAxisIntegrator();
-      }
-
-      if (gamepad1.y) {
-        position += 0.1;
-        servo1.setPosition(position);
-      }
-      else if (gamepad1.a) {
-        position += -0.1;
-        servo1.setPosition(position);
-      }
-      else if (gamepad1.b) {
-        servo1.setPosition(0.5);
       }
 
       // get the x, y, and z values (rate of change of angle).
