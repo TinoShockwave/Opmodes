@@ -44,7 +44,11 @@ public class ServoExample extends OpMode {
     double servoPos;
     boolean activateServo = true;
     Servo servo1;
+    public static final double MAX_POSITION = 1;
+    public static final double MIN_POSITION = 0;
     Servo servo2;
+    double currentTime;
+    int state;
 
     public ServoExample() {
 
@@ -66,15 +70,23 @@ public class ServoExample extends OpMode {
             servo1.setPosition(servoPos);
         }
 
-        if (gamepad1.a) {
-            servoPos++;
-        }
-        else if (gamepad1.b) {
-            servoPos--;
+        if (gamepad1.y) {
+            //The little arm
+            if (gamepad1.dpad_up) {
+                servo1.setPosition(0);
+            }
+            else if (gamepad1.dpad_down) {
+                servo1.setPosition(1);
+            }
+            else {
+                servo1.setPosition(0.5);
+            }
         }
         else {
-
+            servo1.setPosition(0.5);
         }
+
+        telemetry.addData("Servo Position", servo1.getPosition());
 
 //        if (gamepad1.x) {
 //            servo2.setPosition(0);

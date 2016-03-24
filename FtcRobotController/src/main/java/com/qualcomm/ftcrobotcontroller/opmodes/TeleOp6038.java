@@ -57,7 +57,7 @@ public class TeleOp6038 extends OpMode {
     final int TURBO_MODE = 0;
     final int SLOW_MODE = 1;
 
-    boolean activateServo = true;
+    private boolean activateServo = true;
     double position3;
 
 
@@ -106,10 +106,11 @@ public class TeleOp6038 extends OpMode {
     @Override
     public void loop() {
 
-//        if (activateServo) {
-//            position3 = servo3.getPosition();
-//            servo3.setPosition(position3);
-//        }
+        if (activateServo) {
+            position3 = servo3.getPosition();
+            servo3.setPosition(position3);
+            activateServo = false;
+        }
 
         // Change current speed mode based on the joystick bumper
         if (gamepad1.right_bumper) {
@@ -190,35 +191,6 @@ public class TeleOp6038 extends OpMode {
             }
         }
 
-////        For going up the ramp.
-//        if (gamepad2.y) {
-//            //Front axle
-//            if(gamepad2.dpad_down){
-//                axleMotorFront.setPower(-0.5);
-//            }
-//            else if(gamepad2.dpad_up){
-//                axleMotorFront.setPower(0.5);
-//            }
-//            else {
-//                axleMotorFront.setPower(0);
-//            }
-//        }
-//        else if (gamepad2.a) {
-//            //Back axle
-//            if (gamepad2.dpad_up) {
-//                axleMotorBack.setPower(0.5);
-//            }
-//            else if (gamepad2.dpad_down) {
-//                axleMotorBack.setPower(-0.5);
-//            }
-//            else {
-//                axleMotorBack.setPower(0);
-//            }
-//        }else {
-//            axleMotorFront.setPower(0);
-//            axleMotorBack.setPower(0);
-//        }
-
         //For the claw
         if (gamepad1.x) {
             if (gamepad1.dpad_up) {
@@ -240,6 +212,8 @@ public class TeleOp6038 extends OpMode {
         //Send telemetry data back to driver station.
         telemetry.addData("left tgt pwr", "left  pwr: " + String.format("%.2f", leftY));
         telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", rightY));
+        telemetry.addData("RCLicks", frontMotorRight.getCurrentPosition());
+        telemetry.addData("LCLicks", frontMotorLeft.getCurrentPosition());
     }
 
     @Override

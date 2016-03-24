@@ -25,6 +25,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
@@ -48,7 +49,7 @@ public class AutonomousBlue_v3 extends LinearOpMode {
     final double TURNING_POWER = 0.3;
     final static int ENCODER_CPR = 1120;
     final static double GEAR_RATIO = 1;
-    final static double WHEEL_CIRCUMFERENCE = 23;
+    final static double WHEEL_CIRCUMFERENCE = 7.85;
 
     double startTime;
     double currentTime;
@@ -88,14 +89,14 @@ public class AutonomousBlue_v3 extends LinearOpMode {
         stopRobot();
 
         //go forward a bit
-        frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        frontMotorLeft.setTargetPosition(20);
-        frontMotorRight.setTargetPosition(20);
-        frontMotorLeft.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        frontMotorRight.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        frontMotorLeft.setPower(1);
-        frontMotorRight.setPower(1);
+        currentTime = this.time;
+        while (this.time - currentTime < 0.4) {
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
+        }
+        stopRobot();
 
         //Turn towards the beacon and lift the arm
         currentTime = this.time;
@@ -157,11 +158,12 @@ public class AutonomousBlue_v3 extends LinearOpMode {
         stopRobot();
 
         // Move the servos
-        servo3.setPosition(1);
-
+        currentTime = this.time;
+        while (this.time - currentTime < 1) {
+            servo3.setPosition(1);
+        }
+        servo3.setPosition(0.5);
         stopRobot();
-
-        servo3.setPosition(0);
     }
 
     public void stopRobot() {
@@ -175,10 +177,5 @@ public class AutonomousBlue_v3 extends LinearOpMode {
             axleMotorBack.setPower(0);
             arm.setPower(0);
         }
-    }
-
-    public double clickToInch(int distance) {
-        double encoderClicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
-        return encoderClicks;
     }
 }

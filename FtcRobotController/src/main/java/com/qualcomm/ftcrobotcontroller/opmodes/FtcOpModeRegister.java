@@ -33,6 +33,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Register Op Modes
@@ -56,6 +57,8 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
       manager.register("Driver Control", TeleOp6038.class);
       manager.register("Autonomous Testing", AutonomousTesting.class);
+      manager.register("Autonomous Blue", AutonomousBlue_v3.class);
       manager.register("Limit Switch Testing", LimitSwitchTest.class);
+      manager.register("Servo Testing", ServoLinear.class);
   }
 }
