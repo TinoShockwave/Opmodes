@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 - 2016 Tino Shockwave
+ * Copyright (c) 2015-2016
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,144 +29,108 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by Kashyap Panda on 1/25/16.
- * @author Kashyap
+ * Created by Kashyap on 3/19/16.
+ * @author Kashyap Panda
  */
 public class AutonomousBlue_v3 extends LinearOpMode {
 
-    DcMotor frontMotorLeft;
-    DcMotor frontMotorRight;
-    DcMotor backMotorLeft;
-    DcMotor backMotorRight;
-    DcMotor axleMotorFront;
-    DcMotor axleMotorBack;
-    DcMotor arm;
-    Servo servo3;
-//    GyroSensor gyro;
+    private DcMotor frontMotorLeft;
+    private DcMotor frontMotorRight;
+    private DcMotor backMotorLeft;
+    private DcMotor backMotorRight;
+    private Servo servo3;
+    private GyroSensor gyro;
 
-    final double MAX_POWER = 0.6;
+    final double MAX_POWER = 0.8;
+    final double TURN_POWER = 1.0;
     final double AXLE_MAX_POWER = 0.5;
-    final double TURNING_POWER = 0.3;
     final static int ENCODER_CPR = 1120;
     final static double GEAR_RATIO = 1;
     final static double WHEEL_CIRCUMFERENCE = 7.85;
 
-    double startTime;
     double currentTime;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        hardwareMap.logDevices();
+
         frontMotorLeft = hardwareMap.dcMotor.get("motor_1");
         frontMotorRight = hardwareMap.dcMotor.get("motor_2");
         backMotorLeft = hardwareMap.dcMotor.get("motor_3");
         backMotorRight = hardwareMap.dcMotor.get("motor_4");
-        axleMotorFront = hardwareMap.dcMotor.get("motor_5");
-        axleMotorBack = hardwareMap.dcMotor.get("motor_6");
-        arm = hardwareMap.dcMotor.get("motor_7");
         servo3 = hardwareMap.servo.get("servo_3");
-//        gyro = hardwareMap.gyroSensor.get("gyro");
+        gyro = hardwareMap.gyroSensor.get("gyro");
 
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
         backMotorRight.setDirection(DcMotor.Direction.REVERSE);
 
-//        gyro.calibrate();
+        frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+
+        gyro.calibrate();
 
         waitForStart();
 
-//        while (gyro.isCalibrating()) {
-//            Thread.sleep(50);
-//        }
-
-        frontMotorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        frontMotorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-
-        startTime = this.time;
-
-        //Start off with a quick stop
-        stopRobot();
-        stopRobot();
-        stopRobot();
-        stopRobot();
-
-        //go forward a bit
-        currentTime = this.time;
-        while (this.time - currentTime < 0.4) {
-            frontMotorLeft.setPower(-MAX_POWER);
-            frontMotorRight.setPower(-MAX_POWER);
-            backMotorLeft.setPower(-MAX_POWER);
-            backMotorRight.setPower(-MAX_POWER);
+        while (gyro.isCalibrating()) {
+            Thread.sleep(50);
         }
-        stopRobot();
 
-        //Turn towards the beacon and lift the arm
+        //move forward 2 feet
+        moveRobot(24);
+        //turn towards the beacon
         currentTime = this.time;
         while (this.time - currentTime < 1.5) {
-            frontMotorLeft.setPower(-0.4);
-            frontMotorRight.setPower(0);
-            backMotorLeft.setPower(-0.4);
-            backMotorRight.setPower(0);
-            arm.setPower(-0.8);
+            frontMotorLeft.setPower(1);
+            frontMotorRight.setPower(-1);
+            backMotorLeft.setPower(1);
+            backMotorRight.setPower(-1);
         }
         stopRobot();
-
-        //Bring front axle down
-        axleMotorFront.setPower(0);
-        currentTime = this.time;
-        while (this.time - currentTime < 2.5) {
-            axleMotorFront.setPower(-AXLE_MAX_POWER);
-        }
-        axleMotorFront.setPower(0);
-        stopRobot();
-
-        //go forward
-        currentTime = this.time;
-        while (this.time - currentTime < 4.5) {
-            frontMotorLeft.setPower(-MAX_POWER);
-            frontMotorRight.setPower(-MAX_POWER);
-            backMotorLeft.setPower(-MAX_POWER);
-            backMotorRight.setPower(-MAX_POWER);
-        }
-        stopRobot();
-
-        //turn a little bit more
-        currentTime = this.time;
-        while (this.time - currentTime < 1.2) {
-            frontMotorLeft.setPower(-1);
-            frontMotorRight.setPower(1);
-            backMotorLeft.setPower(-1);
-            backMotorRight.setPower(1);
-        }
-        stopRobot();
-
-        //move forward
-        currentTime = this.time;
-        while (this.time - currentTime < 3.5) {
-            frontMotorLeft.setPower(-MAX_POWER);
-            frontMotorRight.setPower(-MAX_POWER);
-            backMotorLeft.setPower(-MAX_POWER);
-            backMotorRight.setPower(-MAX_POWER);
-        }
-        stopRobot();
-
-        // Move the servos
+        //move forward 34 inches
+        moveRobot(34);
+        //activate arm
         currentTime = this.time;
         while (this.time - currentTime < 1) {
             servo3.setPosition(1);
         }
         servo3.setPosition(0.5);
+    }
+
+    public void moveRobot(int distance) {
         stopRobot();
+        double clicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR * -1;
+        frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        frontMotorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        frontMotorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        while (frontMotorLeft.getCurrentPosition() > clicks || frontMotorRight.getCurrentPosition() > clicks) {
+            frontMotorLeft.setPower(-MAX_POWER);
+            frontMotorRight.setPower(-MAX_POWER);
+            backMotorLeft.setPower(-MAX_POWER);
+            backMotorRight.setPower(-MAX_POWER);
+            telemetry.addData("RCLicks", frontMotorRight.getCurrentPosition());
+            telemetry.addData("LCLicks", frontMotorLeft.getCurrentPosition());
+        }
+        stopRobot();
+    }
+
+    public void testTurn(int heading) {
+        gyro.resetZAxisIntegrator();
+        while (gyro.getHeading() < heading) {
+            frontMotorLeft.setPower(TURN_POWER);
+            frontMotorRight.setPower(-TURN_POWER);
+            backMotorLeft.setPower(TURN_POWER);
+            backMotorRight.setPower(-TURN_POWER);
+        }
     }
 
     public void stopRobot() {
         currentTime = this.time;
-        while (this.time - currentTime <= 1) {
+        while (this.time - currentTime < 1) {
             frontMotorLeft.setPower(0);
             frontMotorRight.setPower(0);
             backMotorLeft.setPower(0);
             backMotorRight.setPower(0);
-            axleMotorFront.setPower(0);
-            axleMotorBack.setPower(0);
-            arm.setPower(0);
         }
     }
 }

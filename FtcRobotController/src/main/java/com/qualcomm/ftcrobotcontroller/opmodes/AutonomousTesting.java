@@ -47,11 +47,10 @@ public class AutonomousTesting extends LinearOpMode {
     final double MAX_POWER = 0.8;
     final double AXLE_MAX_POWER = 0.5;
     final static int ENCODER_CPR = 1120;
-    final static double GEAR_RATIO = 10;
+    final static double GEAR_RATIO = 1;
     final static double WHEEL_CIRCUMFERENCE = 7.85;
 
     double currentTime;
-    double clicks;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -71,18 +70,24 @@ public class AutonomousTesting extends LinearOpMode {
         frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
 
+        gyro.calibrate();
+
         waitForStart();
+
+        while (gyro.isCalibrating()) {
+            Thread.sleep(500);
+        }
 
         moveRobot(24);
     }
 
     public void moveRobot(int distance) {
         stopRobot();
+        double clicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         frontMotorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         frontMotorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        double clicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR;
         while (frontMotorLeft.getCurrentPosition() < clicks || frontMotorRight.getCurrentPosition() < clicks) {
             frontMotorLeft.setPower(MAX_POWER);
             frontMotorRight.setPower(MAX_POWER);
