@@ -66,23 +66,17 @@ public class AutonomousRed_v3 extends LinearOpMode {
         frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
 
-        gyro.calibrate();
-
         waitForStart();
-
-        while (gyro.isCalibrating()) {
-            Thread.sleep(50);
-        }
 
         //move forward 2 feet
         moveRobot(24);
         //turn towards the beacon
         currentTime = this.time;
         while (this.time - currentTime < 1.5) {
-            frontMotorLeft.setPower(1);
-            frontMotorRight.setPower(-1);
-            backMotorLeft.setPower(1);
-            backMotorRight.setPower(-1);
+            frontMotorLeft.setPower(-1);
+            frontMotorRight.setPower(1);
+            backMotorLeft.setPower(-1);
+            backMotorRight.setPower(1);
         }
         stopRobot();
         //move forward 34 inches

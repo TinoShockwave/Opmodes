@@ -125,6 +125,9 @@ public class TeleOp6038 extends OpMode {
         float leftY2 = gamepad2.left_stick_y;
         float rightY2 = gamepad2.right_stick_y;
 
+        float lt = gamepad1.left_trigger;
+        float rt = gamepad1.right_trigger;
+
         leftY = (float)scaleInput(leftY);
         rightY = (float)scaleInput(rightY);
 

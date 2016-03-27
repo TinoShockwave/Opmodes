@@ -79,7 +79,7 @@ public class AutonomousBlue_v3 extends LinearOpMode {
         moveRobot(24);
         //turn towards the beacon
         currentTime = this.time;
-        while (this.time - currentTime < 1.5) {
+        while (this.time - currentTime < 2.1) {
             frontMotorLeft.setPower(1);
             frontMotorRight.setPower(-1);
             backMotorLeft.setPower(1);
@@ -87,7 +87,7 @@ public class AutonomousBlue_v3 extends LinearOpMode {
         }
         stopRobot();
         //move forward 34 inches
-        moveRobot(34);
+        moveRobot(72);
         //activate arm
         currentTime = this.time;
         while (this.time - currentTime < 1) {

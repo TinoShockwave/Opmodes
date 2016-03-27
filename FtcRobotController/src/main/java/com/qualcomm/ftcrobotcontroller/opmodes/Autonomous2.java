@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 - 2016 Tino Shockwave
+ * Copyright (c) 2015-2016
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,15 +24,14 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by Kashyap Panda on 1/25/16.
- * @author Kashyap
+ * Created by Kashyap on 3/26/16.
  */
-public class AutonomousBackup extends LinearOpMode {
+public class Autonomous2 extends LinearOpMode {
 
     DcMotor frontMotorLeft;
     DcMotor frontMotorRight;
@@ -50,8 +49,6 @@ public class AutonomousBackup extends LinearOpMode {
     final static int ENCODER_CPR = 1120;
     final static double GEAR_RATIO = 1;
     final static double WHEEL_CIRCUMFERENCE = 23;
-
-    double startTime;
     double currentTime;
 
     @Override
@@ -69,18 +66,10 @@ public class AutonomousBackup extends LinearOpMode {
         frontMotorRight.setDirection(DcMotor.Direction.REVERSE);
         backMotorRight.setDirection(DcMotor.Direction.REVERSE);
 
-//        gyro.calibrate();
-
         waitForStart();
-
-//        while (gyro.isCalibrating()) {
-//            Thread.sleep(50);
-//        }
 
         frontMotorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         frontMotorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-
-        startTime = this.time;
 
         //Start off with a quick stop
         stopRobot();
@@ -88,19 +77,25 @@ public class AutonomousBackup extends LinearOpMode {
         stopRobot();
         stopRobot();
         stopRobot();
-        stopRobot();
-        stopRobot();
-        stopRobot();
-        stopRobot();
-        stopRobot();
 
-        //go forward a bit
-        currentTime = this.time;
-        while (this.time - currentTime < 1) {
+        //go forward to the floor goal
+        moveRobot(85);
+    }
+
+    public void moveRobot(int distance) {
+        stopRobot();
+        double clicks = (distance / WHEEL_CIRCUMFERENCE) * GEAR_RATIO * ENCODER_CPR * -1;
+        frontMotorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        frontMotorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        frontMotorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        frontMotorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        while (frontMotorLeft.getCurrentPosition() > clicks || frontMotorRight.getCurrentPosition() > clicks) {
             frontMotorLeft.setPower(-MAX_POWER);
             frontMotorRight.setPower(-MAX_POWER);
             backMotorLeft.setPower(-MAX_POWER);
             backMotorRight.setPower(-MAX_POWER);
+            telemetry.addData("RCLicks", frontMotorRight.getCurrentPosition());
+            telemetry.addData("LCLicks", frontMotorLeft.getCurrentPosition());
         }
         stopRobot();
     }
