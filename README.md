@@ -1,7 +1,6 @@
 # Opmodes
-Tino Shockwave's modified version of the FTC SDK
 
-This is the Tino Shockwave's custom SDK that can be used to create an FTC Robot Controller app, with custom op modes.
+This is an FTC Robot controller that contains Tino Shockwave's Opmodes.
 The FTC Driver Station app is needed to work with the Robot Controller app included in this SDK.
 The FTC Driver Station app is available through Google Play.
 
