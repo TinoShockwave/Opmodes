@@ -1,5 +1,7 @@
 # Opmodes
 
+##NOTE: The 2015-2016 FTC season is now over. Any future updates will change the app version. New Opmodes will not be created.
+
 This is an FTC Robot controller that contains Tino Shockwave's Opmodes.
 The FTC Driver Station app is needed to work with the Robot Controller app included in this SDK.
 The FTC Driver Station app is available through Google Play.
